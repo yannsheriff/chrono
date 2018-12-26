@@ -16,16 +16,57 @@ export default class Phase extends Component {
 
   constructor(props) {
     super(props) 
-
+    this.steps = props.steps
+    this.state = {
+        name: props.name,
+        steps: props.steps
+    }
   }
+
+
+
+
+  componentWillReceiveProps(nextProps) {
+      if( this.state.steps !== nextProps.steps) {
+          this.setState({
+            steps: nextProps.steps
+          })
+      }
+  }
+
+  onStepUpdate(stepId, payload) {
+    this.steps[stepId] = payload
+    this.phaseDidUpdate()
+  }
+
+    newStep = () => {
+        this.steps.push( {
+            name : null,
+            duration : null
+        })
+        this.phaseDidUpdate()
+    }
+
+    phaseDidUpdate = () => {
+        this.props.phaseDidUpdate({
+            name: this.state.name,
+            steps: this.steps
+        })
+        this.setState({
+            steps :  this.steps
+        })
+    }
 
   render() {
 
-    var steps = this.props.steps.map(element => {
+    var steps = this.props.steps.map((element, index) => {
         return(
             <EditableStep 
                 name={element.name}
                 duration={element.duration}
+                stepDidUpdate={ step => {
+                    this.onStepUpdate(index, step)
+                }}
             />
         )
     })
@@ -34,7 +75,7 @@ export default class Phase extends Component {
         <View style={styles.phase}>
             <View style={styles.phaseHeader}>
                 <View>
-                    <Text> {this.props.name} </Text>
+                    <Text> {this.state.name} </Text>
                 </View>
                 <View>
                     <Text> x{this.props.repetitions} </Text>
@@ -42,6 +83,10 @@ export default class Phase extends Component {
             </View>
             <View>
                 {steps}
+                <Button
+                    title={'+'}
+                    onPress={this.newStep}
+                />
             </View>
         </View>
     );

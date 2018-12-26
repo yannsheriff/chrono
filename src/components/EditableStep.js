@@ -4,31 +4,68 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity
+  TextInput, 
+  TouchableOpacity, 
+  Picker
 } from 'react-native'
-
+import { connect } from 'react-redux'
+import { openPicker } from '../actions/pickerActions'
 import screen from '../helpers/ScreenSize'
 import { red } from 'ansi-colors';
 
 
-export default class EditableStep extends Component {
+export class EditableStep extends Component {
 
   constructor(props) {
     super(props) 
     this.state = {
+      showPicker : false
+    }
+  }
 
+  nameDidchange = (name) => {
+    this.stepDidUpdate()
+  }
+
+  textChange = (name) => {
+    this.name = name
+  }
+
+  stepDidUpdate() {
+    this.props.stepDidUpdate({
+      name: this.name ,
+      duration: this.duration,
+    })
+  }
+
+  openPicker = () => {
+    if( this.props.duration ) {
+      this.props.openPicker(this.props.duration)
+    } else {
+      this.props.openPicker()
     }
   }
 
  
   render() {
+
     return (
       <View style={styles.step}>
           <View style={styles.titleContainer}>
-              <Text> {this.props.name} </Text>
+            <TextInput
+              style={{height: 40, borderWidth: 0}}
+              onChangeText={this.textChange}
+              onEndEditing={this.nameDidchange}
+              placeholder={'name'}
+              value={this.props.name}
+            />
           </View>
           <View style={styles.timerContainer}>
-            <Text> {this.props.duration} </Text>
+            <TouchableOpacity
+              onPress={ this.openPicker }
+            >
+              <Text> {this.props.duration ? this.props.duration : 'choose duration'} </Text>
+            </TouchableOpacity>
           </View>
       </View>
     );
@@ -55,3 +92,26 @@ const styles = StyleSheet.create({
     flex: 0.3
   }
 });
+
+
+
+const mapStateToProps = state => {
+  return {
+      pickerState: state.pickerReducer
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      openPicker: (value) => {
+          dispatch(openPicker(value))
+      }
+  }
+}
+
+const componentContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditableStep)
+
+export default componentContainer
