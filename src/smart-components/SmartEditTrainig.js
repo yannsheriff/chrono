@@ -32,12 +32,7 @@ class SmartBoilComponent extends Component {
             {
               name: "phase 1",
               repetitions: 1,
-              steps: [
-                {
-                  name: null,
-                  duration: null
-                }
-              ]
+              steps: []
             }
           ]
         }
@@ -57,13 +52,15 @@ class SmartBoilComponent extends Component {
 
   newPhase = () => {
     var phaseNumber = this.training.phases.length + 1
+    let timeStamp = Math.round(new Date().getTime() / 1000);
     var phases = this.training.phases.concat({
       name: "phase "+phaseNumber,
       repetitions: 1,
       steps: [
         {
           name: null,
-          duration: null
+          duration: null,
+          key: 's-'+timeStamp
         }
       ]
     });
@@ -111,6 +108,7 @@ class SmartBoilComponent extends Component {
           name={element.name}
           repetitions={element.repetitions}
           steps={element.steps}
+          key={index}
           phaseDidUpdate={payload => {
             this.onPhaseUpdate(index, payload);
           }}

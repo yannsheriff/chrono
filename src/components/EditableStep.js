@@ -6,7 +6,7 @@ import {
   Text,
   TextInput, 
   TouchableOpacity, 
-  Picker
+  Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import { openPicker } from '../actions/pickerActions'
@@ -28,6 +28,11 @@ export class EditableStep extends Component {
   componentWillReceiveProps(nextPorps) {
     if(nextPorps.pickerState.value !== this.state.duration && nextPorps.pickerState.stepId === nextPorps.id) {
       this.setState({duration: nextPorps.pickerState.value }, () => this.stepDidUpdate() )
+    } else if(nextPorps.name !== this.props.name) {
+      this.setState({
+        duration: nextPorps.duration,
+        name: nextPorps.name
+      })
     }
   }
 
@@ -49,8 +54,6 @@ export class EditableStep extends Component {
         key: this.props.id
       })
     }
-
-   
   }
 
   openPicker = () => {

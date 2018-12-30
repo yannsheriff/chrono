@@ -27,7 +27,19 @@ export default class trainingList extends Component {
           <TouchableOpacity 
             style={styles.training}
             onPress={ () => this.props.navigation.navigate('EditTraining', { trainingIndex : index })}
-            onLongPress={ () => this.deleteTraining(index) }
+            onLongPress={ () => Alert.alert('Are you sure ?', 'Do you really want to delete this training ?', [
+              {
+                text: 'yes',
+                onPress: () => {
+                  this.deleteTraining(index) 
+                },
+                style: "destructive"
+              },
+              {
+                text: 'cancel',
+                style: "cancel"
+              }
+            ])}
           >
                 <Text> { el.name } </Text>
           </TouchableOpacity>

@@ -28,7 +28,10 @@ export default class Phase extends Component {
       this.steps[stepId] = payload;
       this.phaseDidUpdate();
     } else {
-      this.steps.splice(stepId, stepId)
+      console.log('Helooooo', stepId)
+      var immutableStep = this.steps.slice(0,stepId).concat(this.steps.slice(stepId+1))
+			console.log("​Phase -> onStepUpdate -> immutableStep", immutableStep)
+      this.steps = immutableStep
       this.phaseDidUpdate();
     }
   }
@@ -88,7 +91,7 @@ export default class Phase extends Component {
         repetitions: this.state.repetitions,
         steps: this.steps
       });
-
+      console.log(this.steps)
       this.setState({
         steps: this.steps
       });
