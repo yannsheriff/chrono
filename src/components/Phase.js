@@ -24,8 +24,13 @@ export default class Phase extends Component {
   }
 
   onStepUpdate(stepId, payload) {
-    this.steps[stepId] = payload;
-    this.phaseDidUpdate();
+    if(payload) {
+      this.steps[stepId] = payload;
+      this.phaseDidUpdate();
+    } else {
+      this.steps.splice(stepId, stepId)
+      this.phaseDidUpdate();
+    }
   }
 
   addRepetitions = () => {

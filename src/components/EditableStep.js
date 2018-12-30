@@ -39,16 +39,19 @@ export class EditableStep extends Component {
     this.setState({ name: name })
   }
 
-  stepDidUpdate() {
-    console.log("stepDidUpdate")
-    this.props.stepDidUpdate({
-      name: this.state.name,
-      duration: this.state.duration,
-      key: this.props.id
-    })
-  }
+  stepDidUpdate (remove) {
+    if (remove === "REMOVE") {
+      this.props.stepDidUpdate(false);
+    } else {
+      this.props.stepDidUpdate({
+        name: this.state.name,
+        duration: this.state.duration,
+        key: this.props.id
+      })
+    }
 
-  
+   
+  }
 
   openPicker = () => {
     if( this.props.duration ) {
@@ -62,7 +65,9 @@ export class EditableStep extends Component {
   render() {
 
     return (
-      <View style={styles.step}>
+      <TouchableOpacity style={styles.step}
+        onLongPress={() => this.stepDidUpdate("REMOVE")}
+      >
           <View style={styles.titleContainer}>
             <TextInput
               style={{height: 40, borderWidth: 0, marginLeft: 15}}
@@ -79,7 +84,7 @@ export class EditableStep extends Component {
               <Text> {this.state.duration ? this.state.duration : 'choose duration'} </Text>
             </TouchableOpacity>
           </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

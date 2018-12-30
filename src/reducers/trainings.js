@@ -54,8 +54,8 @@ export function trainingsReducer(state = defaultState, action) {
             
         case REMOVE_TRAINING:
             return {
-                trainings: state.trainings.slice(0,action.payload.trainingId).concat(state.trainings.slice(action.payload.trainingId+1)),
                 ...state,
+                trainings: state.trainings.slice(0,action.payload.trainingId).concat(state.trainings.slice(action.payload.trainingId+1)),
             }
         default:
             return state

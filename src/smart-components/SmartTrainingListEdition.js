@@ -1,4 +1,4 @@
-import { newTraining } from '../actions/trainingsActions'
+import { removeTraining } from '../actions/trainingsActions'
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import EditableTrainingList from '../components/EditableTrainingList'
@@ -22,6 +22,7 @@ class SmartTrainingListEdition extends Component {
                 <EditableTrainingList 
                     trainings={ this.props.trainingsState.trainings } 
                     navigation={ this.props.navigation }
+                    onTrainingDeletionRequest={ id => this.props.removeTraining(id)}
                 />
                 <Button
                     title={'new Training'}
@@ -42,8 +43,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeScreen: () => {
-            dispatch(newTraining())
+        removeTraining: (id) => {
+            dispatch(removeTraining(id))
         }
     }
 }

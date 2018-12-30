@@ -7,11 +7,18 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert, 
+  Bu
 } from 'react-native'
 
 
 export default class trainingList extends Component {
+
+
+  deleteTraining(id)  {
+    this.props.onTrainingDeletionRequest(id)
+  }
 
   render() {
 
@@ -20,6 +27,7 @@ export default class trainingList extends Component {
           <TouchableOpacity 
             style={styles.training}
             onPress={ () => this.props.navigation.navigate('EditTraining', { trainingIndex : index })}
+            onLongPress={ () => this.deleteTraining(index) }
           >
                 <Text> { el.name } </Text>
           </TouchableOpacity>
