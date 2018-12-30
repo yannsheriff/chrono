@@ -1,8 +1,9 @@
-import { changeScreen } from '../actions/screenActions'
+import { newTraining } from '../actions/trainingsActions'
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import EditableTrainingList from '../components/EditableTrainingList'
-import { View, Button } from 'react-native';
+import { View, Button, Text } from 'react-native';
+
 
 
 
@@ -12,10 +13,19 @@ class SmartTrainingListEdition extends Component {
     render() {
         return (
             <View>
-                <EditableTrainingList { ...this.props } />
+                <Text style={{fontSize: 30,
+              marginTop: 20,
+              fontWeight: 'bold',
+              borderWidth: 0,
+              alignSelf: "flex-start",
+              paddingLeft: 25 }}> Trainings </Text>
+                <EditableTrainingList 
+                    trainings={ this.props.trainingsState.trainings } 
+                    navigation={ this.props.navigation }
+                />
                 <Button
                     title={'new Training'}
-                    // onPress={}
+                    onPress={() => this.props.navigation.navigate('EditTraining')}
                 />
             </View>
         );
@@ -33,7 +43,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         changeScreen: () => {
-            dispatch(changeScreen())
+            dispatch(newTraining())
         }
     }
 }

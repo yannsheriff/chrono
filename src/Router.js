@@ -5,16 +5,16 @@ import { createBottomTabNavigator, createAppContainer, createStackNavigator } fr
 
 // Scenes Imports
 // ----------------------------
-import SmartTrainingComponent from './smart-components/SmartTraining';
-import SmartChronoComponent from './smart-components/SmartChrono';
+import SmartChronoData from './smart-components/SmartChronoData';
+import ChronoComponent from './components/Chrono';
 import SmartTrainingListEdition from './smart-components/SmartTrainingListEdition';
 import SmartEditTrainig from './smart-components/SmartEditTrainig';
 
 
 
 const HomeStack = createStackNavigator({
-  Home: SmartTrainingComponent,
-  Chrono: SmartChronoComponent,
+  Home: SmartChronoData,
+  Chrono: ChronoComponent,
 });
 
 const EditStack = createStackNavigator({

@@ -1,12 +1,13 @@
 import {
     NEW_TRAINING,
     REMOVE_TRAINING,
+    UPDATE_TRAINING,
 } from '../actions/trainingsActions'
 import { Map } from 'immutable';
 const defaultState = { 
     trainings: [
         {
-            name : 'zizi',
+            name : 'training',
             phases : [
                 {
                     name : 'phase 1',
@@ -14,15 +15,18 @@ const defaultState = {
                     steps : [
                         {
                             name : 'planche',
-                            duration : 7
+                            duration : 7, 
+                            key: 's-6789'
                         },
                         {
                             name : 'pause',
-                            duration : 5
+                            duration : 5,
+                            key: 's-6788'
                         },
                         {
                             name : 'planche',
-                            duration : 10
+                            duration : 10,
+                            key: 's-6787'
                         },
                     ]
                 }
@@ -33,15 +37,21 @@ const defaultState = {
 
 
 export function trainingsReducer(state = defaultState, action) {
+    
     switch (action.type) {
         case NEW_TRAINING:
-            return {
-                trainings: [
-                    action.payload,
-                    ...state.trainings,
-                ],
+        var concatTrainings = state.trainings.concat(action.payload)
+            var newState = {
                 ...state,
+                trainings: concatTrainings,
             }
+            return newState
+        case UPDATE_TRAINING:
+        return  {
+            ...state,
+            trainings: state.trainings.slice(0, action.payload.trainingId).concat(action.payload.training).concat( state.trainings.slice(action.payload.trainingId + 1)),
+        }
+            
         case REMOVE_TRAINING:
             return {
                 trainings: state.trainings.slice(0,action.payload.trainingId).concat(state.trainings.slice(action.payload.trainingId+1)),
@@ -50,4 +60,8 @@ export function trainingsReducer(state = defaultState, action) {
         default:
             return state
     }
+        
+    
+
+
 }

@@ -3,17 +3,16 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  TextInput, 
-  TouchableOpacity, 
+  Button,
   Picker
 } from 'react-native'
-
+import { connect } from 'react-redux'
+import { updatePickerValue, closePicker } from '../actions/pickerActions'
 import screen from '../helpers/ScreenSize'
 import { red } from 'ansi-colors';
 
 
-export default class DurationPicker extends Component {
+export class DurationPicker extends Component {
 
   constructor(props) {
     super(props) 
@@ -85,6 +84,11 @@ export default class DurationPicker extends Component {
     }
   }
 
+  valueChange() {
+    var totalDuration = this.state.seconds + (this.state.minutes * 60 ) + (this.state.hours * 3600 )
+    this.props.updatePickerValue(totalDuration)
+    
+  }
 
  
   render() {
@@ -100,27 +104,35 @@ export default class DurationPicker extends Component {
 
     return (
       <View style={styles.container}>
-        <Picker
-            selectedValue={this.state.hours}
-            style={{ height: 50, width: 100 }}
-            // onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}
-            >
-            { hours }
-        </Picker>
-        <Picker
-            selectedValue={this.state.minutes}
-            style={{ height: 50, width: 100 }}
-            // onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}
-            >
-            { minutes }
-        </Picker>
-        <Picker
-            selectedValue={this.state.seconds}
-            style={{ height: 50, width: 100 }}
-            // onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}
-            >
-            { seconds }
-        </Picker>
+        <View style={styles.doneStyle}>
+          <Button
+            title={'done'}
+            onPress={()=> this.props.closePicker()}
+          />
+        </View>
+        <View style={styles.pickersContainer}>
+          <Picker
+              selectedValue={this.state.hours}
+              style={{ flex: 1, backgroundColor: '#f4f4f4' }}
+              onValueChange={(itemValue) => this.setState({hours: itemValue}, this.valueChange)}
+              >
+              { hours }
+          </Picker>
+          <Picker
+              selectedValue={this.state.minutes}
+              style={{ flex: 1, backgroundColor: '#f4f4f4' }}
+              onValueChange={(itemValue) => this.setState({minutes: itemValue}, this.valueChange)}
+              >
+              { minutes }
+          </Picker>
+          <Picker
+              selectedValue={this.state.seconds}
+              style={{ flex: 1, backgroundColor: '#f4f4f4' }}
+              onValueChange={(itemValue) => this.setState({seconds: itemValue}, this.valueChange)}
+              >
+              { seconds }
+          </Picker>
+        </View>
       </View>
     );
   }
@@ -128,12 +140,42 @@ export default class DurationPicker extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    flexShrink : 0,
+    backgroundColor: '#f4f4f4',
+  },
+  pickersContainer: {
     flexDirection: 'row',
-    position: 'absolute',
-    bottom: 0,
-    height: 60, 
     width: '100%',
     backgroundColor: 'white'
-  }
+  },
+
 });
+
+
+const mapStateToProps = state => {
+  return {
+      pickerState: state.pickerReducer
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updatePickerValue: (value) => {
+          dispatch(updatePickerValue(value))
+      },
+      closePicker: () => {
+          dispatch(closePicker())
+      },
+
+  }
+}
+
+const componentContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DurationPicker)
+
+export default componentContainer
+
 

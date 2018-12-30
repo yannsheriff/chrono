@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
   },
   step: {
     height: 50, 
-    width: screen.widthPercent * 80,
-    borderRadius: 15, 
-    backgroundColor: 'green', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    borderRadius: 10, 
     marginBottom: 10, 
+    backgroundColor: '#E5F9E0', 
+    justifyContent: 'space-around', 
+    alignItems: 'center', 
+    flexDirection: 'row',
+    width: screen.widthPercent * 80,
     overflow: 'hidden', 
     position: 'relative'
   },
@@ -64,6 +65,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     height: '100%',
-    backgroundColor: 'red',
+    backgroundColor: '#A3F7B5',
   }
 });

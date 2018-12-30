@@ -6,10 +6,15 @@ import TrainingList from '../components/trainingList'
 
 
 class SmartBoilComponent extends Component {
-
+    static navigationOptions = {
+        headerMode: 'none',
+    };
     render() {
         return (
-            <TrainingList { ...this.props } />
+            <TrainingList 
+                trainings={ this.props.trainingsState.trainings } 
+                navigation={ this.props.navigation }
+            />
         );
     }
 }

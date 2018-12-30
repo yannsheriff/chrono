@@ -15,10 +15,10 @@ export default class trainingList extends Component {
 
   render() {
 
-    var trainings = this.props.trainingsState.trainings.map((el, index) => {
+    var trainings = this.props.trainings.map((el, index) => {
         return (
           <TouchableOpacity 
-            style={{ height: 50, borderRadius: 15, backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center' }}
+            style={styles.training}
             onPress={ () => this.props.navigation.navigate('EditTraining', { trainingIndex : index })}
           >
                 <Text> { el.name } </Text>
@@ -38,10 +38,20 @@ export default class trainingList extends Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
+    alignItems: 'center',
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  training: { 
+    height: 50, 
+    borderRadius: 10, 
+    marginBottom: 10, 
+    backgroundColor: '#A3F7B5', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width:'80%' 
   },
 });

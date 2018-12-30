@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  ScrollView,
   View,
   Text,
   TouchableOpacity
@@ -48,17 +49,17 @@ export default class trainingList extends Component {
     })
 
     return (
-      <View style={styles.container}>
+      <ScrollView  contentContainerStyle={styles.container}>
           { steps }
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 20
   },
   step: {
     height: 50, width: screen.widthPercent * 80, borderRadius: 15, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center', marginBottom: 10
