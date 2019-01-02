@@ -3,36 +3,10 @@ import {
     REMOVE_TRAINING,
     UPDATE_TRAINING,
 } from '../actions/trainingsActions'
+import { POPULATE_STORE } from '../actions/loading'
 import { Map } from 'immutable';
 const defaultState = { 
-    trainings: [
-        {
-            name : 'training',
-            phases : [
-                {
-                    name : 'phase 1',
-                    repetitions : 1,
-                    steps : [
-                        {
-                            name : 'planche',
-                            duration : 7, 
-                            key: 's-6789'
-                        },
-                        {
-                            name : 'pause',
-                            duration : 5,
-                            key: 's-6788'
-                        },
-                        {
-                            name : 'planche',
-                            duration : 10,
-                            key: 's-6787'
-                        },
-                    ]
-                }
-            ]
-        }
-    ]
+    trainings: []
 }
 
 
@@ -56,6 +30,11 @@ export function trainingsReducer(state = defaultState, action) {
             return {
                 ...state,
                 trainings: state.trainings.slice(0,action.payload.trainingId).concat(state.trainings.slice(action.payload.trainingId+1)),
+            }
+        
+        case POPULATE_STORE:
+            return {
+                trainings: action.payload,
             }
         default:
             return state
