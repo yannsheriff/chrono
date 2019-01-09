@@ -11,9 +11,14 @@ import StepList from "./stepList";
 import ChronoRemote from "./ChronoRemote";
 import moment from "moment";
 import screen from "../helpers/ScreenSize";
+import { musiques } from '../assets/sound'
+import Sound from 'react-native-sound';
+
+
 export default class Chrono extends Component {
   constructor(props) {
     super(props);
+    this.soundIsPlaying = false
     this.state = {
       completeTraining: props.navigation.getParam("training"),
       currentStep: {},
@@ -25,11 +30,22 @@ export default class Chrono extends Component {
     };
 
     this.steps = [];
+    this.bip = new Sound(musiques.bip, (error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+      }
+
+      console.log('duration in seconds: ' + this.bip.getDuration())
+    });
+    this.whoop = new Sound(musiques.whoop, (error) => {
+      if (error) {
+        console.log('failed to load the sound', error);
+      }
+    });
   }
 
   componentDidMount() {
     var training = this.props.navigation.getParam("training");
-
     training.phases.forEach(element => {
       for (let index = 0; index < element.repetitions; index++) {
         element.steps.forEach(element => {
@@ -70,27 +86,39 @@ export default class Chrono extends Component {
 
   startCurrentStep = () => {
     var endTime = moment()
-      .add(this.state.currentStep.duration, "second")
+      .add(this.state.currentStep.duration, 'seconds')
       .toDate()
       .getTime();
+
     this.launchChrono(endTime);
   };
 
   launchChrono = endTime => {
     this.chrono = setInterval(() => {
-      var now = new Date().getTime();
-      var sub = endTime - now;
-      var seconds = (sub % (1000 * 60)) / 1000;
-      var percentage = 100 - (seconds / this.state.currentStep.duration) * 100;
+      var now = new Date().getTime()
+      var sub = endTime - now
+      var seconds = sub / 1000
+      var percentage = 100 - (seconds / this.state.currentStep.duration) * 100
       this.setState({
         currentTimer: seconds,
         currentStepProgress: percentage,
         haveStarted: true,
         isPaused: false
       });
+
+      if (seconds <= 1.9 && !this.soundIsPlaying) {
+        this.soundIsPlaying = true
+        this.bip.play((success)=>{ if (success) {
+          this.soundIsPlaying = false
+        }})
+      }
       if (sub <= 0) {
-        clearInterval(this.chrono);
-        this.stepDidEnd();
+        this.soundIsPlaying = true
+        this.whoop.play((success)=>{ if (success) {
+          this.soundIsPlaying = false
+        }})
+        clearInterval(this.chrono)
+        this.stepDidEnd()
       }
     }, 50);
   };
