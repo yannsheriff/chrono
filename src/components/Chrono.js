@@ -13,6 +13,7 @@ import moment from "moment";
 import screen from "../helpers/ScreenSize";
 import { musiques } from '../assets/sound'
 import Sound from 'react-native-sound';
+import KeepAwake from 'react-native-keep-awake';
 
 
 export default class Chrono extends Component {
@@ -177,6 +178,7 @@ export default class Chrono extends Component {
           currentStep={this.state.currentStepIndex}
           currentStepProgress={this.state.currentStepProgress}
         />
+        <KeepAwake />
       </View>
     );
   }

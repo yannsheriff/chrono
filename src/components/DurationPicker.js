@@ -4,7 +4,8 @@ import {
   StyleSheet,
   View,
   Button,
-  Picker
+  Picker, 
+  Text
 } from 'react-native'
 import { connect } from 'react-redux'
 import { updatePickerValue, closePicker } from '../actions/pickerActions'
@@ -118,6 +119,7 @@ export class DurationPicker extends Component {
               >
               { hours }
           </Picker>
+          <Text style={{backgroundColor: 'transparent', position: 'absolute', top : '46%', left: screen.widthPercent * 22}}>hours</Text>
           <Picker
               selectedValue={this.state.minutes}
               style={{ flex: 1, backgroundColor: '#f4f4f4' }}
@@ -125,6 +127,7 @@ export class DurationPicker extends Component {
               >
               { minutes }
           </Picker>
+          <Text style={{backgroundColor: 'transparent', position: 'absolute', top : '46%', left: screen.widthPercent * 55}}>min</Text>
           <Picker
               selectedValue={this.state.seconds}
               style={{ flex: 1, backgroundColor: '#f4f4f4' }}
@@ -132,6 +135,7 @@ export class DurationPicker extends Component {
               >
               { seconds }
           </Picker>
+          <Text style={{backgroundColor: 'transparent', position: 'absolute', top : '46%', left: screen.widthPercent * 89}}>sec</Text>
         </View>
       </View>
     );
