@@ -7,15 +7,17 @@ import { View, Text, Button, ScrollView, TextInput } from "react-native";
 import screen from "../helpers/ScreenSize";
 
 class SmartBoilComponent extends Component {
-  // static navigationOptions = {
-  //     title: 'Detail',
-  //     headerLeft: (
-  //         <Button
-  //           onPress={this.saveAndBack}
-  //           title="Back"
-  //         />
-  //       ),
-  // };
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <Button
+          onPress={() => { navigation.goBack() }}
+          title="save"
+        />
+      ),
+    };
+  };
 
   constructor(props) {
     super(props);

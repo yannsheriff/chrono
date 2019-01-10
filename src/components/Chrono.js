@@ -36,7 +36,7 @@ export default class Chrono extends Component {
       }
 
       console.log('duration in seconds: ' + this.bip.getDuration())
-      this.bip.setVolume(0.5);
+      this.bip.setVolume(0.1);
     });
     this.whoop = new Sound(musiques.whoop, (error) => {
       if (error) {
