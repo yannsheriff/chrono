@@ -91,7 +91,7 @@ export default class Chrono extends Component {
       .add(this.state.currentStep.duration, 'seconds')
       .toDate()
       .getTime();
-
+    this.isLongPhase = this.state.currentStep.duration > 20 ? true : false
     this.launchChrono(endTime);
   };
 
@@ -107,6 +107,10 @@ export default class Chrono extends Component {
         haveStarted: true,
         isPaused: false
       });
+
+      if (percentage < 50 && percentage > 49 && this.isLongPhase) {
+        this.bip.play()
+      }
 
       if (seconds <= 2.1 && !this.soundIsPlaying) {
         this.soundIsPlaying = true
