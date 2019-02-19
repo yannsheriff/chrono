@@ -145,8 +145,10 @@ export class DurationPicker extends Component {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    flexShrink : 0,
+    height : 200,
     backgroundColor: '#f4f4f4',
+    position: 'absolute',
+    bottom: 0
   },
   pickersContainer: {
     flexDirection: 'row',

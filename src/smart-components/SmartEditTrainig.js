@@ -86,6 +86,7 @@ class SmartEditTrainig extends Component {
         toValue: 0,
       }).start();
   };
+  
 
   newPhase = () => {
     var phaseNumber = this.training.phases.length + 1;
@@ -184,6 +185,7 @@ class SmartEditTrainig extends Component {
             <Button title={"+"} onPress={this.newPhase} />
           </ScrollView>
         </Animated.View>
+
         {this.props.pickerState.isVisible && (
           <DurationPicker
             value={
