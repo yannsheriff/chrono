@@ -73,6 +73,19 @@ class SmartEditTrainig extends Component {
     this.keyboardWillHideSub.remove();
   }
 
+  componentWillReceiveProps(nextProps) {
+
+    //TODO : When popup show animate like keyboard
+
+    // Animated.timing(this.keyboardHeight, {
+    //   duration: event.duration,
+    //   toValue: event.startCoordinates.height - 30,
+    // }).start();
+
+    //TODO : When popup disapear animate like keyboard
+    
+  }
+
   keyboardWillShow = (event) => {
       Animated.timing(this.keyboardHeight, {
         duration: event.duration,
@@ -154,6 +167,7 @@ class SmartEditTrainig extends Component {
       );
     });
     return (
+      //TODO : remove flex
       <View
         style={{
           flexDirection: "column",

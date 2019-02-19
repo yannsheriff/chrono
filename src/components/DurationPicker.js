@@ -142,6 +142,7 @@ export class DurationPicker extends Component {
   }
 }
 
+//TODO : fix bottom position + height 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
