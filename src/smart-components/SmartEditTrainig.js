@@ -9,11 +9,12 @@ import {
   Button,
   ScrollView,
   TextInput,
-  KeyboardAvoidingView
+  Animated,
+  Keyboard
 } from "react-native";
 import screen from "../helpers/ScreenSize";
 
-class SmartBoilComponent extends Component {
+class SmartEditTrainig extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: (
@@ -58,7 +59,33 @@ class SmartBoilComponent extends Component {
     if (isNewTraining) {
       props.newTraining(hydrateTraining);
     }
+
+    this.keyboardHeight = new Animated.Value(0);
   }
+
+  componentWillMount() {
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: event.startCoordinates.height - 30,
+      }).start();
+  };
+
+  keyboardWillHide = (event) => {
+      Animated.timing(this.keyboardHeight, {
+        duration: event.duration,
+        toValue: 0,
+      }).start();
+  };
 
   newPhase = () => {
     var phaseNumber = this.training.phases.length + 1;
@@ -126,20 +153,22 @@ class SmartBoilComponent extends Component {
       );
     });
     return (
-      <KeyboardAvoidingView behavior='position'>
-        <View
-          style={{
-            flexDirection: "column",
-            height: "100%",
-            justifyContent: "flex-start"
-          }}
+      <View
+        style={{
+          flexDirection: "column",
+          height: "100%",
+          justifyContent: "flex-start"
+        }}
+      >
+        <Animated.View
+          style={{ paddingBottom: this.keyboardHeight }}
         >
           <ScrollView
             contentContainerStyle={{ alignItems: "center" }}
             style={{ flexGrow: 2 }}
           >
             <TextInput
-              value={this.state.training.name} 
+              value={this.state.training.name}
               onChangeText={this.updateName}
               onEndEditing={this.updateReduxTraining}
               style={{
@@ -154,17 +183,17 @@ class SmartBoilComponent extends Component {
             {phases}
             <Button title={"+"} onPress={this.newPhase} />
           </ScrollView>
-          {this.props.pickerState.isVisible && (
-            <DurationPicker
-              value={
-                this.props.pickerState.value
-                  ? this.props.pickerState.value
-                  : false
-              }
-            />
-          )}
-        </View>
-      </KeyboardAvoidingView>
+        </Animated.View>
+        {this.props.pickerState.isVisible && (
+          <DurationPicker
+            value={
+              this.props.pickerState.value
+                ? this.props.pickerState.value
+                : false
+            }
+          />
+        )}
+      </View>
     );
   }
 }
@@ -191,6 +220,6 @@ const mapDispatchToProps = dispatch => {
 const componentContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SmartBoilComponent);
+)(SmartEditTrainig);
 
 export default componentContainer;
