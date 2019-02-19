@@ -3,19 +3,27 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import Phase from "../components/Phase";
 import DurationPicker from "../components//DurationPicker";
-import { View, Text, Button, ScrollView, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  TextInput,
+  KeyboardAvoidingView
+} from "react-native";
 import screen from "../helpers/ScreenSize";
 
 class SmartBoilComponent extends Component {
-
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: (
         <Button
-          onPress={() => { navigation.goBack() }}
+          onPress={() => {
+            navigation.goBack();
+          }}
           title="save"
         />
-      ),
+      )
     };
   };
 
@@ -53,16 +61,16 @@ class SmartBoilComponent extends Component {
   }
 
   newPhase = () => {
-    var phaseNumber = this.training.phases.length + 1
+    var phaseNumber = this.training.phases.length + 1;
     let timeStamp = Math.round(new Date().getTime() / 1000);
     var phases = this.training.phases.concat({
-      name: "phase "+phaseNumber,
+      name: "phase " + phaseNumber,
       repetitions: 1,
       steps: [
         {
           name: null,
           duration: null,
-          key: 's-'+timeStamp
+          key: "s-" + timeStamp
         }
       ]
     });
@@ -118,43 +126,45 @@ class SmartBoilComponent extends Component {
       );
     });
     return (
-      <View
-        style={{
-          flexDirection: "column",
-          height: "100%",
-          justifyContent: "flex-start"
-        }}
-      >
-        <ScrollView
-          contentContainerStyle={{ alignItems: "center" }}
-          style={{ flexGrow: 2 }}
+      <KeyboardAvoidingView behavior='position'>
+        <View
+          style={{
+            flexDirection: "column",
+            height: "100%",
+            justifyContent: "flex-start"
+          }}
         >
-          <TextInput
-            value={this.state.training.name}
-            onChangeText={this.updateName}
-            onEndEditing={this.updateReduxTraining}
-            style={{
-              fontSize: 40,
-              marginVertical: 20,
-              fontWeight: 'bold',
-              borderWidth: 0,
-              alignSelf: "flex-start",
-              paddingLeft: 20
-            }}
-          />
-          {phases}
-          <Button title={"+"} onPress={this.newPhase} />
-        </ScrollView>
-        {this.props.pickerState.isVisible && (
-          <DurationPicker
-            value={
-              this.props.pickerState.value
-                ? this.props.pickerState.value
-                : false
-            }
-          />
-        )}
-      </View>
+          <ScrollView
+            contentContainerStyle={{ alignItems: "center" }}
+            style={{ flexGrow: 2 }}
+          >
+            <TextInput
+              value={this.state.training.name} 
+              onChangeText={this.updateName}
+              onEndEditing={this.updateReduxTraining}
+              style={{
+                fontSize: 40,
+                marginVertical: 20,
+                fontWeight: "bold",
+                borderWidth: 0,
+                alignSelf: "flex-start",
+                paddingLeft: 20
+              }}
+            />
+            {phases}
+            <Button title={"+"} onPress={this.newPhase} />
+          </ScrollView>
+          {this.props.pickerState.isVisible && (
+            <DurationPicker
+              value={
+                this.props.pickerState.value
+                  ? this.props.pickerState.value
+                  : false
+              }
+            />
+          )}
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
