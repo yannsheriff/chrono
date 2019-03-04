@@ -142,14 +142,13 @@ export class DurationPicker extends Component {
   }
 }
 
-//TODO : fix bottom position + height 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     height : 200,
     backgroundColor: '#f4f4f4',
     position: 'absolute',
-    bottom: 0
+    bottom: 50
   },
   pickersContainer: {
     flexDirection: 'row',

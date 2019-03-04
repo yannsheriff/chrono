@@ -61,6 +61,7 @@ class SmartEditTrainig extends Component {
     }
 
     this.keyboardHeight = new Animated.Value(0);
+    this.scrollView = React.createRef();
   }
 
   componentWillMount() {
@@ -74,16 +75,17 @@ class SmartEditTrainig extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    //TODO : When popup show animate like keyboard
-
-    // Animated.timing(this.keyboardHeight, {
-    //   duration: event.duration,
-    //   toValue: event.startCoordinates.height - 30,
-    // }).start();
-
-    //TODO : When popup disapear animate like keyboard
-    
+    if(nextProps.pickerState.isVisible) {
+      Animated.timing(this.keyboardHeight, {
+        duration: 100,
+        toValue: 250
+      }).start();
+    } else if (!nextProps.pickerState.isVisible) {
+      Animated.timing(this.keyboardHeight, {
+        duration: 100,
+        toValue: 0
+      }).start();
+    }    
   }
 
   keyboardWillShow = (event) => {
@@ -167,7 +169,6 @@ class SmartEditTrainig extends Component {
       );
     });
     return (
-      //TODO : remove flex
       <View
         style={{
           flexDirection: "column",
@@ -181,6 +182,7 @@ class SmartEditTrainig extends Component {
           <ScrollView
             contentContainerStyle={{ alignItems: "center" }}
             style={{ flexGrow: 2 }}
+            ref={(ref)=>{this.scrollView = ref}}
           >
             <TextInput
               value={this.state.training.name}
