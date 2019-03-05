@@ -10,6 +10,7 @@ import SmartChronoData from './smart-components/SmartChronoData';
 import ChronoComponent from './components/Chrono';
 import SmartTrainingListEdition from './smart-components/SmartTrainingListEdition';
 import SmartEditTrainig from './smart-components/SmartEditTrainig';
+import Test from './components/test';
 
 
 
@@ -22,10 +23,14 @@ const EditStack = createStackNavigator({
   TrainingList: SmartTrainingListEdition,
   EditTraining: SmartEditTrainig,
 });
+const TestStack = createStackNavigator({
+  Test: Test
+});
 
 const InitialNavigator = createBottomTabNavigator({
   Home: HomeStack,
-  Edit: EditStack
+  Edit: EditStack,
+  Test: TestStack
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
