@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // Scenes Imports
 // ----------------------------
 import Trainings from './screens/Trainings';
-import ChronoComponent from './components/Chrono';
+import Chrono from './screens/Chrono.js';
 import EditableList from './screens/EditableList';
 import Editing from './screens/Editing';
 import Test from './components/test';
@@ -16,7 +16,7 @@ import Test from './components/test';
 
 const HomeStack = createStackNavigator({
   Home: Trainings,
-  Chrono: ChronoComponent,
+  Chrono: Chrono,
 });
 
 const EditStack = createStackNavigator({
