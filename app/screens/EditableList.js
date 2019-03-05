@@ -7,7 +7,7 @@ import { View, Button, Text } from 'react-native';
 
 
 
-class SmartTrainingListEdition extends Component {
+class EditableList extends Component {
 
 
     render() {
@@ -54,6 +54,6 @@ const mapDispatchToProps = dispatch => {
 const componentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(SmartTrainingListEdition)
+)(EditableList)
 
 export default componentContainer

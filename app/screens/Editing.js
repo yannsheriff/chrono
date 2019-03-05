@@ -2,7 +2,7 @@ import { newTraining, updateTraining } from "../actions/trainingsActions";
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import Phase from "../components/Phase";
-import DurationPicker from "../components//DurationPicker";
+import DurationPicker from "../components/DurationPicker";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import screen from "../helpers/ScreenSize";
 
-class SmartEditTrainig extends Component {
+class Editing extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: (
@@ -238,6 +238,6 @@ const mapDispatchToProps = dispatch => {
 const componentContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SmartEditTrainig);
+)(Editing);
 
 export default componentContainer;

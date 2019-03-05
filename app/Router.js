@@ -6,22 +6,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Scenes Imports
 // ----------------------------
-import SmartChronoData from './smart-components/SmartChronoData';
+import Trainings from './screens/Trainings';
 import ChronoComponent from './components/Chrono';
-import SmartTrainingListEdition from './smart-components/SmartTrainingListEdition';
-import SmartEditTrainig from './smart-components/SmartEditTrainig';
+import EditableList from './screens/EditableList';
+import Editing from './screens/Editing';
 import Test from './components/test';
 
 
 
 const HomeStack = createStackNavigator({
-  Home: SmartChronoData,
+  Home: Trainings,
   Chrono: ChronoComponent,
 });
 
 const EditStack = createStackNavigator({
-  TrainingList: SmartTrainingListEdition,
-  EditTraining: SmartEditTrainig,
+  TrainingList: EditableList,
+  EditTraining: Editing,
 });
 const TestStack = createStackNavigator({
   Test: Test

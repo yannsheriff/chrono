@@ -11,7 +11,7 @@ import { requestStore } from '../actions/loading'
 // --------------------------------------------------------------
 import Router from '../Router'
 
-class SmartLoading extends Component {
+class Loader extends Component {
 
 
   constructor(props) {
@@ -67,6 +67,6 @@ const mapDispatchToProps = dispatch => {
 const componentContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SmartLoading)
+)(Loader)
 
 export default componentContainer

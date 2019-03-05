@@ -1,8 +1,8 @@
 import { AppRegistry } from 'react-native';
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import Store from './src/store'
-import Loading from './src/smart-components/SmartLoading'
+import Store from './app/store'
+import Loading from './app/screens/Loader'
 
 class App extends Component {
     constructor() {

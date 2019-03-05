@@ -5,7 +5,7 @@ import TrainingList from '../components/trainingList'
 
 
 
-class SmartBoilComponent extends Component {
+class Trainings extends Component {
     static navigationOptions = {
         headerMode: 'none',
     };
@@ -40,6 +40,6 @@ const mapDispatchToProps = dispatch => {
 const componentContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(SmartBoilComponent)
+)(Trainings)
 
 export default componentContainer
