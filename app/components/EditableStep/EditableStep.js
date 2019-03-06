@@ -1,20 +1,16 @@
 
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   TextInput, 
   TouchableOpacity, 
-  Alert
 } from 'react-native'
-import { connect } from 'react-redux'
-import { openPicker } from '../actions/pickerActions'
-import screen from '../helpers/ScreenSize'
-import { red } from 'ansi-colors';
+import styles from './style'
 
 
-export class EditableStep extends Component {
+
+export default class EditableStep extends Component {
 
   constructor(props) {
     super(props) 
@@ -91,48 +87,3 @@ export class EditableStep extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center'
-  },
-  step: {
-    flexDirection: 'row',
-    height: 60, 
-    width: '100%',
-    borderRadius: 8, 
-    backgroundColor: 'white', 
-    alignItems: 'center', 
-    marginBottom: 10, 
-  }, 
-  titleContainer: {
-    flex: 0.7
-  },
-  timerContainer: {
-    alignItems: 'center',
-    flex: 0.3
-  }
-});
-
-
-
-const mapStateToProps = state => {
-  return {
-      pickerState: state.pickerReducer
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-      openPicker: (id, value ) => {
-          dispatch(openPicker(id, value))
-      }
-  }
-}
-
-const componentContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditableStep)
-
-export default componentContainer

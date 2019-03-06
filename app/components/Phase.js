@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 
 import screen from "../helpers/ScreenSize";
-import EditableStep from "../components/EditableStep";
+import EditableStep from "./EditableStep";
 
 export default class Phase extends Component {
   constructor(props) {
