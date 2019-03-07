@@ -1,8 +1,12 @@
-import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-
-import screen from "../helpers/ScreenSize";
-import EditableStep from "./EditableStep";
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Button
+} from 'react-native';
+import EditableStep from '../EditableStep';
+import styles from './style';
 
 export default class Phase extends Component {
   constructor(props) {
@@ -24,14 +28,12 @@ export default class Phase extends Component {
   }
 
   onStepUpdate(stepId, payload) {
-    if(payload) {
+    if (payload) {
       this.steps[stepId] = payload;
       this.phaseDidUpdate();
     } else {
-      console.log('Helooooo', stepId)
-      var immutableStep = this.steps.slice(0,stepId).concat(this.steps.slice(stepId+1))
-			console.log("​Phase -> onStepUpdate -> immutableStep", immutableStep)
-      this.steps = immutableStep
+      const immutableStep = this.steps.slice(0, stepId).concat(this.steps.slice(stepId + 1));
+      this.steps = immutableStep;
       this.phaseDidUpdate();
     }
   }
@@ -58,32 +60,32 @@ export default class Phase extends Component {
         }
       );
     } else {
-      this.phaseDidUpdate("REMOVE");
+      this.phaseDidUpdate('REMOVE');
     }
   };
 
-  nameDidchange = (name) => {
-    this.phaseDidUpdate()
+  nameDidchange = () => {
+    this.phaseDidUpdate();
   }
 
   nameChange = (name) => {
-    this.setState({ name: name })
+    this.setState({ name });
   }
 
   newStep = () => {
-    let timeStamp = Math.round(new Date().getTime() / 1000);
-    var concatedSteps = this.steps.concat({
+    const timeStamp = Math.round(new Date().getTime() / 1000);
+    const concatedSteps = this.steps.concat({
       name: null,
       duration: null,
-      key: "s-" + timeStamp
+      key: `s-${timeStamp}`
     });
 
     this.steps = concatedSteps;
     this.phaseDidUpdate();
   };
 
-  phaseDidUpdate = remove => {
-    if (remove === "REMOVE") {
+  phaseDidUpdate = (remove) => {
+    if (remove === 'REMOVE') {
       this.props.phaseDidUpdate(false);
     } else {
       this.props.phaseDidUpdate({
@@ -91,7 +93,7 @@ export default class Phase extends Component {
         repetitions: this.state.repetitions,
         steps: this.steps
       });
-      console.log(this.steps)
+      console.log(this.steps);
       this.setState({
         steps: this.steps
       });
@@ -99,14 +101,15 @@ export default class Phase extends Component {
   };
 
   render() {
-    var steps = this.state.steps.map((element, index) => {
+    const steps = this.state.steps.map((element, index) => {
+      const key = `k-${index}`;
       return (
         <EditableStep
           name={element.name}
           duration={element.duration}
           id={element.key}
-          key={index}
-          stepDidUpdate={step => {
+          key={key}
+          stepDidUpdate={(step) => {
             this.onStepUpdate(index, step);
           }}
         />
@@ -121,48 +124,24 @@ export default class Phase extends Component {
               onChangeText={this.nameChange}
               onEndEditing={this.nameDidchange}
               value={this.state.name}
-            /> 
+            />
           </View>
           <View style={styles.repetitions}>
-            <Button title={"-"} onPress={this.removeRepetitions} />
-            <Text> x{this.state.repetitions} </Text>
-            <Button title={"+"} onPress={this.addRepetitions} />
+            <Button title="-" onPress={this.removeRepetitions} />
+            <Text>
+              {' '}
+x
+              {this.state.repetitions}
+              {' '}
+            </Text>
+            <Button title="+" onPress={this.addRepetitions} />
           </View>
         </View>
         <View>
           {steps}
-          <Button title={"+"} onPress={this.newStep} />
+          <Button title="+" onPress={this.newStep} />
         </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  phase: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    width: screen.widthPercent * 85,
-    borderRadius: 10,
-    backgroundColor: "#F2F2F2",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 10
-  },
-  phaseHeader: {
-    height: 20,
-    marginBottom: 15,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: 'center'
-  }, 
-  repetitions: { 
-    flexDirection: "row", 
-    alignItems: 'center',
-    justifyContent: 'center', 
-    height: 40,
-    // backgroundColor: 'red'
-  }
-});
