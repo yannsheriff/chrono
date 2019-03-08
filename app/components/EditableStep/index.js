@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { openPicker } from '../../actions/pickerActions'
+import { openPicker } from '../../redux/actions/pickerActions'
 import EditableStep from './EditableStep'
 
 const mapStateToProps = state => {

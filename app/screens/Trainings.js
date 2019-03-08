@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { changeScreen } from '../actions/screenActions';
+import { changeScreen } from '../redux/actions/screenActions';
 import TrainingList from '../components/trainingList';
 
 

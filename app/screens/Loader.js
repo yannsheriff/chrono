@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import { requestStore } from '../actions/loading';
+import { requestStore } from '../redux/actions/loading';
 
 
 //  Import Components

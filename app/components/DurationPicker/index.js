@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import DurationPicker from './DurationPicker';
-import { updatePickerValue, closePicker } from '../../actions/pickerActions';
+import { updatePickerValue, closePicker } from '../../redux/actions/pickerActions';
 
 const mapStateToProps = state => ({
   pickerState: state.pickerReducer

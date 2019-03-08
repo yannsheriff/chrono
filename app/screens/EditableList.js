@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 import EditableTrainingList from '../components/EditableTrainingList';
-import { removeTraining } from '../actions/trainingsActions';
+import { removeTraining } from '../redux/actions/trainingsActions';
 
 
 function EditableList(props) {

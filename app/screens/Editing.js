@@ -8,7 +8,7 @@ import {
   Animated,
   Keyboard
 } from 'react-native';
-import { newTraining, updateTraining } from '../actions/trainingsActions';
+import { newTraining, updateTraining } from '../redux/actions/trainingsActions';
 import Phase from '../components/Phase';
 import DurationPicker from '../components/DurationPicker';
 
