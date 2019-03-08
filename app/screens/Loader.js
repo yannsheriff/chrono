@@ -1,14 +1,14 @@
 //  Import Modules
 // --------------------------------------------------------------
 import React, { Component } from 'react';
-import { View, Text, StatusBar } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { requestStore } from '../redux/actions/loading';
 
 
 //  Import Components
 // --------------------------------------------------------------
-import Router from '../Router';
+import Router from '../config/Router';
 
 class Loader extends Component {
   constructor(props) {

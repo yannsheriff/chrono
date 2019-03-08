@@ -6,17 +6,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Scenes Imports
 // ----------------------------
-import Trainings from './screens/Trainings';
-import Chrono from './screens/Chrono.js';
-import EditableList from './screens/EditableList';
-import Editing from './screens/Editing';
-import Test from './components/test';
-
+import Trainings from '../screens/Trainings';
+import Chrono from '../screens/Chrono.js';
+import EditableList from '../screens/EditableList';
+import Editing from '../screens/Editing';
+import Test from '../components/test';
 
 
 const HomeStack = createStackNavigator({
   Home: Trainings,
-  Chrono: Chrono,
+  Chrono,
 });
 
 const EditStack = createStackNavigator({
@@ -24,7 +23,7 @@ const EditStack = createStackNavigator({
   EditTraining: Editing,
 });
 const TestStack = createStackNavigator({
-  Test: Test
+  Test
 });
 
 const InitialNavigator = createBottomTabNavigator({
@@ -36,12 +35,12 @@ const InitialNavigator = createBottomTabNavigator({
   defaultNavigationOptions: ({ navigation }) => ({
     tabBarIcon: ({ focused, tintColor }) => {
       const { routeName } = navigation.state;
-      let IconComponent = Ionicons;
+      const IconComponent = Ionicons;
       let iconName;
       if (routeName === 'Home') {
-        iconName = `ios-time`;
+        iconName = 'ios-time';
       } else if (routeName === 'Edit') {
-        iconName = `ios-hammer`;
+        iconName = 'ios-hammer';
       }
 
       // You can return any component that you like here!
@@ -51,10 +50,7 @@ const InitialNavigator = createBottomTabNavigator({
   tabBarOptions: {
     inactiveTintColor: 'gray',
   },
-})
+});
 
 
-  export default createAppContainer(InitialNavigator)
-
-
-
+export default createAppContainer(InitialNavigator);

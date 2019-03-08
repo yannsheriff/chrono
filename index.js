@@ -1,23 +1,22 @@
 import { AppRegistry } from 'react-native';
-import React, { Component } from 'react'
-import { Provider } from 'react-redux'
-import Store from './app/store'
-import Loading from './app/screens/Loader'
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import Store from './app/config/store';
+import Loading from './app/screens/Loader';
 
 class App extends Component {
-    constructor() {
-        super()
-        console.disableYellowBox = true
-    }
+  constructor() {
+    super();
+    console.disableYellowBox = true;
+  }
 
-    render() {
-            return  (
-                <Provider store={Store}>
-                    <Loading />
-                </Provider>
-            )
-        
-    }
+  render() {
+    return (
+      <Provider store={Store}>
+        <Loading />
+      </Provider>
+    );
+  }
 }
 
 
