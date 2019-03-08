@@ -1,45 +1,44 @@
-import { changeScreen } from '../actions/screenActions'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import TrainingList from '../components/trainingList'
-
+import { changeScreen } from '../actions/screenActions';
+import TrainingList from '../components/trainingList';
 
 
 class Trainings extends Component {
     static navigationOptions = {
-        headerMode: 'none',
+      headerMode: 'none',
     };
+
     render() {
-        return (
-            <TrainingList 
-                trainings={ this.props.trainingsState.trainings } 
-                navigation={ this.props.navigation }
-            />
-        );
+      return (
+        <TrainingList
+          trainings={this.props.trainingsState.trainings}
+          navigation={this.props.navigation}
+        />
+      );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        screenState: state.screenReducer,
-        trainingsState: state.trainingsReducer
-    }
-}
+/* ===============================================================
+  ======================= REDUX CONNECTION =======================
+  ================================================================ */
+
+const mapStateToProps = state => ({
+  screenState: state.screenReducer,
+  trainingsState: state.trainingsReducer
+});
 
 
-const mapDispatchToProps = dispatch => {
-    return {
-        changeScreen: () => {
-            dispatch(changeScreen())
-        }
-    }
-}
-
+const mapDispatchToProps = dispatch => ({
+  changeScreen: () => {
+    dispatch(changeScreen());
+  }
+});
 
 
 const componentContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Trainings)
+  mapStateToProps,
+  mapDispatchToProps
+)(Trainings);
 
-export default componentContainer
+export default componentContainer;

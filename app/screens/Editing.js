@@ -1,55 +1,50 @@
-import { newTraining, updateTraining } from "../actions/trainingsActions";
-import { connect } from "react-redux";
-import React, { Component } from "react";
-import Phase from "../components/Phase";
-import DurationPicker from "../components/DurationPicker";
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import {
   View,
-  Text,
   Button,
   ScrollView,
   TextInput,
   Animated,
   Keyboard
-} from "react-native";
-import screen from "../helpers/ScreenSize";
+} from 'react-native';
+import { newTraining, updateTraining } from '../actions/trainingsActions';
+import Phase from '../components/Phase';
+import DurationPicker from '../components/DurationPicker';
 
 class Editing extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerRight: (
-        <Button
-          onPress={() => {
-            navigation.goBack();
-          }}
-          title="save"
-        />
-      )
-    };
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerRight: (
+      <Button
+        onPress={() => {
+          navigation.goBack();
+        }}
+        title="save"
+      />
+    )
+  });
 
   constructor(props) {
     super(props);
 
-    var isNewTraining =
-      props.navigation.getParam("trainingIndex") !== undefined ? false : true;
+    const isNewTraining = props.navigation.getParam('trainingIndex') === undefined;
     this.trainingId = isNewTraining
       ? props.trainingsState.trainings.length
-      : props.navigation.getParam("trainingIndex");
-    var hydrateTraining = isNewTraining
+      : props.navigation.getParam('trainingIndex');
+    const hydrateTraining = isNewTraining
       ? {
-          name: "New training",
-          phases: [
-            {
-              name: "phase 1",
-              repetitions: 1,
-              steps: []
-            }
-          ]
-        }
+        name: 'New training',
+        phases: [
+          {
+            name: 'phase 1',
+            repetitions: 1,
+            steps: []
+          }
+        ]
+      }
       : {
-          ...props.trainingsState.trainings[this.trainingId]
-        };
+        ...props.trainingsState.trainings[this.trainingId]
+      };
 
     this.training = hydrateTraining;
     this.state = {
@@ -69,13 +64,9 @@ class Editing extends Component {
     this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
   }
 
-  componentWillUnmount() {
-    this.keyboardWillShowSub.remove();
-    this.keyboardWillHideSub.remove();
-  }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.pickerState.isVisible) {
+    if (nextProps.pickerState.isVisible) {
       Animated.timing(this.keyboardHeight, {
         duration: 100,
         toValue: 250
@@ -85,43 +76,14 @@ class Editing extends Component {
         duration: 100,
         toValue: 0
       }).start();
-    }    
+    }
   }
 
-  keyboardWillShow = (event) => {
-      Animated.timing(this.keyboardHeight, {
-        duration: event.duration,
-        toValue: event.startCoordinates.height - 30,
-      }).start();
-  };
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
 
-  keyboardWillHide = (event) => {
-      Animated.timing(this.keyboardHeight, {
-        duration: event.duration,
-        toValue: 0,
-      }).start();
-  };
-  
-
-  newPhase = () => {
-    var phaseNumber = this.training.phases.length + 1;
-    let timeStamp = Math.round(new Date().getTime() / 1000);
-    var phases = this.training.phases.concat({
-      name: "phase " + phaseNumber,
-      repetitions: 1,
-      steps: [
-        {
-          name: null,
-          duration: null,
-          key: "s-" + timeStamp
-        }
-      ]
-    });
-    this.training.phases = phases;
-    this.setState({
-      training: this.training
-    });
-  };
 
   onPhaseUpdate(phaseId, payload) {
     if (payload) {
@@ -140,7 +102,42 @@ class Editing extends Component {
     }
   }
 
-  updateName = value => {
+  newPhase = () => {
+    const phaseNumber = this.training.phases.length + 1;
+    const timeStamp = Math.round(new Date().getTime() / 1000);
+    const phases = this.training.phases.concat({
+      name: `phase ${phaseNumber}`,
+      repetitions: 1,
+      steps: [
+        {
+          name: null,
+          duration: null,
+          key: `s-${timeStamp}`
+        }
+      ]
+    });
+    this.training.phases = phases;
+    this.setState({
+      training: this.training
+    });
+  };
+
+  keyboardWillShow = (event) => {
+    Animated.timing(this.keyboardHeight, {
+      duration: event.duration,
+      toValue: event.startCoordinates.height - 30,
+    }).start();
+  };
+
+  keyboardWillHide = (event) => {
+    Animated.timing(this.keyboardHeight, {
+      duration: event.duration,
+      toValue: 0,
+    }).start();
+  };
+
+
+  updateName = (value) => {
     this.training.name = value;
     this.setState({
       training: {
@@ -155,34 +152,32 @@ class Editing extends Component {
   };
 
   render() {
-    var phases = this.state.training.phases.map((element, index) => {
-      return (
-        <Phase
-          name={element.name}
-          repetitions={element.repetitions}
-          steps={element.steps}
-          key={index}
-          phaseDidUpdate={payload => {
-            this.onPhaseUpdate(index, payload);
-          }}
-        />
-      );
-    });
+    const phases = this.state.training.phases.map((element, index) => (
+      <Phase
+        name={element.name}
+        repetitions={element.repetitions}
+        steps={element.steps}
+        key={index}
+        phaseDidUpdate={(payload) => {
+          this.onPhaseUpdate(index, payload);
+        }}
+      />
+    ));
     return (
       <View
         style={{
-          flexDirection: "column",
-          height: "100%",
-          justifyContent: "flex-start"
+          flexDirection: 'column',
+          height: '100%',
+          justifyContent: 'flex-start'
         }}
       >
         <Animated.View
           style={{ paddingBottom: this.keyboardHeight }}
         >
           <ScrollView
-            contentContainerStyle={{ alignItems: "center" }}
+            contentContainerStyle={{ alignItems: 'center' }}
             style={{ flexGrow: 2 }}
-            ref={(ref)=>{this.scrollView = ref}}
+            ref={(ref) => { this.scrollView = ref; }}
           >
             <TextInput
               value={this.state.training.name}
@@ -191,14 +186,14 @@ class Editing extends Component {
               style={{
                 fontSize: 40,
                 marginVertical: 20,
-                fontWeight: "bold",
+                fontWeight: 'bold',
                 borderWidth: 0,
-                alignSelf: "flex-start",
+                alignSelf: 'flex-start',
                 paddingLeft: 20
               }}
             />
             {phases}
-            <Button title={"+"} onPress={this.newPhase} />
+            <Button title="+" onPress={this.newPhase} />
           </ScrollView>
         </Animated.View>
 
@@ -216,24 +211,20 @@ class Editing extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    screenState: state.screenReducer,
-    trainingsState: state.trainingsReducer,
-    pickerState: state.pickerReducer
-  };
-};
+const mapStateToProps = state => ({
+  screenState: state.screenReducer,
+  trainingsState: state.trainingsReducer,
+  pickerState: state.pickerReducer
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    newTraining: training => {
-      dispatch(newTraining(training));
-    },
-    updateTraining: (trainingId, training) => {
-      dispatch(updateTraining(trainingId, training));
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  newTraining: (training) => {
+    dispatch(newTraining(training));
+  },
+  updateTraining: (trainingId, training) => {
+    dispatch(updateTraining(trainingId, training));
+  }
+});
 
 const componentContainer = connect(
   mapStateToProps,

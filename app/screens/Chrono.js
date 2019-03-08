@@ -5,13 +5,13 @@ import {
   Button,
   TouchableOpacity,
   Alert
-} from "react-native";
-import React, { Component } from "react";
-import StepList from "../components/stepList";
-import ChronoRemote from "../components/ChronoRemote";
+} from 'react-native';
+import React, { Component } from 'react';
 import moment from "moment";
-import screen from "../helpers/ScreenSize";
-import { musiques } from '../assets/sound'
+import StepList from "../components/stepList";
+import ChronoRemote from "../components/ChronoRemote/ChronoRemote";
+import screen from '../helpers/ScreenSize';
+import { musiques } from '../assets/sound';
 import Sound from 'react-native-sound';
 import KeepAwake from 'react-native-keep-awake';
 
@@ -19,9 +19,9 @@ import KeepAwake from 'react-native-keep-awake';
 export default class Chrono extends Component {
   constructor(props) {
     super(props);
-    this.soundIsPlaying = false
+    this.soundIsPlaying = false;
     this.state = {
-      completeTraining: props.navigation.getParam("training"),
+      completeTraining: props.navigation.getParam('training'),
       currentStep: {},
       currentStepIndex: 0,
       currentTimer: null,
@@ -36,7 +36,7 @@ export default class Chrono extends Component {
         console.log('failed to load the sound', error);
       }
 
-      console.log('duration in seconds: ' + this.bip.getDuration())
+      console.log(`duration in seconds: ${  this.bip.getDuration()}`);
       this.bip.setVolume(0.1);
     });
     this.whoop = new Sound(musiques.whoop, (error) => {
@@ -47,10 +47,10 @@ export default class Chrono extends Component {
   }
 
   componentDidMount() {
-    var training = this.props.navigation.getParam("training");
-    training.phases.forEach(element => {
+    let training = this.props.navigation.getParam('training');
+    training.phases.forEach((element) => {
       for (let index = 0; index < element.repetitions; index++) {
-        element.steps.forEach(element => {
+        element.steps.forEach((element) => {
           this.steps.push(element);
         });
       }
@@ -79,28 +79,28 @@ export default class Chrono extends Component {
   };
 
   resumeCurrentStep = () => {
-    var endTime = moment()
-      .add(this.state.currentTimer, "second")
+    let endTime = moment()
+      .add(this.state.currentTimer, 'second')
       .toDate()
       .getTime();
     this.launchChrono(endTime);
   };
 
   startCurrentStep = () => {
-    var endTime = moment()
+    let endTime = moment()
       .add(this.state.currentStep.duration, 'seconds')
       .toDate()
       .getTime();
-    this.isLongPhase = this.state.currentStep.duration > 20 ? true : false
+    this.isLongPhase = this.state.currentStep.duration > 20;
     this.launchChrono(endTime);
   };
 
-  launchChrono = endTime => {
+  launchChrono = (endTime) => {
     this.chrono = setInterval(() => {
-      var now = new Date().getTime()
-      var sub = endTime - now
-      var seconds = sub / 1000
-      var percentage = 100 - (seconds / this.state.currentStep.duration) * 100
+      let now = new Date().getTime();
+      let sub = endTime - now;
+      let seconds = sub / 1000;
+      let percentage = 100 - (seconds / this.state.currentStep.duration) * 100;
       this.setState({
         currentTimer: seconds,
         currentStepProgress: percentage,
@@ -109,22 +109,26 @@ export default class Chrono extends Component {
       });
 
       if (percentage < 50 && percentage > 49 && this.isLongPhase) {
-        this.bip.play()
+        this.bip.play();
       }
 
       if (seconds <= 2.1 && !this.soundIsPlaying) {
-        this.soundIsPlaying = true
-        this.bip.play((success)=>{ if (success) {
-          this.soundIsPlaying = false
-        }})
+        this.soundIsPlaying = true;
+        this.bip.play((success) => {
+ if (success) {
+          this.soundIsPlaying = false;
+        } 
+});
       }
       if (sub <= 0) {
-        this.soundIsPlaying = true
-        this.whoop.play((success)=>{ if (success) {
-          this.soundIsPlaying = false
-        }})
-        clearInterval(this.chrono)
-        this.stepDidEnd()
+        this.soundIsPlaying = true;
+        this.whoop.play((success) => {
+ if (success) {
+          this.soundIsPlaying = false;
+        } 
+});
+        clearInterval(this.chrono);
+        this.stepDidEnd();
       }
     }, 50);
   };
@@ -134,7 +138,7 @@ export default class Chrono extends Component {
       this.setNextStep();
     } else {
       this.setState({ currentTimer: 0 });
-      Alert.alert("End", "well Done you finished");
+      Alert.alert('End', 'well Done you finished');
     }
   };
 
@@ -161,7 +165,7 @@ export default class Chrono extends Component {
   };
 
   render() {
-    var actualTimer = this.state.currentStep ? this.state.currentTimer : "null";
+    let actualTimer = this.state.currentStep ? this.state.currentTimer : 'null';
 
     return (
       <View style={styles.container}>
@@ -191,17 +195,17 @@ export default class Chrono extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    height: "100%",
-    justifyContent: "flex-start"
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'flex-start'
   },
   chrono: {
-    justifyContent: "center", 
+    justifyContent: 'center',
     alignItems: 'center',
-    height: screen.height/2.5, 
+    height: screen.height / 2.5,
     backgroundColor: '#f4f4f4'
   },
   centerText: {
-    fontSize: 90, 
+    fontSize: 90,
   }
 });
