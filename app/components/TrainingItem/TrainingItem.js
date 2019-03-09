@@ -83,13 +83,16 @@ export default class IconDrawer extends Component {
             animatedValueX={this._deltaX}
           >
             <View style={{
-              height: 75, backgroundColor: '#e0e0e0', borderRadius: 10, flexDirection: 'row'
+              height: 100, backgroundColor: '#e0e0e0', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20
             }}
             >
-              <View style={{ backgroundColor: 'red', borderRadius: 50 }}>
+              <View style={{
+                borderColor: '#ffcb18', borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
+              }}
+              >
                 <Text>11min</Text>
               </View>
-              <View>
+              <View style={{ marginLeft: 20 }}>
                 <Text>Les belles fesses</Text>
                 <Text>8 séquences</Text>
               </View>
@@ -105,7 +108,7 @@ export default class IconDrawer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 75,
+    height: 100,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

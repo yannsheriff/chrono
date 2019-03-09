@@ -33,7 +33,9 @@ export default class trainingList extends Component {
         >
 
           <TrainingItem
-            data={el}
+            name={el.name}
+            duration={duration}
+            difficulty="easy"
           />
 
         </TouchableHighlight>
