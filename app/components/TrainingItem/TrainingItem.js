@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Animated, Text, TouchableOpacity, TouchableWithoutFeedback
+  StyleSheet, View, Animated, Text, TouchableOpacity, TouchableWithoutFeedback, Image
 } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { font_bold, font, mainColor } from '../../config/style';
+import { icons } from '../../assets/img';
 
 export default class IconDrawer extends Component {
   constructor(props) {
@@ -47,9 +48,16 @@ export default class IconDrawer extends Component {
                 ]}
             >
               <TouchableOpacity
-                style={{ height: '100%', width: '100%' }}
+                style={{
+                  height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
+                }}
                 onPress={() => { this.props.onDuplicate(); }}
-              />
+              >
+                <Image
+                  source={icons.duplicate}
+                  style={{ height: 20, width: 20 }}
+                />
+              </TouchableOpacity>
             </Animated.View>
             <Animated.View style={
                 [styles.button, {
@@ -67,9 +75,16 @@ export default class IconDrawer extends Component {
                 ]}
             >
               <TouchableOpacity
-                style={{ height: '100%', width: '100%' }}
-                onPress={() => { this.props.onEdit(); }}
-              />
+                style={{
+                  height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
+                }}
+                onPress={() => { this.props.onDelete(); }}
+              >
+                <Image
+                  source={icons.trash}
+                  style={{ height: 20, width: 20 }}
+                />
+              </TouchableOpacity>
             </Animated.View>
             <Animated.View style={
                 [styles.button, {
@@ -87,9 +102,16 @@ export default class IconDrawer extends Component {
                 ]}
             >
               <TouchableOpacity
-                style={{ height: '100%', width: '100%' }}
+                style={{
+                  height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
+                }}
                 onPress={() => { this.props.onDelete(); }}
-              />
+              >
+                <Image
+                  source={icons.edit}
+                  style={{ height: 20, width: 20 }}
+                />
+              </TouchableOpacity>
             </Animated.View>
           </View>
 
