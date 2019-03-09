@@ -2,7 +2,7 @@ import {
   put, takeEvery, all, select
 } from 'redux-saga/effects';
 import { REQUEST_STORE, populateStore } from '../actions/loading';
-import { UPDATE_TRAINING } from '../actions/trainingsActions';
+import { UPDATE_TRAINING, REMOVE_TRAINING } from '../actions/trainingsActions';
 import { storeService } from '../../helpers/storeService';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -23,7 +23,7 @@ export function* dispatchPopulateStore() {
 }
 
 export function* watchTrainingUpdate() {
-  yield takeEvery(UPDATE_TRAINING, saveTrainings);
+  yield takeEvery([UPDATE_TRAINING, REMOVE_TRAINING], saveTrainings);
 }
 
 export function* watchPopulateStore() {
