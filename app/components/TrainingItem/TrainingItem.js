@@ -3,7 +3,9 @@ import {
   StyleSheet, View, Animated, Text, TouchableOpacity, TouchableWithoutFeedback, Image
 } from 'react-native';
 import Interactable from 'react-native-interactable';
-import { font_bold, font, mainColor } from '../../config/style';
+import {
+  font_bold, font, mainColor, secondColor
+} from '../../config/style';
 import { icons } from '../../assets/img';
 
 export default class IconDrawer extends Component {
@@ -24,12 +26,12 @@ export default class IconDrawer extends Component {
       <View style={styles.container}>
         <View style={{
           width: '80%',
-          borderRadius: 10
+          borderRadius: 10,
         }}
         >
 
           <View style={{
-            position: 'absolute', right: 0, height: 75, flexDirection: 'row', alignItems: 'center'
+            position: 'absolute', right: 0, height: 100, flexDirection: 'row', alignItems: 'center'
           }}
           >
             <Animated.View style={
@@ -70,7 +72,7 @@ export default class IconDrawer extends Component {
                       inputRange: [-165, -165, -115, -115],
                       outputRange: [1, 1, 0.8, 0.8]
                     })
-                  }]
+                  }],
                 }
                 ]}
             >
@@ -82,7 +84,7 @@ export default class IconDrawer extends Component {
               >
                 <Image
                   source={icons.trash}
-                  style={{ height: 20, width: 20 }}
+                  style={{ height: 22, width: 17 }}
                 />
               </TouchableOpacity>
             </Animated.View>
@@ -97,8 +99,9 @@ export default class IconDrawer extends Component {
                       inputRange: [-100, -100, -50, -50],
                       outputRange: [1, 1, 0.8, 0.8]
                     })
-                  }]
-                }
+                  }],
+                  backgroundColor: secondColor
+                },
                 ]}
             >
               <TouchableOpacity
@@ -126,7 +129,7 @@ export default class IconDrawer extends Component {
             <TouchableWithoutFeedback onPress={() => { this.props.onOpen(); }}>
 
               <View style={{
-                height: 100, backgroundColor: '#e0e0e0', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20
+                height: 100, backgroundColor: 'white', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20
               }}
               >
                 <View style={{
@@ -136,8 +139,20 @@ export default class IconDrawer extends Component {
                   <Text style={{ fontFamily: font_bold }}>{this.props.duration}</Text>
                 </View>
                 <View style={{ marginLeft: 20 }}>
-                  <Text style={{ fontFamily: font_bold }}>{this.props.name}</Text>
-                  <Text style={{ fontFamily: font }}>8 séquences</Text>
+                  <Text style={{
+                    fontFamily: font_bold, fontSize: 18, color: secondColor, marginBottom: 5
+                  }}
+                  >
+                    {this.props.name}
+
+                  </Text>
+                  <Text style={{
+                    fontFamily: font, fontSize: 14, color: secondColor, opacity: 0.5
+                  }}
+                  >
+8 séquences
+
+                  </Text>
                 </View>
 
               </View>
@@ -156,13 +171,13 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: mainColor,
   },
   button: {
     width: 50,
     height: 50,
     marginRight: 15,
     borderRadius: 50,
-    backgroundColor: '#EE2C38'
+    backgroundColor: 'white'
   }
 });

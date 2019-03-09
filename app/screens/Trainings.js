@@ -4,16 +4,17 @@ import { Text, View, StyleSheet } from 'react-native';
 import { changeScreen } from '../redux/actions/screenActions';
 import { removeTraining, newTraining } from '../redux/actions/trainingsActions';
 import TrainingList from '../components/trainingList';
+import { mainColor } from '../config/style';
 
 
 class Trainings extends Component {
     static navigationOptions = {
-      headerMode: 'none',
+      header: null
     };
 
     render() {
       return (
-        <View>
+        <View style={{ backgroundColor: mainColor, height: '100%', paddingTop: '15%' }}>
           <Text style={styles.text}>Hey Dude, </Text>
           <Text style={{ ...styles.text, marginBottom: 30 }}>What do you want to do today ? </Text>
           <TrainingList
