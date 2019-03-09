@@ -150,8 +150,9 @@ export default class IconDrawer extends Component {
                     fontFamily: font, fontSize: 14, color: secondColor, opacity: 0.5
                   }}
                   >
-8 séquences
-
+                    {this.props.rounds}
+                    {' '}
+rounds
                   </Text>
                 </View>
 

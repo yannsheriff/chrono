@@ -31,6 +31,16 @@ export default class trainingList extends Component {
     return formatedTotal;
   }
 
+  getTotalRounds = (el) => {
+    const reduce = (accumulator, currentValue) => accumulator + currentValue;
+    const concatTable = el.phases.map((phase) => {
+      const steps = phase.steps.length;
+      return steps * phase.repetitions;
+    });
+    const total = concatTable.reduce(reduce, 0);
+    return total;
+  }
+
   edit = (id) => {
     this.props.navigation.navigate('EditTraining', { trainingIndex: id });
   }
@@ -68,14 +78,16 @@ export default class trainingList extends Component {
   render() {
     const trainings = this.props.trainings.map((el, index) => {
       const duration = this.getTotalTime(el);
+      const rounds = this.getTotalRounds(el);
 
       return (
         <View
-          style={{ marginVertical: 10, width: '100%' }}
+          style={{ marginVertical: 12, width: '100%' }}
         >
           <TrainingItem
             name={el.name}
             duration={duration}
+            rounds={rounds}
             isDragging={index === this.state.actualyDraging}
             onDelete={() => this.delete(index)}
             onDuplicate={() => this.duplicate(el)}
