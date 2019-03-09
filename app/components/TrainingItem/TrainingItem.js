@@ -44,7 +44,12 @@ export default class IconDrawer extends Component {
                   }]
                 }
                 ]}
-            />
+            >
+              <TouchableOpacity
+                style={{ height: '100%', width: '100%' }}
+                onPress={() => { this.props.onDuplicate(); }}
+              />
+            </Animated.View>
             <Animated.View style={
                 [styles.button, {
                   opacity: this._deltaX.interpolate({

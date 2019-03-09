@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { changeScreen } from '../redux/actions/screenActions';
-import { removeTraining } from '../redux/actions/trainingsActions';
+import { removeTraining, newTraining } from '../redux/actions/trainingsActions';
 import TrainingList from '../components/trainingList';
 
 
@@ -20,6 +20,7 @@ class Trainings extends Component {
             trainings={this.props.trainingsState.trainings}
             navigation={this.props.navigation}
             onTrainingDeletionRequest={id => this.props.removeTraining(id)}
+            onNewTrainingRequest={training => this.props.newTraining(training)}
           />
         </View>
       );
@@ -54,6 +55,9 @@ const mapDispatchToProps = dispatch => ({
   },
   removeTraining: (id) => {
     dispatch(removeTraining(id));
+  },
+  newTraining: (training) => {
+    dispatch(newTraining(training));
   }
 });
 

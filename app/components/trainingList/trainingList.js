@@ -43,8 +43,8 @@ export default class trainingList extends Component {
     ]);
   }
 
-  duplicate = (id) => {
-
+  duplicate = (training) => {
+    this.props.onNewTrainingRequest(training);
   }
 
   open = (el) => {
@@ -63,7 +63,7 @@ export default class trainingList extends Component {
             name={el.name}
             duration={duration}
             onDelete={() => this.delete(index)}
-            onDuplicate={() => this.duplicate(index)}
+            onDuplicate={() => this.duplicate(el)}
             onEdit={() => this.edit(index)}
             onOpen={() => this.open(el)}
             difficulty="easy"
