@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Animated, Text, TouchableOpacity, Alert
+  StyleSheet, View, Animated, Text, TouchableOpacity, TouchableWithoutFeedback
 } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { font_bold, font, mainColor } from '../../config/style';
@@ -59,7 +59,12 @@ export default class IconDrawer extends Component {
                   }]
                 }
                 ]}
-            />
+            >
+              <TouchableOpacity
+                style={{ height: '100%', width: '100%' }}
+                onPress={() => { this.props.onEdit(); }}
+              />
+            </Animated.View>
             <Animated.View style={
                 [styles.button, {
                   opacity: this._deltaX.interpolate({
@@ -88,22 +93,25 @@ export default class IconDrawer extends Component {
             onSnap={this.onDrawerSnap}
             animatedValueX={this._deltaX}
           >
-            <View style={{
-              height: 100, backgroundColor: '#e0e0e0', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20
-            }}
-            >
+            <TouchableWithoutFeedback onPress={() => { this.props.onOpen(); }}>
+
               <View style={{
-                borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
+                height: 100, backgroundColor: '#e0e0e0', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20
               }}
               >
-                <Text style={{ fontFamily: font_bold }}>{this.props.duration}</Text>
-              </View>
-              <View style={{ marginLeft: 20 }}>
-                <Text style={{ fontFamily: font_bold }}>{this.props.name}</Text>
-                <Text style={{ fontFamily: font }}>8 séquences</Text>
-              </View>
+                <View style={{
+                  borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
+                }}
+                >
+                  <Text style={{ fontFamily: font_bold }}>{this.props.duration}</Text>
+                </View>
+                <View style={{ marginLeft: 20 }}>
+                  <Text style={{ fontFamily: font_bold }}>{this.props.name}</Text>
+                  <Text style={{ fontFamily: font }}>8 séquences</Text>
+                </View>
 
-            </View>
+              </View>
+            </TouchableWithoutFeedback>
           </Interactable.View>
 
         </View>

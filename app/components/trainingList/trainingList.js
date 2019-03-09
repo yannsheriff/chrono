@@ -24,7 +24,7 @@ export default class trainingList extends Component {
   }
 
   edit = (id) => {
-
+    this.props.navigation.navigate('EditTraining', { trainingIndex: id });
   }
 
   delete = (id) => {
@@ -63,8 +63,8 @@ export default class trainingList extends Component {
             name={el.name}
             duration={duration}
             onDelete={() => this.delete(index)}
-            onDuplicate={this.duplicate}
-            onEdit={this.edit}
+            onDuplicate={() => this.duplicate(index)}
+            onEdit={() => this.edit(index)}
             onOpen={() => this.open(el)}
             difficulty="easy"
           />
