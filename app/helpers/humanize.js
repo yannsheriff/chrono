@@ -10,4 +10,13 @@ export function humanize(sec_num) {
   return hours + minutes + seconds;
 }
 
+export function minutes(sec_num) {
+  const hours = Math.floor(sec_num / 3600);
+  let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+
+
+  minutes = minutes > 0 ? `${minutes} min ` : ' < 1 min';
+  return minutes;
+}
+
 export const test = 'tedst';

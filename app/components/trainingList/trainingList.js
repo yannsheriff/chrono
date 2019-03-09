@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
-import { humanize } from '../../helpers/humanize';
+import { minutes } from '../../helpers/humanize';
 
 
 export default class trainingList extends Component {
@@ -18,7 +18,7 @@ export default class trainingList extends Component {
       return time * phase.repetitions;
     });
     const total = concatTable.reduce(reduce, 0);
-    const formatedTotal = humanize(total);
+    const formatedTotal = minutes(total);
     return formatedTotal;
   }
 

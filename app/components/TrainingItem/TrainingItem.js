@@ -91,11 +91,11 @@ export default class IconDrawer extends Component {
                 borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
               }}
               >
-                <Text style={{ fontFamily: font_bold }}>11min</Text>
+                <Text style={{ fontFamily: font_bold }}>{this.props.duration}</Text>
               </View>
               <View style={{ marginLeft: 20 }}>
-                <Text>Les belles fesses</Text>
-                <Text>8 séquences</Text>
+                <Text style={{ fontFamily: font_bold }}>{this.props.name}</Text>
+                <Text style={{ fontFamily: font }}>8 séquences</Text>
               </View>
 
             </View>
