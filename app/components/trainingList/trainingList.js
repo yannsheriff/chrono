@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import {
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  Alert
 } from 'react-native';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
@@ -22,24 +23,52 @@ export default class trainingList extends Component {
     return formatedTotal;
   }
 
+  edit = (id) => {
+
+  }
+
+  delete = (id) => {
+    Alert.alert('Are you sure ?', 'Do you really want to delete this training ?', [
+      {
+        text: 'yes',
+        onPress: () => {
+          this.props.onTrainingDeletionRequest(id);
+        },
+        style: 'destructive'
+      },
+      {
+        text: 'cancel',
+        style: 'cancel'
+      }
+    ]);
+  }
+
+  duplicate = (id) => {
+
+  }
+
+  open = (el) => {
+    this.props.navigation.navigate('Chrono', { training: el });
+  }
+
   render() {
-    const trainings = this.props.trainings.map((el) => {
+    const trainings = this.props.trainings.map((el, index) => {
       const duration = this.getTotalTime(el);
 
       return (
-        <TouchableHighlight
+        <View
           style={{ marginVertical: 10, width: '100%' }}
-          onPress={() => this.props.navigation.navigate('Chrono', { training: el })}
         >
-
           <TrainingItem
             name={el.name}
             duration={duration}
+            onDelete={() => this.delete(index)}
+            onDuplicate={this.duplicate}
+            onEdit={this.edit}
+            onOpen={() => this.open(el)}
             difficulty="easy"
           />
-
-        </TouchableHighlight>
-
+        </View>
       );
     });
 

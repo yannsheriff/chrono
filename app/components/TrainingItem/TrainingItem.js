@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Animated, Text
+  StyleSheet, View, Animated, Text, TouchableOpacity, Alert
 } from 'react-native';
 import Interactable from 'react-native-interactable';
 import { font_bold, font, mainColor } from '../../config/style';
@@ -74,7 +74,12 @@ export default class IconDrawer extends Component {
                   }]
                 }
                 ]}
-            />
+            >
+              <TouchableOpacity
+                style={{ height: '100%', width: '100%' }}
+                onPress={() => { this.props.onDelete(); }}
+              />
+            </Animated.View>
           </View>
 
           <Interactable.View
