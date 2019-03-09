@@ -7,16 +7,27 @@ export default class IconDrawer extends Component {
     super(props);
     this._deltaX = new Animated.Value(0);
   }
+
+  onDrawerSnap(event) {
+    const snapPointId = event.nativeEvent.id;
+    console.log(`drawer state is ${snapPointId}`);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-          <View style={{
-            //   backgroundColor: '#32B76C', 
-              width: '80%', 
-              borderRadius: 10 }}>
+        <View style={{
+          //   backgroundColor: '#32B76C',
+          width: '80%',
+          borderRadius: 10
+        }}
+        >
 
-            <View style={{position: 'absolute', right: 0, height: 75, flexDirection: 'row', alignItems: 'center'}}>
-              <Animated.View style={
+          <View style={{
+            position: 'absolute', right: 0, height: 75, flexDirection: 'row', alignItems: 'center'
+          }}
+          >
+            <Animated.View style={
                 [styles.button, {
                   opacity: this._deltaX.interpolate({
                     inputRange: [-230, -230, -180, -180],
@@ -29,8 +40,9 @@ export default class IconDrawer extends Component {
                     })
                   }]
                 }
-              ]} />
-              <Animated.View style={
+                ]}
+            />
+            <Animated.View style={
                 [styles.button, {
                   opacity: this._deltaX.interpolate({
                     inputRange: [-165, -165, -115, -115],
@@ -43,8 +55,9 @@ export default class IconDrawer extends Component {
                     })
                   }]
                 }
-              ]} />
-              <Animated.View style={
+                ]}
+            />
+            <Animated.View style={
                 [styles.button, {
                   opacity: this._deltaX.interpolate({
                     inputRange: [-100, -100, -50, -50],
@@ -57,24 +70,22 @@ export default class IconDrawer extends Component {
                     })
                   }]
                 }
-              ]} />
-            </View>
-
-            <Interactable.View
-              horizontalOnly={true}
-              snapPoints={[{x: 0, id: 'closed'}, {x: -230, id: 'open'}]}
-              onSnap={this.onDrawerSnap}
-              animatedValueX={this._deltaX}>
-              <View style={{height: 75, backgroundColor: '#e0e0e0', borderRadius: 10}} />
-            </Interactable.View>
-
+                ]}
+            />
           </View>
+
+          <Interactable.View
+            horizontalOnly
+            snapPoints={[{ x: 0, id: 'closed' }, { x: -230, id: 'open' }]}
+            onSnap={this.onDrawerSnap}
+            animatedValueX={this._deltaX}
+          >
+            <View style={{ height: 75, backgroundColor: '#e0e0e0', borderRadius: 10 }} />
+          </Interactable.View>
+
+        </View>
       </View>
     );
-  }
-  onDrawerSnap(event) {
-    const snapPointId = event.nativeEvent.id;
-    console.log(`drawer state is ${snapPointId}`);
   }
 }
 

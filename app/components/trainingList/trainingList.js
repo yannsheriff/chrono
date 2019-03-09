@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  TouchableHighlight
 } from 'react-native';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
@@ -24,27 +25,18 @@ export default class trainingList extends Component {
   render() {
     const trainings = this.props.trainings.map((el) => {
       const duration = this.getTotalTime(el);
-      console.log('TCL: trainingList -> render -> duration', duration);
 
       return (
-        <View style={{ marginVertical: 10, width: '100%' }}>
-          <TrainingItem />
-        </View>
-        // <TouchableOpacity
-        //   style={styles.training}
-        //   onPress={() => this.props.navigation.navigate('Chrono', { training: el })}
-        // >
-        //   <Text>
-        //     {' '}
-        //     { el.name }
-        //     {' '}
-        //   </Text>
-        //   <Text>
-        //     {' '}
-        //     { duration }
-        //     {' '}
-        //   </Text>
-        // </TouchableOpacity>
+        <TouchableHighlight
+          style={{ marginVertical: 10, width: '100%' }}
+          onPress={() => this.props.navigation.navigate('Chrono', { training: el })}
+        >
+
+          <TrainingItem
+            data={el}
+          />
+
+        </TouchableHighlight>
 
       );
     });
