@@ -3,6 +3,7 @@ import {
   StyleSheet, View, Animated, Text
 } from 'react-native';
 import Interactable from 'react-native-interactable';
+import { font_bold, font, mainColor } from '../../config/style';
 
 export default class IconDrawer extends Component {
   constructor(props) {
@@ -87,10 +88,10 @@ export default class IconDrawer extends Component {
             }}
             >
               <View style={{
-                borderColor: '#ffcb18', borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
+                borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
               }}
               >
-                <Text>11min</Text>
+                <Text style={{ fontFamily: font_bold }}>11min</Text>
               </View>
               <View style={{ marginLeft: 20 }}>
                 <Text>Les belles fesses</Text>
