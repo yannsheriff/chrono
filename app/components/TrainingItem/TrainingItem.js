@@ -9,18 +9,19 @@ export default class IconDrawer extends Component {
   constructor(props) {
     super(props);
     this._deltaX = new Animated.Value(0);
+    this.interactable = React.createRef();
   }
 
-  onDrawerSnap(event) {
-    const snapPointId = event.nativeEvent.id;
-    console.log(`drawer state is ${snapPointId}`);
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isDragging) {
+      this.interactable.snapTo({ index: 0 });
+    }
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={{
-          //   backgroundColor: '#32B76C',
           width: '80%',
           borderRadius: 10
         }}
@@ -97,6 +98,8 @@ export default class IconDrawer extends Component {
             snapPoints={[{ x: 0, id: 'closed' }, { x: -230, id: 'open' }]}
             onSnap={this.onDrawerSnap}
             animatedValueX={this._deltaX}
+            onDrag={this.props.onDrag}
+            ref={ref => this.interactable = ref}
           >
             <TouchableWithoutFeedback onPress={() => { this.props.onOpen(); }}>
 

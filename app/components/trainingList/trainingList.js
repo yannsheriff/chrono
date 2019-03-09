@@ -11,6 +11,14 @@ import { minutes } from '../../helpers/humanize';
 
 
 export default class trainingList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      actualyDraging: undefined
+    };
+  }
+
   getTotalTime = (el) => {
     const reduce = (accumulator, currentValue) => accumulator + currentValue;
     const reducePhase = (accumulator, currentValue) => accumulator + currentValue.duration;
@@ -51,6 +59,12 @@ export default class trainingList extends Component {
     this.props.navigation.navigate('Chrono', { training: el });
   }
 
+  onDrag = (index) => {
+    if (index !== this.state.actualyDraging) {
+      this.setState({ actualyDraging: index });
+    }
+  }
+
   render() {
     const trainings = this.props.trainings.map((el, index) => {
       const duration = this.getTotalTime(el);
@@ -62,8 +76,10 @@ export default class trainingList extends Component {
           <TrainingItem
             name={el.name}
             duration={duration}
+            isDragging={index === this.state.actualyDraging}
             onDelete={() => this.delete(index)}
             onDuplicate={() => this.duplicate(el)}
+            onDrag={() => this.onDrag(index)}
             onEdit={() => this.edit(index)}
             onOpen={() => this.open(el)}
             difficulty="easy"
