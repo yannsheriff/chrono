@@ -105,7 +105,7 @@ export default class IconDrawer extends Component {
                 style={{
                   height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
                 }}
-                onPress={() => { this.props.onDelete(); }}
+                onPress={() => { this.props.onEdit(); }}
               >
                 <Image
                   source={icons.edit}
