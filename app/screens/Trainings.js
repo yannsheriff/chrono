@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {
+  Text, View, StyleSheet, ScrollView
+} from 'react-native';
 import { changeScreen } from '../redux/actions/screenActions';
 import { removeTraining, newTraining } from '../redux/actions/trainingsActions';
 import TrainingList from '../components/trainingList';
@@ -14,7 +16,12 @@ class Trainings extends Component {
 
     render() {
       return (
-        <View style={{ backgroundColor: mainColor, height: '100%', paddingTop: '15%' }}>
+        <ScrollView
+          style={{
+            backgroundColor: mainColor, height: '100%',
+          }}
+          contentContainerStyle={{ paddingTop: '15%' }}
+        >
           <Text style={styles.text}>Hey Dude, </Text>
           <Text style={{ ...styles.text, marginBottom: 30 }}>What do you want to do today ? </Text>
           <TrainingList
@@ -23,7 +30,7 @@ class Trainings extends Component {
             onTrainingDeletionRequest={id => this.props.removeTraining(id)}
             onNewTrainingRequest={training => this.props.newTraining(training)}
           />
-        </View>
+        </ScrollView>
       );
     }
 }
