@@ -42,6 +42,7 @@ export default class trainingList extends Component {
   }
 
   edit = (id) => {
+    this.setState({ actualyDraging: undefined });
     this.props.navigation.navigate('EditTraining', { trainingIndex: id });
   }
 
@@ -51,6 +52,7 @@ export default class trainingList extends Component {
         text: 'yes',
         onPress: () => {
           this.props.onTrainingDeletionRequest(id);
+          this.setState({ actualyDraging: undefined });
         },
         style: 'destructive'
       },
@@ -62,10 +64,12 @@ export default class trainingList extends Component {
   }
 
   duplicate = (training) => {
+    this.setState({ actualyDraging: undefined });
     this.props.onNewTrainingRequest(training);
   }
 
   open = (el) => {
+    this.setState({ actualyDraging: undefined });
     this.props.navigation.navigate('Chrono', { training: el });
   }
 
