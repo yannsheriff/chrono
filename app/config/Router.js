@@ -12,39 +12,10 @@ import EditableList from '../screens/EditableList';
 import Editing from '../screens/Editing';
 
 
-const HomeStack = createStackNavigator({
+const InitialNavigator = createStackNavigator({
   Home: Trainings,
   Chrono,
-});
-
-const EditStack = createStackNavigator({
-  TrainingList: EditableList,
   EditTraining: Editing,
-});
-
-const InitialNavigator = createBottomTabNavigator({
-  Home: HomeStack,
-  Edit: EditStack,
-},
-{
-  defaultNavigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ focused, tintColor }) => {
-      const { routeName } = navigation.state;
-      const IconComponent = Ionicons;
-      let iconName;
-      if (routeName === 'Home') {
-        iconName = 'ios-time';
-      } else if (routeName === 'Edit') {
-        iconName = 'ios-hammer';
-      }
-
-      // You can return any component that you like here!
-      return <IconComponent name={iconName} size={25} color={tintColor} />;
-    },
-  }),
-  tabBarOptions: {
-    inactiveTintColor: 'gray',
-  },
 });
 
 
