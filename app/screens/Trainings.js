@@ -33,7 +33,7 @@ class Trainings extends Component {
               onNewTrainingRequest={training => this.props.newTraining(training)}
             />
           </ScrollView>
-          <TouchableOpacity style={styles.add}>
+          <TouchableOpacity style={styles.add} onPress={() => this.props.navigation.navigate('EditTraining')}>
             <Image style={styles.addText} source={icons.add} />
           </TouchableOpacity>
         </View>
