@@ -131,7 +131,19 @@ export default class IconDrawer extends Component {
               <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
 
                 <View style={{
-                  height: 100, backgroundColor: 'white', borderRadius: 15, borderBottomRightRadius: 0, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, width: '85%', position: 'relative'
+                  height: 100,
+                  backgroundColor: 'white',
+                  borderRadius: 15,
+                  borderBottomRightRadius: 0,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingHorizontal: 20,
+                  width: '85%',
+                  position: 'relative',
+                  shadowColor: '#000',
+                  shadowOffset: { width: -8, height: 8 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 10,
                 }}
                 >
                   <View style={{
@@ -161,7 +173,12 @@ rounds
 
                 </View>
                 <View style={{
-                  height: 80, backgroundColor: secondColor, borderRadius: 9, borderBottomLeftRadius: 0, borderTopLeftRadius: 0, width: '15%'
+                  height: 80,
+                  backgroundColor: secondColor,
+                  borderRadius: 9,
+                  borderBottomLeftRadius: 0,
+                  borderTopLeftRadius: 0,
+                  width: '15%',
                 }}
                 >
                   <Text style={{
@@ -195,6 +212,10 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 15,
     borderRadius: 50,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: -8, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
   }
 });
