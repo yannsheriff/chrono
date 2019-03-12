@@ -185,7 +185,7 @@ rounds
                     transform: [{ rotate: '90deg' }], color: 'white', position: 'absolute', bottom: 30, width: 80, left: -20, textAlign: 'center', height: 20, fontFamily: font_bold
                   }}
                   >
-Medium
+                    {this.props.difficulty}
                   </Text>
                 </View>
               </View>

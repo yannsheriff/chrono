@@ -98,7 +98,7 @@ export default class trainingList extends Component {
             onDrag={() => this.onDrag(index)}
             onEdit={() => this.edit(index)}
             onOpen={() => this.open(el)}
-            difficulty="easy"
+            difficulty="Easy"
           />
         </View>
       );
