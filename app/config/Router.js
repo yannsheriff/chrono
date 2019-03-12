@@ -10,7 +10,6 @@ import Trainings from '../screens/Trainings';
 import Chrono from '../screens/Chrono.js';
 import EditableList from '../screens/EditableList';
 import Editing from '../screens/Editing';
-import Test from '../components/test';
 
 
 const HomeStack = createStackNavigator({
@@ -22,14 +21,10 @@ const EditStack = createStackNavigator({
   TrainingList: EditableList,
   EditTraining: Editing,
 });
-const TestStack = createStackNavigator({
-  Test
-});
 
 const InitialNavigator = createBottomTabNavigator({
   Home: HomeStack,
   Edit: EditStack,
-  Test: TestStack
 },
 {
   defaultNavigationOptions: ({ navigation }) => ({
