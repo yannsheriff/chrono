@@ -1,12 +1,24 @@
+// React
 import React, { Component } from 'react';
 import {
-  StyleSheet, View, Animated, Text, TouchableOpacity, TouchableWithoutFeedback, Image
+  View,
+  Animated,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Image
 } from 'react-native';
+
+// Libs
 import Interactable from 'react-native-interactable';
-import {
-  font_bold, font, mainColor, secondColor, mainShadow
-} from '../../config/style';
+
+// config
+import { secondColor } from '../../config/style';
 import { icons } from '../../assets/img';
+import styles from './style';
+
+
+// ----------------------------------------------------------------------------------
 
 export default class IconDrawer extends Component {
   constructor(props) {
@@ -24,16 +36,11 @@ export default class IconDrawer extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{
-          width: '80%',
-          borderRadius: 10,
-        }}
-        >
+        <View style={styles.cardWrapper}>
 
-          <View style={{
-            position: 'absolute', right: 0, height: 100, flexDirection: 'row', alignItems: 'center'
-          }}
-          >
+          {/* Buttons container with animated opacity */}
+
+          <View style={styles.buttonsContainer}>
             <Animated.View style={
                 [styles.button, {
                   opacity: this._deltaX.interpolate({
@@ -50,9 +57,7 @@ export default class IconDrawer extends Component {
                 ]}
             >
               <TouchableOpacity
-                style={{
-                  height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
-                }}
+                style={styles.buttonWrapper}
                 onPress={() => { this.props.onDuplicate(); }}
               >
                 <Image
@@ -77,9 +82,7 @@ export default class IconDrawer extends Component {
                 ]}
             >
               <TouchableOpacity
-                style={{
-                  height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
-                }}
+                style={styles.buttonWrapper}
                 onPress={() => { this.props.onDelete(); }}
               >
                 <Image
@@ -105,9 +108,7 @@ export default class IconDrawer extends Component {
                 ]}
             >
               <TouchableOpacity
-                style={{
-                  height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center'
-                }}
+                style={styles.buttonWrapper}
                 onPress={() => { this.props.onEdit(); }}
               >
                 <Image
@@ -117,6 +118,8 @@ export default class IconDrawer extends Component {
               </TouchableOpacity>
             </Animated.View>
           </View>
+
+          {/* End of Buttons container with animated opacity */}
 
           <Interactable.View
             horizontalOnly
@@ -128,88 +131,37 @@ export default class IconDrawer extends Component {
           >
             <TouchableWithoutFeedback onPress={() => { this.props.onOpen(); }}>
 
-              <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+              {/* Cards  */}
 
-                <View style={{
-                  height: 100,
-                  backgroundColor: 'white',
-                  borderRadius: 15,
-                  borderBottomRightRadius: 0,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: 20,
-                  width: '85%',
-                  position: 'relative',
-                  ...mainShadow
-                }}
-                >
-                  <View style={{
-                    borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
-                  }}
-                  >
-                    <Text style={{ fontFamily: font_bold, textAlign: 'center' }}>{this.props.duration}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+                <View style={styles.card}>
+                  <View style={styles.timeContainer}>
+                    <Text style={styles.timeText}>{this.props.duration}</Text>
                   </View>
                   <View style={{ marginLeft: 20 }}>
-                    <Text style={{
-                      fontFamily: font_bold, fontSize: 18, color: secondColor, marginBottom: 5
-                    }}
-                    >
+                    <Text style={styles.name}>
                       {this.props.name}
-
                     </Text>
-                    <Text style={{
-                      fontFamily: font, fontSize: 14, color: secondColor, opacity: 0.5
-                    }}
-                    >
+                    <Text style={styles.rounds}>
                       {this.props.rounds}
                       {' '}
-rounds
+                      rounds
                     </Text>
-
                   </View>
-
                 </View>
-                <View style={{
-                  height: 80,
-                  backgroundColor: secondColor,
-                  borderRadius: 9,
-                  borderBottomLeftRadius: 0,
-                  borderTopLeftRadius: 0,
-                  width: '15%',
-                }}
-                >
-                  <Text style={{
-                    transform: [{ rotate: '90deg' }], color: 'white', position: 'absolute', bottom: 30, width: 80, left: -20, textAlign: 'center', height: 20, fontFamily: font_bold
-                  }}
-                  >
+                <View style={styles.label}>
+                  <Text style={styles.labelText}>
                     {this.props.difficulty}
                   </Text>
                 </View>
               </View>
 
+              {/* End of Cards  */}
+
             </TouchableWithoutFeedback>
           </Interactable.View>
-
         </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 100,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: mainColor,
-  },
-  button: {
-    width: 50,
-    height: 50,
-    marginRight: 15,
-    borderRadius: 50,
-    backgroundColor: 'white',
-    ...mainShadow
-  }
-});
