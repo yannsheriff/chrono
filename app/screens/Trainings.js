@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import {
-  Text, View, StyleSheet, ScrollView
+  Text, View, StyleSheet, ScrollView, TouchableOpacity, Image
 } from 'react-native';
 import { changeScreen } from '../redux/actions/screenActions';
 import { removeTraining, newTraining } from '../redux/actions/trainingsActions';
 import TrainingList from '../components/trainingList';
-import { mainColor } from '../config/style';
+import { mainColor, secondColor, mainShadow } from '../config/style';
+import { icons } from '../assets/img';
 
 
 class Trainings extends Component {
@@ -16,28 +17,29 @@ class Trainings extends Component {
 
     render() {
       return (
-        <ScrollView
-          style={{
-            backgroundColor: mainColor, height: '100%',
-          }}
-          contentContainerStyle={{ paddingTop: '15%' }}
-        >
-          <Text style={styles.text}>Hey Dude, </Text>
-          <Text style={{ ...styles.text, marginBottom: 30 }}>What do you want to do today ? </Text>
-          <TrainingList
-            trainings={this.props.trainingsState.trainings}
-            navigation={this.props.navigation}
-            onTrainingDeletionRequest={id => this.props.removeTraining(id)}
-            onNewTrainingRequest={training => this.props.newTraining(training)}
-          />
-        </ScrollView>
+        <View>
+          <ScrollView
+            style={{
+              backgroundColor: mainColor, height: '100%',
+            }}
+            contentContainerStyle={{ paddingTop: '15%' }}
+          >
+            <Text style={styles.text}>Hey Dude, </Text>
+            <Text style={{ ...styles.text, marginBottom: 30 }}>What do you want to do today ? </Text>
+            <TrainingList
+              trainings={this.props.trainingsState.trainings}
+              navigation={this.props.navigation}
+              onTrainingDeletionRequest={id => this.props.removeTraining(id)}
+              onNewTrainingRequest={training => this.props.newTraining(training)}
+            />
+          </ScrollView>
+          <TouchableOpacity style={styles.add}>
+            <Image style={styles.addText} source={icons.add} />
+          </TouchableOpacity>
+        </View>
       );
     }
 }
-
-/* ===============================================================
-  ======================= REDUX CONNECTION =======================
-  ================================================================ */
 
 const styles = StyleSheet.create({
   text: {
@@ -47,8 +49,33 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     textAlign: 'left',
     paddingLeft: 25
+  },
+  add: {
+    height: 60,
+    width: 60,
+    borderRadius: 60,
+    backgroundColor: secondColor,
+    position: 'absolute',
+    bottom: '5%',
+    right: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: -4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+  addText: {
+    height: 24,
+    width: 24,
+    color: 'white',
+    lineHeight: 50
   }
 });
+
+/* ===============================================================
+  ======================= REDUX CONNECTION =======================
+  ================================================================ */
 
 
 const mapStateToProps = state => ({

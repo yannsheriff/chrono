@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Interactable from 'react-native-interactable';
 import {
-  font_bold, font, mainColor, secondColor
+  font_bold, font, mainColor, secondColor, mainShadow
 } from '../../config/style';
 import { icons } from '../../assets/img';
 
@@ -140,10 +140,7 @@ export default class IconDrawer extends Component {
                   paddingHorizontal: 20,
                   width: '85%',
                   position: 'relative',
-                  shadowColor: '#000',
-                  shadowOffset: { width: -8, height: 8 },
-                  shadowOpacity: 0.1,
-                  shadowRadius: 10,
+                  ...mainShadow
                 }}
                 >
                   <View style={{
@@ -213,9 +210,6 @@ const styles = StyleSheet.create({
     marginRight: 15,
     borderRadius: 50,
     backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: { width: -8, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    ...mainShadow
   }
 });
