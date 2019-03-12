@@ -128,35 +128,51 @@ export default class IconDrawer extends Component {
           >
             <TouchableWithoutFeedback onPress={() => { this.props.onOpen(); }}>
 
-              <View style={{
-                height: 100, backgroundColor: 'white', borderRadius: 10, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20
-              }}
-              >
+              <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+
                 <View style={{
-                  borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
+                  height: 100, backgroundColor: 'white', borderRadius: 15, borderBottomRightRadius: 0, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, width: '85%', position: 'relative'
                 }}
                 >
-                  <Text style={{ fontFamily: font_bold }}>{this.props.duration}</Text>
-                </View>
-                <View style={{ marginLeft: 20 }}>
-                  <Text style={{
-                    fontFamily: font_bold, fontSize: 18, color: secondColor, marginBottom: 5
+                  <View style={{
+                    borderColor: mainColor, borderWidth: 3, borderRadius: 50, height: 60, width: 60, justifyContent: 'center', alignItems: 'center'
                   }}
                   >
-                    {this.props.name}
+                    <Text style={{ fontFamily: font_bold, textAlign: 'center' }}>{this.props.duration}</Text>
+                  </View>
+                  <View style={{ marginLeft: 20 }}>
+                    <Text style={{
+                      fontFamily: font_bold, fontSize: 18, color: secondColor, marginBottom: 5
+                    }}
+                    >
+                      {this.props.name}
 
-                  </Text>
-                  <Text style={{
-                    fontFamily: font, fontSize: 14, color: secondColor, opacity: 0.5
-                  }}
-                  >
-                    {this.props.rounds}
-                    {' '}
+                    </Text>
+                    <Text style={{
+                      fontFamily: font, fontSize: 14, color: secondColor, opacity: 0.5
+                    }}
+                    >
+                      {this.props.rounds}
+                      {' '}
 rounds
+                    </Text>
+
+                  </View>
+
+                </View>
+                <View style={{
+                  height: 80, backgroundColor: secondColor, borderRadius: 9, borderBottomLeftRadius: 0, borderTopLeftRadius: 0, width: '15%'
+                }}
+                >
+                  <Text style={{
+                    transform: [{ rotate: '90deg' }], color: 'white', position: 'absolute', bottom: 30, width: 80, left: -20, textAlign: 'center', height: 20, fontFamily: font_bold
+                  }}
+                  >
+Medium
                   </Text>
                 </View>
-
               </View>
+
             </TouchableWithoutFeedback>
           </Interactable.View>
 
