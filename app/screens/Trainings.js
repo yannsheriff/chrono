@@ -23,7 +23,7 @@ class Trainings extends Component {
             style={{
               backgroundColor: mainColor, height: '100%',
             }}
-            contentContainerStyle={{ paddingTop: '15%' }}
+            contentContainerStyle={{ paddingTop: '15%', paddingBottom: '27%' }}
           >
             <Text style={styles.text}>Hey Dude, </Text>
             <Text style={{ ...styles.text, marginBottom: 30 }}>What do you want to do today ? </Text>
