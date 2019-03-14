@@ -1,5 +1,5 @@
 import { compare, migrate } from '../../helpers/Migrator';
-import { training, phases, steps } from '../../config/schema';
+import { training, phases, steps } from './schema';
 import { storeService } from '../../helpers/storeService';
 
 

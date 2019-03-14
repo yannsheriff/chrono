@@ -5,6 +5,7 @@ import { REQUEST_STORE, populateStore } from '../actions/loading';
 import { UPDATE_TRAINING, REMOVE_TRAINING } from '../actions/trainingsActions';
 import { storeService } from '../../helpers/storeService';
 import trainingData from '../../data/training';
+import stats from '../../data/stats';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
