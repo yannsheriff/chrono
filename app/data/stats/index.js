@@ -23,7 +23,7 @@ class StatsService {
 
 
   needMigration(dataSaved) {
-    const migrationMap = compareSchema(dataSaved);
+    const migrationMap = this.compareSchema(dataSaved);
     const haveError = migrationMap.find(element => !element);
     if (haveError !== undefined) {
       return true;
@@ -32,7 +32,7 @@ class StatsService {
   }
 
   migrateSchema(dataSaved) {
-    const migrationMap = compareSchema(dataSaved);
+    const migrationMap = this.compareSchema(dataSaved);
     const migrateTraining = migrationMap[0];
 
     let data = [...dataSaved];
@@ -47,9 +47,9 @@ class StatsService {
     const dataSaved = await storeService.get('stats');
     if (dataSaved) {
       console.log('Stats :', dataSaved);
-      const dataNeedMigration = needMigration(dataSaved);
+      const dataNeedMigration = this.needMigration(dataSaved);
       if (dataNeedMigration) {
-        const data = migrateSchema(dataSaved);
+        const data = this.migrateSchema(dataSaved);
         await storeService.set('stats', data);
         return data;
       }
@@ -62,8 +62,13 @@ class StatsService {
 
 
   async saveStats(data) { //  initial state
-    const dataSaved = await storeService.get('stats');
-    dataSaved.push(data);
+    console.log('Saving stats', data);
+    let dataSaved = await storeService.get('stats');
+    if (dataSaved) {
+      dataSaved.push(data);
+    } else {
+      dataSaved = [data];
+    }
     await storeService.set('stats', dataSaved);
   }
 }

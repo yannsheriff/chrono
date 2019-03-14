@@ -20,6 +20,8 @@ export function* saveTrainings(action) {
 export function* dispatchPopulateStore() {
   console.log('Populating data ⏳');
   const data = yield trainingData();
+  const stat = yield stats.loadStats();
+  console.log('stats :', stat);
   yield put(populateStore(data));
   console.log('Populated ✅');
 }

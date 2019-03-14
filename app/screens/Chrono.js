@@ -12,6 +12,7 @@ import StepList from '../components/stepList';
 import ChronoRemote from '../components/ChronoRemote/ChronoRemote';
 import screen from '../helpers/ScreenSize';
 import { musiques } from '../assets/sound';
+import statsData from '../data/stats';
 
 
 export default class Chrono extends Component {
@@ -30,8 +31,7 @@ export default class Chrono extends Component {
 
     this.steps = [];
     this.bip = new Sound(musiques.bip, (error) => {
-      if (error) { 
-w;
+      if (error) {
         console.log('failed to load the sound', error);
       }
 
@@ -136,8 +136,7 @@ w;
     if (this.steps[this.state.currentStepIndex + 1]) {
       this.setNextStep();
     } else {
-      this.setState({ currentTimer: 0 });
-      Alert.alert('End', 'well Done you finished');
+      this.trainingDidEnd();
     }
   };
 
@@ -162,6 +161,13 @@ w;
     clearInterval(this.chrono);
     this.startCurrentStep();
   };
+
+  trainingDidEnd = () => {
+    this.setState({ currentTimer: 0 });
+
+    statsData.saveStats({ date: new Date(), training: this.state.completeTraining });
+    Alert.alert('End', 'well Done you finished');
+  }
 
   render() {
     const actualTimer = this.state.currentStep ? this.state.currentTimer : 'null';
