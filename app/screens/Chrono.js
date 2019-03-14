@@ -13,6 +13,7 @@ import ChronoRemote from '../components/ChronoRemote/ChronoRemote';
 import screen from '../helpers/ScreenSize';
 import { musiques } from '../assets/sound';
 import statsData from '../data/stats';
+import NextStep from '../components/NextStep';
 
 
 export default class Chrono extends Component {
@@ -185,6 +186,7 @@ export default class Chrono extends Component {
             didStop={this.stopTraining}
             didReplay={this.relplayTraining}
           />
+          <NextStep />
         </View>
         <StepList
           steps={this.steps}
