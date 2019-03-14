@@ -2,18 +2,16 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
-  TouchableOpacity,
   Alert
 } from 'react-native';
 import React, { Component } from 'react';
-import moment from "moment";
-import StepList from "../components/stepList";
-import ChronoRemote from "../components/ChronoRemote/ChronoRemote";
-import screen from '../helpers/ScreenSize';
-import { musiques } from '../assets/sound';
+import moment from 'moment';
 import Sound from 'react-native-sound';
 import KeepAwake from 'react-native-keep-awake';
+import StepList from '../components/stepList';
+import ChronoRemote from '../components/ChronoRemote/ChronoRemote';
+import screen from '../helpers/ScreenSize';
+import { musiques } from '../assets/sound';
 
 
 export default class Chrono extends Component {
@@ -32,11 +30,12 @@ export default class Chrono extends Component {
 
     this.steps = [];
     this.bip = new Sound(musiques.bip, (error) => {
-      if (error) {
+      if (error) { 
+w;
         console.log('failed to load the sound', error);
       }
 
-      console.log(`duration in seconds: ${  this.bip.getDuration()}`);
+      console.log(`duration in seconds: ${this.bip.getDuration()}`);
       this.bip.setVolume(0.1);
     });
     this.whoop = new Sound(musiques.whoop, (error) => {
@@ -47,7 +46,7 @@ export default class Chrono extends Component {
   }
 
   componentDidMount() {
-    let training = this.props.navigation.getParam('training');
+    const training = this.props.navigation.getParam('training');
     training.phases.forEach((element) => {
       for (let index = 0; index < element.repetitions; index++) {
         element.steps.forEach((element) => {
@@ -79,7 +78,7 @@ export default class Chrono extends Component {
   };
 
   resumeCurrentStep = () => {
-    let endTime = moment()
+    const endTime = moment()
       .add(this.state.currentTimer, 'second')
       .toDate()
       .getTime();
@@ -87,7 +86,7 @@ export default class Chrono extends Component {
   };
 
   startCurrentStep = () => {
-    let endTime = moment()
+    const endTime = moment()
       .add(this.state.currentStep.duration, 'seconds')
       .toDate()
       .getTime();
@@ -97,10 +96,10 @@ export default class Chrono extends Component {
 
   launchChrono = (endTime) => {
     this.chrono = setInterval(() => {
-      let now = new Date().getTime();
-      let sub = endTime - now;
-      let seconds = sub / 1000;
-      let percentage = 100 - (seconds / this.state.currentStep.duration) * 100;
+      const now = new Date().getTime();
+      const sub = endTime - now;
+      const seconds = sub / 1000;
+      const percentage = 100 - (seconds / this.state.currentStep.duration) * 100;
       this.setState({
         currentTimer: seconds,
         currentStepProgress: percentage,
@@ -115,18 +114,18 @@ export default class Chrono extends Component {
       if (seconds <= 2.1 && !this.soundIsPlaying) {
         this.soundIsPlaying = true;
         this.bip.play((success) => {
- if (success) {
-          this.soundIsPlaying = false;
-        } 
-});
+          if (success) {
+            this.soundIsPlaying = false;
+          }
+        });
       }
       if (sub <= 0) {
         this.soundIsPlaying = true;
         this.whoop.play((success) => {
- if (success) {
-          this.soundIsPlaying = false;
-        } 
-});
+          if (success) {
+            this.soundIsPlaying = false;
+          }
+        });
         clearInterval(this.chrono);
         this.stepDidEnd();
       }
@@ -165,7 +164,7 @@ export default class Chrono extends Component {
   };
 
   render() {
-    let actualTimer = this.state.currentStep ? this.state.currentTimer : 'null';
+    const actualTimer = this.state.currentStep ? this.state.currentTimer : 'null';
 
     return (
       <View style={styles.container}>

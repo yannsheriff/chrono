@@ -4,6 +4,7 @@ import {
 import { REQUEST_STORE, populateStore } from '../actions/loading';
 import { UPDATE_TRAINING, REMOVE_TRAINING } from '../actions/trainingsActions';
 import { storeService } from '../../helpers/storeService';
+import trainingData from '../../data/training';
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -17,7 +18,7 @@ export function* saveTrainings(action) {
 
 export function* dispatchPopulateStore() {
   console.log('Populating data ⏳');
-  const data = yield storeService.loadState();
+  const data = yield trainingData();
   yield put(populateStore(data));
   console.log('Populated ✅');
 }
