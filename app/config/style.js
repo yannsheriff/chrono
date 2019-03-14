@@ -9,7 +9,7 @@ export const secondColor = '#1b2226';
 
 // SHADOW
 export const mainShadow = {
-  shadowColor: '#000',
+  shadowColor: '#ff9F00',
   shadowOffset: { width: -8, height: 8 },
   shadowOpacity: 0.1,
   shadowRadius: 10,
