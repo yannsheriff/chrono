@@ -14,12 +14,14 @@ import screen from '../helpers/ScreenSize';
 import { musiques } from '../assets/sound';
 import statsData from '../data/stats';
 import NextStep from '../components/NextStep';
+import { chrono } from '../helpers/humanize';
 
 
 export default class Chrono extends Component {
   constructor(props) {
     super(props);
     this.soundIsPlaying = false;
+    this.remaingTime = 0;
     this.state = {
       completeTraining: props.navigation.getParam('training'),
       currentStep: {},
@@ -27,7 +29,8 @@ export default class Chrono extends Component {
       currentTimer: null,
       currentStepProgress: 0,
       haveStarted: false,
-      isPaused: true
+      isPaused: true,
+      totalTime: 0,
     };
 
     this.steps = [];
@@ -48,6 +51,9 @@ export default class Chrono extends Component {
 
   componentDidMount() {
     const training = this.props.navigation.getParam('training');
+    const totalTime = this.getTotalTime(training);
+    this.remaingTime = totalTime;
+
     training.phases.forEach((element) => {
       for (let index = 0; index < element.repetitions; index++) {
         element.steps.forEach((element) => {
@@ -57,10 +63,22 @@ export default class Chrono extends Component {
     });
 
     this.setState({
+      totalTime,
       completeTraining: training,
       currentStep: this.steps[this.state.currentStepIndex],
       currentTimer: this.steps[this.state.currentStepIndex].duration
     });
+  }
+
+  getTotalTime = (el) => {
+    const reduce = (accumulator, currentValue) => accumulator + currentValue;
+    const reducePhase = (accumulator, currentValue) => accumulator + currentValue.duration;
+    const concatTable = el.phases.map((phase) => {
+      const time = phase.steps.reduce(reducePhase, 0);
+      return time * phase.repetitions;
+    });
+    const total = concatTable.reduce(reduce, 0);
+    return total;
   }
 
   chronoStateHandler = () => {
@@ -83,6 +101,12 @@ export default class Chrono extends Component {
       .add(this.state.currentTimer, 'second')
       .toDate()
       .getTime();
+
+    this.trainingEndTime = moment()
+      .add(this.remaingTime, 'seconds')
+      .toDate()
+      .getTime();
+
     this.launchChrono(endTime);
   };
 
@@ -91,6 +115,12 @@ export default class Chrono extends Component {
       .add(this.state.currentStep.duration, 'seconds')
       .toDate()
       .getTime();
+
+    this.trainingEndTime = moment()
+      .add(this.remaingTime, 'seconds')
+      .toDate()
+      .getTime();
+
     this.isLongPhase = this.state.currentStep.duration > 20;
     this.launchChrono(endTime);
   };
@@ -100,6 +130,7 @@ export default class Chrono extends Component {
       const now = new Date().getTime();
       const sub = endTime - now;
       const seconds = sub / 1000;
+      this.remaingTime = (this.trainingEndTime - now) / 1000;
       const percentage = 100 - (seconds / this.state.currentStep.duration) * 100;
       this.setState({
         currentTimer: seconds,
@@ -160,6 +191,7 @@ export default class Chrono extends Component {
 
   relplayTraining = () => {
     clearInterval(this.chrono);
+    this.remaingTime += this.state.currentStep.duration - this.state.currentTimer;
     this.startCurrentStep();
   };
 
@@ -173,11 +205,16 @@ export default class Chrono extends Component {
   render() {
     const actualTimer = this.state.currentStep ? this.state.currentTimer : 'null';
 
+    const totalDone = this.state.totalTime - this.remaingTime;
+
     return (
       <View style={styles.container}>
         <View style={styles.chrono}>
           <Text style={styles.centerText}>
             { Math.ceil(actualTimer) }
+          </Text>
+          <Text style={styles.centerText}>
+            { chrono(totalDone) }
           </Text>
           <ChronoRemote
             haveStarted={this.state.haveStarted}
