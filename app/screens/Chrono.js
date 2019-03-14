@@ -9,12 +9,12 @@ import moment from 'moment';
 import Sound from 'react-native-sound';
 import KeepAwake from 'react-native-keep-awake';
 import StepList from '../components/stepList';
+import StepListHeader from '../components/StepListHeader';
 import ChronoRemote from '../components/ChronoRemote/ChronoRemote';
 import screen from '../helpers/ScreenSize';
 import { musiques } from '../assets/sound';
 import statsData from '../data/stats';
 import NextStep from '../components/NextStep';
-import { chrono } from '../helpers/humanize';
 
 
 export default class Chrono extends Component {
@@ -213,9 +213,6 @@ export default class Chrono extends Component {
           <Text style={styles.centerText}>
             { Math.ceil(actualTimer) }
           </Text>
-          <Text style={styles.centerText}>
-            { chrono(totalDone) }
-          </Text>
           <ChronoRemote
             haveStarted={this.state.haveStarted}
             isPaused={this.state.isPaused}
@@ -225,6 +222,11 @@ export default class Chrono extends Component {
           />
           <NextStep />
         </View>
+        <StepListHeader
+          name={this.state.completeTraining.name}
+          totalTime={this.state.totalTime}
+          doneTime={totalDone}
+        />
         <StepList
           steps={this.steps}
           currentStep={this.state.currentStepIndex}
