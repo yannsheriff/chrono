@@ -4,22 +4,40 @@ import { font } from '../../config/style';
 
 export default StyleSheet.create({
   container: {
-    paddingHorizontal: '30%',
     flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%'
+  },
+  wrapper: {
+    width: '55%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+
   },
   icon: {
     width: 40,
     height: 40,
-    borderRadius: 10
-  },
-  step: {
-    height: 50,
-    width: screen.widthPercent * 80,
-    borderRadius: 15,
-    backgroundColor: 'green',
+    borderRadius: 10,
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10
+    alignItems: 'center'
   },
-  button: { margin: 20 }
+  next: {
+    width: 20,
+    height: 20,
+  },
+  textContainer: {
+    // marginLeft: 30
+  },
+  label: {
+    fontFamily: font,
+    color: 'rgba(255, 255, 255, 0.5)',
+    fontSize: 16,
+    marginBottom: 3
+  },
+  text: {
+    fontFamily: font,
+    color: 'white',
+    fontSize: 20,
+  }
 });
