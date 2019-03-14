@@ -11,6 +11,6 @@ export const secondColor = '#1b2226';
 export const mainShadow = {
   shadowColor: '#ff9F00',
   shadowOffset: { width: -8, height: 8 },
-  shadowOpacity: 0.1,
+  shadowOpacity: 0.5,
   shadowRadius: 10,
 };
