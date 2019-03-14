@@ -56,6 +56,7 @@ class StoreService {
     }
   }
 
+
   compareSchema(data) {
     const trainingData = data[0];
     const phaseData = trainingData.phases[0];
@@ -70,6 +71,15 @@ class StoreService {
     return result;
   }
 
+
+  needMigration(dataSaved) {
+    const migrationMap = this.compareSchema(dataSaved);
+    const haveError = migrationMap.find(element => !element);
+    if (haveError !== undefined) {
+      return true;
+    }
+    return false;
+  }
 
   migrateSchema(dataSaved) {
     const migrationMap = this.compareSchema(dataSaved);
@@ -96,8 +106,7 @@ class StoreService {
         }))
       }));
     }
-
-    console.log('TCL: StoreService -> migrateSchema -> data', data);
+    return data;
   }
 
   async loadState() { //  initial state
@@ -105,8 +114,12 @@ class StoreService {
     if (dataSaved) {
       console.log(' ================ Async Storage ================ ');
       console.log('last Save :', dataSaved);
-      this.migrateSchema(dataSaved);
-
+      const dataNeedMigration = this.needMigration(dataSaved);
+      if (dataNeedMigration) {
+        const data = this.migrateSchema(dataSaved);
+        console.log('TCL: StoreService -> loadState -> data', data);
+        return data;
+      }
 
       return dataSaved;
     }
