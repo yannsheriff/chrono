@@ -4,7 +4,8 @@ import screen from '../../helpers/ScreenSize';
 export default StyleSheet.create({
   container: {
     marginTop: 50,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 50
   },
   remoteContainer: {
     flexDirection: 'row',
