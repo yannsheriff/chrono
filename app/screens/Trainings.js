@@ -10,7 +10,6 @@ import TrainingList from '../components/trainingList';
 import { mainColor, secondColor, mainShadow } from '../config/style';
 import { icons } from '../assets/img';
 
-
 class Trainings extends Component {
     static navigationOptions = {
       header: null
@@ -34,6 +33,7 @@ class Trainings extends Component {
               onNewTrainingRequest={training => this.props.newTraining(training)}
             />
           </ScrollView>
+
           <LinearGradient colors={['rgba(255, 203, 24, 0)', '#ffcb18']} style={styles.gradient} />
           <TouchableOpacity style={styles.add} onPress={() => this.props.navigation.navigate('EditTraining')}>
             <Image style={styles.addText} source={icons.add} />

@@ -15,6 +15,8 @@ import screen from '../helpers/ScreenSize';
 import { musiques } from '../assets/sound';
 import statsData from '../data/stats';
 import NextStep from '../components/NextStep';
+import BottomDrawer from '../components/BottomDrawer';
+import { secondColor } from '../config/style';
 
 
 export default class Chrono extends Component {
@@ -222,16 +224,25 @@ export default class Chrono extends Component {
           />
           <NextStep />
         </View>
-        <StepListHeader
-          name={this.state.completeTraining.name}
-          totalTime={this.state.totalTime}
-          doneTime={totalDone}
-        />
-        <StepList
-          steps={this.steps}
-          currentStep={this.state.currentStepIndex}
-          currentStepProgress={this.state.currentStepProgress}
-        />
+        <BottomDrawer
+          containerHeight={screen.heightPercent * 80}
+          startUp={false}
+          downDisplay={screen.height / 100 * 52}
+          backgroundColor="#fff"
+        >
+          {/* <Text> test </Text> */}
+          <StepListHeader
+            name={this.state.completeTraining.name}
+            totalTime={this.state.totalTime}
+            doneTime={totalDone}
+          />
+          <StepList
+            steps={this.steps}
+            currentStep={this.state.currentStepIndex}
+            currentStepProgress={this.state.currentStepProgress}
+          />
+        </BottomDrawer>
+
         <KeepAwake />
       </View>
     );
@@ -243,13 +254,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    backgroundColor: secondColor
   },
   chrono: {
     justifyContent: 'center',
     alignItems: 'center',
     height: screen.height / 2.5,
-    backgroundColor: '#f4f4f4'
+    // backgroundColor: '#f4f4f4'
   },
   centerText: {
     fontSize: 90,
