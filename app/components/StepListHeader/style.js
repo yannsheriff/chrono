@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   wrapper: {
     width: '80%',
-    marginBottom: 25,
+    marginBottom: 45,
   },
   name: {
     fontSize: 18,

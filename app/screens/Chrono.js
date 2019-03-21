@@ -230,7 +230,6 @@ export default class Chrono extends Component {
           downDisplay={screen.height / 100 * 50}
           backgroundColor="#fff"
         >
-          {/* <Text> test </Text> */}
           <StepListHeader
             name={this.state.completeTraining.name}
             totalTime={this.state.totalTime}
