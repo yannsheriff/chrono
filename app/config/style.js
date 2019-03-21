@@ -6,6 +6,7 @@ export const font = 'Roboto';
 // COLORS
 export const mainColor = '#ffcb18';
 export const secondColor = '#1b2226';
+export const grayColor = '#a4a7a8';
 
 // SHADOW
 export const mainShadow = {

@@ -227,7 +227,7 @@ export default class Chrono extends Component {
         <BottomDrawer
           containerHeight={screen.heightPercent * 80}
           startUp={false}
-          downDisplay={screen.height / 100 * 52}
+          downDisplay={screen.height / 100 * 50}
           backgroundColor="#fff"
         >
           {/* <Text> test </Text> */}
