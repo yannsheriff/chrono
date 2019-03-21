@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { font } from '../../config/style';
 import screen from '../../helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {
-    alignItems: 'center'
+    width: screen.widthPercent * 80,
+    justifyContent: 'center',
+    marginBottom: 15
   },
   step: {
     height: 50,
@@ -13,15 +16,26 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
-    width: screen.widthPercent * 80,
+    width: '100%',
     overflow: 'hidden',
     position: 'relative'
   },
-  progressBar: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    backgroundColor: '#A3F7B5',
+  progressContainer: {
+    flex: 5
+  },
+  barContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%'
+  },
+  text: {
+    flex: 1,
+    textAlign: 'center'
+  },
+  name: {
+    fontFamily: font,
+    fontSize: 16,
+    textTransform: 'capitalize',
+    marginBottom: 5
   }
 });

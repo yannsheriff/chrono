@@ -5,6 +5,7 @@ import {
   Text,
 } from 'react-native';
 import styles from './style';
+import ProgressBar from '../ProgressBar';
 
 export default class Step extends Component {
   constructor(props) {
@@ -28,10 +29,18 @@ export default class Step extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.step}>
-          <View style={{ ...styles.progressBar, width: `${this.state.progress}%` }} />
-          <Text>{this.state.name}</Text>
-          <Text>{this.state.duration}</Text>
+        <Text style={styles.name}>{this.state.name}</Text>
+        <View style={styles.barContainer}>
+          <View style={styles.progressContainer}>
+            <ProgressBar
+              progress={this.props.progress}
+            />
+          </View>
+          <Text style={styles.text}>
+            {this.state.duration}
+            {' '}
+s
+          </Text>
         </View>
       </View>
     );

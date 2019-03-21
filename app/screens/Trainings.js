@@ -32,6 +32,7 @@ class Trainings extends Component {
               onTrainingDeletionRequest={id => this.props.removeTraining(id)}
               onNewTrainingRequest={training => this.props.newTraining(training)}
             />
+
           </ScrollView>
 
           <LinearGradient colors={['rgba(255, 203, 24, 0)', '#ffcb18']} style={styles.gradient} />
