@@ -16,6 +16,7 @@ import { musiques } from '../assets/sound';
 import statsData from '../data/stats';
 import NextStep from '../components/NextStep';
 import BottomDrawer from '../components/BottomDrawer';
+import ChronoDisplay from '../components/ChronoDisplay';
 import { secondColor } from '../config/style';
 
 
@@ -212,9 +213,13 @@ export default class Chrono extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.chrono}>
-          <Text style={styles.centerText}>
-            { Math.ceil(actualTimer) }
-          </Text>
+          <ChronoDisplay
+            currentTimer={Math.ceil(actualTimer)}
+            stepName={this.steps[this.state.currentStepIndex]}
+            currentStepIndex={this.state.currentStepIndex}
+            totalSteps={this.steps.length}
+            currentStepProgress={this.state.currentStepProgress}
+          />
           <ChronoRemote
             haveStarted={this.state.haveStarted}
             isPaused={this.state.isPaused}
@@ -222,7 +227,9 @@ export default class Chrono extends Component {
             didStop={this.stopTraining}
             didReplay={this.relplayTraining}
           />
-          <NextStep />
+          <NextStep
+            step={this.steps[this.state.currentStepIndex + 1]}
+          />
         </View>
         <BottomDrawer
           containerHeight={screen.heightPercent * 80}
