@@ -6,6 +6,7 @@ import {
 
 export default StyleSheet.create({
   container: {
+    marginTop: 150,
     flexDirection: 'row',
     justifyContent: 'center'
   },
@@ -14,12 +15,21 @@ export default StyleSheet.create({
     marginBottom: 45,
   },
   round: {
-    height: 200,
-    width: 200,
-    borderRadius: 100,
+    height: 210,
+    width: 210,
+    borderRadius: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red'
+    backgroundColor: '#1b2226',
+    shadowColor: 'rgba(8, 18, 28, 0.8)',
+    shadowOpacity: 0.8,
+    shadowOffset: { width: 3, height: 5 },
+    shadowRadius: 10,
+  },
+  borderContainer: {
+    position: 'absolute',
+    left: -30,
+    top: -30
   },
   name: {
     fontSize: 18,
