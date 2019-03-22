@@ -5,6 +5,8 @@ import styles from './style';
 import { icons } from '../../assets/img';
 
 export default function ChronoRemote(props) {
+  const name = props.step ? props.step.name : 'loading';
+  const time = props.step ? props.step.duration : '--';
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -14,7 +16,16 @@ export default function ChronoRemote(props) {
 
         <View style={styles.textContainer}>
           <Text style={styles.label}>Next step : </Text>
-          <Text style={styles.text}>Pause - 20 s </Text>
+          <Text style={styles.text}>
+            {name}
+            {' '}
+            -
+            {' '}
+            {time}
+            {' '}
+            s
+            {' '}
+          </Text>
         </View>
       </View>
     </View>
