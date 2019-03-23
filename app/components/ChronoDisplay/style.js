@@ -1,18 +1,33 @@
 import { StyleSheet } from 'react-native';
 import screen from '../../helpers/ScreenSize';
 import {
-  font_bold, mainColor, secondColor, grayColor
+  font_bold, mainColor, secondColor, grayColor, font
 } from '../../config/style';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 150,
+    marginTop: 180,
     flexDirection: 'row',
     justifyContent: 'center'
   },
-  wrapper: {
-    width: '80%',
-    marginBottom: 45,
+  name: {
+    fontFamily: font,
+    fontSize: 22,
+    fontWeight: '500',
+    color: 'white'
+  },
+  steps: {
+    fontFamily: font,
+    fontSize: 16,
+    fontWeight: '500',
+    color: 'white',
+    opacity: 0.5
+  },
+  timer: {
+    fontSize: 56,
+    fontFamily: font,
+    fontWeight: '500',
+    color: 'white'
   },
   round: {
     height: 210,
@@ -20,7 +35,6 @@ export default StyleSheet.create({
     borderRadius: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1b2226',
     shadowColor: 'rgba(8, 18, 28, 0.8)',
     shadowOpacity: 0.8,
     shadowOffset: { width: 3, height: 5 },
@@ -28,28 +42,18 @@ export default StyleSheet.create({
   },
   borderContainer: {
     position: 'absolute',
-    left: -30,
-    top: -30
+    left: -20,
+    top: -20
   },
-  name: {
-    fontSize: 18,
-    fontFamily: font_bold,
-    textTransform: 'capitalize',
-    color: secondColor,
-    marginBottom: 15,
-  },
-  timeContainer: {
-    flexDirection: 'row'
-  },
-  doneTime: {
-    color: mainColor,
-    fontSize: 24,
-    fontFamily: font_bold,
-  },
-  time: {
-    fontSize: 24,
-    fontFamily: font_bold,
-    color: grayColor,
-    marginBottom: 10,
+  point: {
+    width: 16,
+    height: 16,
+    position: 'absolute',
+    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    shadowColor: '#ffffff',
+    shadowOpacity: 0.8,
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 10,
   }
 });
