@@ -3,9 +3,9 @@ import screen from '../../helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: screen.heightPercent * 5,
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: screen.heightPercent * 4,
     width: '60%'
   },
   remoteContainer: {

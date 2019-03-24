@@ -243,7 +243,7 @@ export default class Chrono extends Component {
         <BottomDrawer
           containerHeight={screen.heightPercent * 80}
           startUp={false}
-          downDisplay={screen.height / 100 * 50}
+          downDisplay={screen.height / 100 * 60}
           backgroundColor="#fff"
         >
           <StepListHeader
