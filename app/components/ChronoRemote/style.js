@@ -5,12 +5,13 @@ export default StyleSheet.create({
   container: {
     marginTop: screen.heightPercent * 5,
     alignItems: 'center',
-    marginBottom: screen.heightPercent * 4,
+    marginBottom: screen.heightPercent * 6,
     width: '70%'
   },
   remoteContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
     width: '100%'
   },
   step: {
