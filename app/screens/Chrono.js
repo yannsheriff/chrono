@@ -228,6 +228,7 @@ export default class Chrono extends Component {
             currentStepIndex={this.state.currentStepIndex}
             totalSteps={this.steps.length}
             currentStepProgress={this.state.currentStepProgress}
+            width={screen.widthPercent * 77}
           />
           <ChronoRemote
             haveStarted={this.state.haveStarted}

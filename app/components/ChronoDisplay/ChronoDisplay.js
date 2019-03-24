@@ -10,7 +10,7 @@ import { chrono } from '../../helpers/humanize';
 export default function ChronoRemote(props) {
   const name = props.stepName ? props.stepName.name : 'loading';
   const width = props.width ? props.width : 280;
-  const spaceBetweenCicrcles = 50;
+  const spaceBetweenCicrcles = 60;
   const radius = width / 2 - 10;
   const start = {
     x: radius * Math.cos(135 * (Math.PI / 180)) + width / 2,
@@ -25,15 +25,18 @@ export default function ChronoRemote(props) {
 
   return (
     <View style={styles.container}>
-      <LinearGradient colors={['#39464e', '#1b2226']} style={{ ...styles.round, width: width - spaceBetweenCicrcles, height: width - spaceBetweenCicrcles }}>
-        <Text style={styles.steps}>
-          {props.currentStepIndex}
+      <View style={{ ...styles.round, width: width - spaceBetweenCicrcles, height: width - spaceBetweenCicrcles }}>
+        <LinearGradient colors={['#39464e', '#1b2226']} style={{ ...styles.round, width: width - spaceBetweenCicrcles, height: width - spaceBetweenCicrcles }}>
+          <Text style={styles.steps}>
+            {props.currentStepIndex}
           /
-          {props.totalSteps}
-        </Text>
-        <Text style={styles.timer}>{chrono(props.currentTimer)}</Text>
-        <Text style={styles.name}>{ name }</Text>
-      </LinearGradient>
+            {props.totalSteps}
+          </Text>
+          <Text style={styles.timer}>{chrono(props.currentTimer)}</Text>
+          <Text style={styles.name}>{ name }</Text>
+        </LinearGradient>
+      </View>
+
       <View style={{ ...styles.borderContainer, top: -spaceBetweenCicrcles / 2, left: -spaceBetweenCicrcles / 2 }}>
         <Svg
           height={width}
@@ -45,15 +48,15 @@ export default function ChronoRemote(props) {
               A ${radius} ${radius} 0 1 1 ${end.x} ${end.y}`}
             fill="none"
             stroke="grey"
-            strokeWidth="3"
+            strokeWidth="4"
           />
           <Path
             d={`
               M ${start.x} ${start.y}
               A ${radius} ${radius} 0 ${progress.side} 1 ${progress.x} ${progress.y}`}
             fill="none"
-            stroke="yellow"
-            strokeWidth="3"
+            stroke="#ffcb18"
+            strokeWidth="4"
           />
         </Svg>
         <View style={{ ...styles.point, top: progress.y - 8, left: progress.x - 8 }} />

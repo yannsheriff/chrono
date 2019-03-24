@@ -6,7 +6,7 @@ export default StyleSheet.create({
     marginTop: screen.heightPercent * 5,
     alignItems: 'center',
     marginBottom: screen.heightPercent * 4,
-    width: '60%'
+    width: '70%'
   },
   remoteContainer: {
     flexDirection: 'row',
