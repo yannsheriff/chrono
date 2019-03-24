@@ -1,8 +1,9 @@
 import {
   StyleSheet,
   View,
-  Text,
-  Alert
+  TouchableOpacity,
+  Alert,
+  Image
 } from 'react-native';
 import React, { Component } from 'react';
 import moment from 'moment';
@@ -18,9 +19,14 @@ import NextStep from '../components/NextStep';
 import BottomDrawer from '../components/BottomDrawer';
 import ChronoDisplay from '../components/ChronoDisplay';
 import { secondColor } from '../config/style';
+import { icons } from '../assets/img';
 
 
 export default class Chrono extends Component {
+  static navigationOptions = {
+    header: null
+  };
+
   constructor(props) {
     super(props);
     this.soundIsPlaying = false;
@@ -212,6 +218,9 @@ export default class Chrono extends Component {
 
     return (
       <View style={styles.container}>
+        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <Image source={icons.back} style={styles.img} resizeMode="contain" />
+        </TouchableOpacity>
         <View style={styles.chrono}>
           <ChronoDisplay
             currentTimer={Math.ceil(actualTimer)}
@@ -261,13 +270,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'flex-start',
-    backgroundColor: secondColor
+    backgroundColor: secondColor,
+    paddingTop: screen.heightPercent * 8,
   },
   chrono: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: screen.height / 2.5,
     // backgroundColor: '#f4f4f4'
+  },
+  img: {
+    marginLeft: screen.widthPercent * 8,
+    width: 21,
+    height: 21
   },
   centerText: {
     fontSize: 90,
