@@ -6,7 +6,6 @@ import {
 
 export default StyleSheet.create({
   container: {
-    marginTop: 180,
     flexDirection: 'row',
     justifyContent: 'center'
   },
