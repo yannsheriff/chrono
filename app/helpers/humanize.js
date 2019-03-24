@@ -16,7 +16,7 @@ export function chrono(sec_num) {
   let seconds = Math.floor(sec_num - (hours * 3600) - (minutes * 60));
 
   minutes = minutes > 0 ? `${minutes}:` : '00:';
-  seconds = seconds > 0 ? seconds > 10 ? `${seconds}` : `0${seconds}` : '00';
+  seconds = seconds > 0 ? seconds > 9 ? `${seconds}` : `0${seconds}` : '00';
 
   return minutes + seconds;
 }
