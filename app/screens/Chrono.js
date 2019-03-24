@@ -3,7 +3,8 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  Image
+  Image,
+  StatusBar
 } from 'react-native';
 import React, { Component } from 'react';
 import moment from 'moment';
@@ -218,6 +219,7 @@ export default class Chrono extends Component {
 
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="light-content" animated />
         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
           <Image source={icons.back} style={styles.img} resizeMode="contain" />
         </TouchableOpacity>
@@ -237,9 +239,11 @@ export default class Chrono extends Component {
             didStop={this.stopTraining}
             didReplay={this.relplayTraining}
           />
+          {this.steps[this.state.currentStepIndex + 1] && (
           <NextStep
             step={this.steps[this.state.currentStepIndex + 1]}
           />
+          )}
         </View>
         <BottomDrawer
           containerHeight={screen.heightPercent * 80}
