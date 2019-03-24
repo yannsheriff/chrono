@@ -7,7 +7,8 @@ import {
 export default StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 20
   },
   name: {
     fontFamily: font,

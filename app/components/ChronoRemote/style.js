@@ -3,7 +3,7 @@ import screen from '../../helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 40,
     alignItems: 'center',
     marginBottom: 50,
     width: '60%'
