@@ -28,7 +28,7 @@ export default function ChronoRemote(props) {
       <View style={{ ...styles.round, width: width - spaceBetweenCicrcles, height: width - spaceBetweenCicrcles }}>
         <LinearGradient colors={['#39464e', '#1b2226']} style={{ ...styles.round, width: width - spaceBetweenCicrcles, height: width - spaceBetweenCicrcles }}>
           <Text style={styles.steps}>
-            {props.currentStepIndex}
+            {props.currentStepIndex + 1 }
           /
             {props.totalSteps}
           </Text>
