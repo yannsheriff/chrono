@@ -10,7 +10,7 @@
     "immutable": "^4.0.0-rc.12",
     "moment": "^2.23.0",
     "react": "16.6.3",
-    "react-native": "0.57.8",
+    "react-native": "0.58.5",
     "react-native-gesture-handler": "^1.0.12",
     "react-native-interactable": "^0.1.10",
     "react-native-keep-awake": "^4.0.0",

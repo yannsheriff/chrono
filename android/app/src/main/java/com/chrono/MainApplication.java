@@ -3,12 +3,12 @@ package com.chrono;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.horcrux.svg.SvgPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.wix.interactable.Interactable;
-import com.corbt.keepawake.KCKeepAwakePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.horcrux.svg.SvgPackage;
 import com.zmxv.RNSound.RNSoundPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.corbt.keepawake.KCKeepAwakePackage;
+import com.wix.interactable.Interactable;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -30,12 +30,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new SvgPackage(),
-            new LinearGradientPackage(),
-            new Interactable(),
-            new KCKeepAwakePackage(),
             new VectorIconsPackage(),
+            new SvgPackage(),
             new RNSoundPackage(),
+            new LinearGradientPackage(),
+            new KCKeepAwakePackage(),
+            new Interactable(),
             new RNGestureHandlerPackage()
       );
     }
