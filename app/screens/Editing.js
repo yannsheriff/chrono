@@ -8,6 +8,7 @@ import {
   Animated,
   Keyboard
 } from 'react-native';
+import generateID from '../helpers/idGenerator';
 import { newTraining, updateTraining } from '../redux/actions/trainingsActions';
 import Phase from '../components/Phase';
 import DurationPicker from '../components/DurationPicker';
@@ -34,6 +35,8 @@ class Editing extends Component {
     const hydrateTraining = isNewTraining
       ? {
         name: 'New training',
+        difficulty: 'easy',
+        id: generateID(),
         phases: [
           {
             name: 'phase 1',

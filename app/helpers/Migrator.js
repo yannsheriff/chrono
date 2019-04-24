@@ -31,7 +31,11 @@ export function migrate(schema, object) {
   const missingKey = findMissingKey(schema, object);
   const newObject = { ...object };
   missingKey.forEach((key) => {
-    newObject[key] = schema[key];
+    if (typeof schema[key] === 'function') {
+      newObject[key] = schema[key]();
+    } else {
+      newObject[key] = schema[key];
+    }
   });
   return newObject;
 }

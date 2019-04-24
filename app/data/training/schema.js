@@ -1,6 +1,10 @@
+import generateID from '../../helpers/idGenerator';
+
+
 export const training = {
   name: 'training',
   difficulty: 'easy',
+  id: generateID,
   phases,
 };
 
