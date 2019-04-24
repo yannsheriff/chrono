@@ -71,8 +71,6 @@ const styles = StyleSheet.create({
   addText: {
     height: 24,
     width: 24,
-    color: 'white',
-    lineHeight: 50
   },
   gradient: {
     position: 'absolute',

@@ -87,6 +87,7 @@ export default class trainingList extends Component {
       return (
         <View
           style={{ marginVertical: 12, width: '100%' }}
+          key={`training-${index}`}
         >
           <TrainingItem
             name={el.name}

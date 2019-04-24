@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { compare, migrate } from './Migrator';
 import schema, { training, phases, steps } from '../config/schema';
 
