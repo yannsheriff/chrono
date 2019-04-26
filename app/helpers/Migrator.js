@@ -32,7 +32,7 @@ export function migrate(schema, object) {
   const newObject = { ...object };
   missingKey.forEach((key) => {
     if (typeof schema[key] === 'function') {
-      newObject[key] = schema[key]();
+      newObject[key] = schema[key](object);
     } else {
       newObject[key] = schema[key];
     }

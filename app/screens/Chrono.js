@@ -206,10 +206,12 @@ export default class Chrono extends Component {
   };
 
   trainingDidEnd = () => {
+    const { completeTraining } = this.state;
+    const { navigation } = this.props;
     this.setState({ currentTimer: 0 });
 
-    statsData.saveStats({ date: new Date(), training: this.state.completeTraining });
-    Alert.alert('End', 'well Done you finished');
+    statsData.saveStats({ date: new Date(), id: completeTraining.id, training: completeTraining });
+    navigation.navigate('MyModal', { trainingID: completeTraining.id });
   }
 
   render() {

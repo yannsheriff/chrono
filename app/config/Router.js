@@ -7,6 +7,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Trainings from '../screens/Trainings';
 import Chrono from '../screens/Chrono.js';
 import Editing from '../screens/Editing';
+import FinishTraining from '../screens/FinishTraining';
 
 
 const InitialNavigator = createStackNavigator({
@@ -15,5 +16,19 @@ const InitialNavigator = createStackNavigator({
   EditTraining: Editing,
 });
 
+const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: InitialNavigator,
+    },
+    MyModal: {
+      screen: FinishTraining,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
 
-export default createAppContainer(InitialNavigator);
+export default createAppContainer(RootStack);

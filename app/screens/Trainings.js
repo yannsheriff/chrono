@@ -15,6 +15,10 @@ class Trainings extends Component {
       header: null
     };
 
+    componentWillMount() {
+
+    }
+
     render() {
       return (
         <View>
