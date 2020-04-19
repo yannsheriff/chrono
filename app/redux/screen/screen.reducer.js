@@ -1,4 +1,4 @@
-import { CHANGE_SCREEN } from '../actions/screenActions';
+import { CHANGE_SCREEN } from "./screen.action";
 
 export function screenReducer(state = { screen: 0 }, action) {
   switch (action.type) {
@@ -8,11 +8,11 @@ export function screenReducer(state = { screen: 0 }, action) {
 
       return {
         ...state,
-        screen: newScreen
+        screen: newScreen,
       };
     default:
       return state;
   }
 }
 
-export const test = 'test';
+export const test = "test";
