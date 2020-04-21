@@ -1,6 +1,11 @@
-import { AppRegistry } from 'react-native';
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+/**
+ * @format
+ */
+
+import {AppRegistry} from 'react-native';
+import {name as appName} from './app.json';
+import React, {Component} from 'react';
+import {Provider} from 'react-redux';
 import Store from './app/config/store';
 import Loading from './app/screens/Loader';
 
@@ -19,5 +24,4 @@ class App extends Component {
   }
 }
 
-
-AppRegistry.registerComponent('chrono', () => App);
+AppRegistry.registerComponent(appName, () => App);
