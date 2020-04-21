@@ -6,14 +6,14 @@ export function openPicker(id, value = false) {
   return {
     type: OPEN_PICKER,
     value: value || false,
-    id
+    id,
   };
 }
 
 export function updatePickerValue(value) {
   return {
     type: UPDATE_VALUE,
-    value
+    value,
   };
 }
 

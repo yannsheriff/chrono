@@ -1,10 +1,9 @@
 //  Import Modules
 // --------------------------------------------------------------
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { connect } from 'react-redux';
-import { requestStore } from '../redux/actions/loading';
-
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {requestStore} from '../redux/loading/loading.action';
 
 //  Import Components
 // --------------------------------------------------------------
@@ -29,26 +28,33 @@ class Loader extends Component {
 
   componentWillReceiveProps(nextProps) {
     // console.log("nextProps", nextProps)
-    this.setState({
-      ReduxState: nextProps.state
-    }, () => console.log(this.state.ReduxState));
+    this.setState(
+      {
+        ReduxState: nextProps.state,
+      },
+      () => console.log(this.state.ReduxState),
+    );
   }
 
   render() {
-    const render = this.props.state.trainingsReducer.trainings !== undefined
-      ? (<Router />)
-      : (<View><Text>loading..</Text></View> /* <Loader /> */);
+    const render =
+      this.props.state.trainingsReducer.trainings !== undefined ? (
+        <Router />
+      ) : (
+        <View>
+          <Text>loading..</Text>
+        </View> /* <Loader /> */
+      );
     return render;
   }
 }
-
 
 /* ===============================================================
   ======================= REDUX CONNECTION =======================
   ================================================================ */
 
 const mapStateToProps = state => ({
-  state
+  state,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,7 +65,7 @@ const mapDispatchToProps = dispatch => ({
 
 const componentContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Loader);
 
 export default componentContainer;

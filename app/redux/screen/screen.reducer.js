@@ -1,14 +1,14 @@
-import { CHANGE_SCREEN } from '../actions/screenActions';
+import {CHANGE_SCREEN} from './screen.action';
 
-export function screenReducer(state = { screen: 0 }, action) {
+export function screenReducer(state = {screen: 0}, action) {
   switch (action.type) {
     case CHANGE_SCREEN:
       let newScreen = state.screen + 1;
-      newScreen = newScreen == 3 ? 0 : newScreen;
+      newScreen = newScreen === 3 ? 0 : newScreen;
 
       return {
         ...state,
-        screen: newScreen
+        screen: newScreen,
       };
     default:
       return state;

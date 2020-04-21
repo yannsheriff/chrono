@@ -1,15 +1,13 @@
-
 import {
   NEW_TRAINING,
   REMOVE_TRAINING,
   UPDATE_TRAINING,
-} from '../actions/trainingsActions';
-import { POPULATE_STORE } from '../actions/loading';
+} from './trainings.action';
+import {POPULATE_STORE} from '../loading/loading.action';
 
 const defaultState = {
-  trainings: []
+  trainings: [],
 };
-
 
 export function trainingsReducer(state = defaultState, action) {
   switch (action.type) {
@@ -23,13 +21,18 @@ export function trainingsReducer(state = defaultState, action) {
     case UPDATE_TRAINING:
       return {
         ...state,
-        trainings: state.trainings.slice(0, action.payload.trainingId).concat(action.payload.training).concat(state.trainings.slice(action.payload.trainingId + 1)),
+        trainings: state.trainings
+          .slice(0, action.payload.trainingId)
+          .concat(action.payload.training)
+          .concat(state.trainings.slice(action.payload.trainingId + 1)),
       };
 
     case REMOVE_TRAINING:
       return {
         ...state,
-        trainings: state.trainings.slice(0, action.payload.trainingId).concat(state.trainings.slice(action.payload.trainingId + 1)),
+        trainings: state.trainings
+          .slice(0, action.payload.trainingId)
+          .concat(state.trainings.slice(action.payload.trainingId + 1)),
       };
 
     case POPULATE_STORE:

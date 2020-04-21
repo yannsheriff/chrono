@@ -1,23 +1,23 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import DurationPicker from './DurationPicker';
-import { updatePickerValue, closePicker } from '../../redux/actions/pickerActions';
+import {updatePickerValue, closePicker} from '../../redux/picker/picker.action';
 
 const mapStateToProps = state => ({
-  pickerState: state.pickerReducer
+  pickerState: state.pickerReducer,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updatePickerValue: (value) => {
+  updatePickerValue: value => {
     dispatch(updatePickerValue(value));
   },
   closePicker: () => {
     dispatch(closePicker());
-  }
+  },
 });
 
 const componentContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DurationPicker);
 
 export default componentContainer;

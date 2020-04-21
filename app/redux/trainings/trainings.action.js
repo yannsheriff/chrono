@@ -3,11 +3,10 @@ export const REMOVE_TRAINING = 'REMOVE_TRAINING';
 export const UPDATE_TRAINING = 'UPDATE_TRAINING';
 export const HYDRATE_STORE = 'HYDRATE_STORE';
 
-
 export function newTraining(training) {
   return {
     type: NEW_TRAINING,
-    payload: training
+    payload: training,
   };
 }
 export function removeTraining(trainingId) {
@@ -15,7 +14,7 @@ export function removeTraining(trainingId) {
     type: REMOVE_TRAINING,
     payload: {
       trainingId,
-    }
+    },
   };
 }
 export function updateTraining(trainingId, training) {
@@ -23,13 +22,13 @@ export function updateTraining(trainingId, training) {
     type: UPDATE_TRAINING,
     payload: {
       trainingId,
-      training
-    }
+      training,
+    },
   };
 }
 export function hydrateStore(payload) {
   return {
     type: HYDRATE_STORE,
-    payload
+    payload,
   };
 }
