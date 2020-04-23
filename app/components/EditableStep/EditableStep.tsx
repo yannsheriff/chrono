@@ -5,13 +5,13 @@ import styles from './style';
 export type Step = {
   name: string;
   duration: number;
-  key: number;
+  key: string;
 };
 interface Props {
   name: string;
   duration: number;
-  id: number;
-  openPicker: (id: number, duration?: number) => unknown;
+  id: string;
+  openPicker: (id: string, duration?: number) => unknown;
   stepDidUpdate: (step: Step | false) => unknown;
 }
 

@@ -1,28 +1,44 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button
-} from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import EditableStep from '../EditableStep';
 import styles from './style';
+import { Step } from '../EditableStep/EditableStep';
 
-export default class Phase extends Component {
-  constructor(props) {
+export type Phase = {
+  name: string;
+  repetitions: number;
+  steps: Array<Step>;
+};
+
+interface Props {
+  steps: Array<Step>;
+  name: string;
+  repetitions: number;
+  phaseDidUpdate: (phase: Phase | false) => unknown;
+}
+
+export default class EditablePhase extends Component<Props> {
+  steps: Array<Step>;
+  state: {
+    name: string;
+    repetitions: number;
+    steps: Array<Step>;
+  };
+
+  constructor(props: Props) {
     super(props);
     this.steps = props.steps;
     this.state = {
       name: props.name,
       repetitions: props.repetitions,
-      steps: props.steps
+      steps: props.steps,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.steps !== nextProps.steps) {
       this.setState({
-        steps: nextProps.steps
+        steps: nextProps.steps,
       });
     }
   }
@@ -30,22 +46,24 @@ export default class Phase extends Component {
   onStepUpdate(stepId, payload) {
     if (payload) {
       this.steps[stepId] = payload;
-      this.phaseDidUpdate();
+      this.updatePhase();
     } else {
-      const immutableStep = this.steps.slice(0, stepId).concat(this.steps.slice(stepId + 1));
+      const immutableStep = this.steps
+        .slice(0, stepId)
+        .concat(this.steps.slice(stepId + 1));
       this.steps = immutableStep;
-      this.phaseDidUpdate();
+      this.updatePhase();
     }
   }
 
   addRepetitions = () => {
     this.setState(
       {
-        repetitions: this.state.repetitions + 1
+        repetitions: this.state.repetitions + 1,
       },
       () => {
-        this.phaseDidUpdate();
-      }
+        this.updatePhase();
+      },
     );
   };
 
@@ -53,51 +71,51 @@ export default class Phase extends Component {
     if (this.state.repetitions - 1 > 0) {
       this.setState(
         {
-          repetitions: this.state.repetitions - 1
+          repetitions: this.state.repetitions - 1,
         },
         () => {
-          this.phaseDidUpdate();
-        }
+          this.updatePhase();
+        },
       );
     } else {
-      this.phaseDidUpdate('REMOVE');
+      this.deletePhase();
     }
   };
 
   nameDidchange = () => {
-    this.phaseDidUpdate();
-  }
+    this.updatePhase();
+  };
 
-  nameChange = (name) => {
+  nameChange = name => {
     this.setState({ name });
-  }
+  };
 
   newStep = () => {
     const timeStamp = Math.round(new Date().getTime() / 1000);
     const concatedSteps = this.steps.concat({
-      name: null,
-      duration: null,
-      key: `s-${timeStamp}`
+      name: 'exercice',
+      duration: 10,
+      key: `s-${timeStamp}`,
     });
 
     this.steps = concatedSteps;
-    this.phaseDidUpdate();
+    this.updatePhase();
   };
 
-  phaseDidUpdate = (remove) => {
-    if (remove === 'REMOVE') {
-      this.props.phaseDidUpdate(false);
-    } else {
-      this.props.phaseDidUpdate({
-        name: this.state.name,
-        repetitions: this.state.repetitions,
-        steps: this.steps
-      });
-      console.log(this.steps);
-      this.setState({
-        steps: this.steps
-      });
-    }
+  updatePhase = () => {
+    this.props.phaseDidUpdate({
+      name: this.state.name,
+      repetitions: this.state.repetitions,
+      steps: this.steps,
+    });
+    console.log(this.steps);
+    this.setState({
+      steps: this.steps,
+    });
+  };
+
+  deletePhase = () => {
+    this.props.phaseDidUpdate(false);
   };
 
   render() {
@@ -109,7 +127,7 @@ export default class Phase extends Component {
           duration={element.duration}
           id={element.key}
           key={key}
-          stepDidUpdate={(step) => {
+          stepDidUpdate={step => {
             this.onStepUpdate(index, step);
           }}
         />
@@ -128,12 +146,7 @@ export default class Phase extends Component {
           </View>
           <View style={styles.repetitions}>
             <Button title="-" onPress={this.removeRepetitions} />
-            <Text>
-              {' '}
-x
-              {this.state.repetitions}
-              {' '}
-            </Text>
+            <Text> x{this.state.repetitions} </Text>
             <Button title="+" onPress={this.addRepetitions} />
           </View>
         </View>
