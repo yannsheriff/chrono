@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     width: screen.widthPercent * 80,
     justifyContent: 'center',
-    marginBottom: 15
+    marginBottom: 15,
   },
   step: {
     height: 50,
@@ -18,24 +18,24 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     overflow: 'hidden',
-    position: 'relative'
+    position: 'relative',
   },
   progressContainer: {
-    flex: 5
+    flex: 5,
   },
   barContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   text: {
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   name: {
     fontFamily: font,
     fontSize: 16,
     textTransform: 'capitalize',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
