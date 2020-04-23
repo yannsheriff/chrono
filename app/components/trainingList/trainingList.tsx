@@ -1,83 +1,104 @@
-
 import React, { Component } from 'react';
-import {
-  View,
-  TouchableHighlight,
-  Alert
-} from 'react-native';
+import { View, TouchableHighlight, Alert } from 'react-native';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
 import { minutes } from '../../helpers/humanize';
+import { Phase } from '../Phase/Phase';
 
+export type Training = {
+  name: string;
+  difficulty: string;
+  id: string;
+  phases: Array<Phase>;
+};
 
-export default class trainingList extends Component {
+interface Props {
+  navigation: any;
+  trainings: Array<Training>;
+  onTrainingDeletionRequest: (id: string) => unknown;
+  onNewTrainingRequest: (training: Training) => unknown;
+}
+
+export default class trainingList extends Component<Props> {
+  state: {
+    actualyDraging: number | undefined;
+  };
   constructor(props) {
     super(props);
 
     this.state = {
-      actualyDraging: undefined
+      actualyDraging: undefined,
     };
   }
 
-  getTotalTime = (el) => {
+  getTotalTime = el => {
     const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    const reducePhase = (accumulator, currentValue) => accumulator + currentValue.duration;
-    const concatTable = el.phases.map((phase) => {
+    const reducePhase = (accumulator, currentValue) =>
+      accumulator + currentValue.duration;
+    const concatTable = el.phases.map(phase => {
       const time = phase.steps.reduce(reducePhase, 0);
       return time * phase.repetitions;
     });
     const total = concatTable.reduce(reduce, 0);
     const formatedTotal = minutes(total);
     return formatedTotal;
-  }
+  };
 
-  getTotalRounds = (el) => {
+  getTotalRounds = el => {
     const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    const concatTable = el.phases.map((phase) => {
+    const concatTable = el.phases.map(phase => {
       const steps = phase.steps.length;
       return steps * phase.repetitions;
     });
     const total = concatTable.reduce(reduce, 0);
     return total;
-  }
+  };
 
-  edit = (id) => {
+  edit = id => {
     this.setState({ actualyDraging: undefined });
     this.props.navigation.navigate('EditTraining', { trainingIndex: id });
-  }
+  };
 
-  delete = (id) => {
-    Alert.alert('Are you sure ?', 'Do you really want to delete this training ?', [
-      {
-        text: 'yes',
-        onPress: () => {
-          this.props.onTrainingDeletionRequest(id);
-          this.setState({ actualyDraging: undefined });
+  delete = id => {
+    Alert.alert(
+      'Are you sure ?',
+      'Do you really want to delete this training ?',
+      [
+        {
+          text: 'yes',
+          onPress: () => {
+            this.props.onTrainingDeletionRequest(id);
+            this.setState({
+              actualyDraging: undefined,
+            });
+          },
+          style: 'destructive',
         },
-        style: 'destructive'
-      },
-      {
-        text: 'cancel',
-        style: 'cancel'
-      }
-    ]);
-  }
+        {
+          text: 'cancel',
+          style: 'cancel',
+        },
+      ],
+    );
+  };
 
-  duplicate = (training) => {
+  duplicate = (training: Training) => {
     this.setState({ actualyDraging: undefined });
     this.props.onNewTrainingRequest(training);
-  }
+  };
 
-  open = (el) => {
+  open = el => {
     this.setState({ actualyDraging: undefined });
-    this.props.navigation.navigate('Chrono', { training: el });
-  }
+    this.props.navigation.navigate('Chrono', {
+      training: el,
+    });
+  };
 
-  onDrag = (index) => {
+  onDrag = index => {
     if (index !== this.state.actualyDraging) {
       this.setState({ actualyDraging: index });
     }
-  }
+  };
 
   render() {
     const trainings = this.props.trainings.map((el, index) => {
@@ -86,7 +107,10 @@ export default class trainingList extends Component {
 
       return (
         <View
-          style={{ marginVertical: 12, width: '100%' }}
+          style={{
+            marginVertical: 12,
+            width: '100%',
+          }}
           key={`training-${index}`}
         >
           <TrainingItem
@@ -105,11 +129,6 @@ export default class trainingList extends Component {
       );
     });
 
-
-    return (
-      <View style={styles.container}>
-        { trainings }
-      </View>
-    );
+    return <View style={styles.container}>{trainings}</View>;
   }
 }
