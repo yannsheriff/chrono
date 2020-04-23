@@ -266,7 +266,7 @@ export default class Chrono extends Component {
           />
           <StepList
             steps={this.steps}
-            currentStep={this.state.currentStepIndex}
+            currentStepIndex={this.state.currentStepIndex}
             currentStepProgress={this.state.currentStepProgress}
           />
         </BottomDrawer>
