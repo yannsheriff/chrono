@@ -1,18 +1,16 @@
 import { StyleSheet } from 'react-native';
-import screen from '../../helpers/ScreenSize';
 import { font } from '../../config/style';
 
 export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
   },
   wrapper: {
     width: '55%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-
   },
   icon: {
     width: 40,
@@ -20,7 +18,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   next: {
     width: 20,
@@ -33,11 +31,11 @@ export default StyleSheet.create({
     fontFamily: font,
     color: 'rgba(255, 255, 255, 0.5)',
     fontSize: 16,
-    marginBottom: 3
+    marginBottom: 3,
   },
   text: {
     fontFamily: font,
     color: 'white',
     fontSize: 20,
-  }
+  },
 });
