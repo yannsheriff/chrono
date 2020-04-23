@@ -5,6 +5,7 @@ import {
   newTraining,
 } from '../../redux/trainings/trainings.action';
 import Trainings from './Trainings.page';
+import { Training } from '../../components/trainingList/trainingList';
 
 const mapStateToProps = state => ({
   screenState: state.screenReducer,
@@ -15,10 +16,10 @@ const mapDispatchToProps = dispatch => ({
   changeScreen: () => {
     dispatch(changeScreen());
   },
-  removeTraining: id => {
+  removeTraining: (id: string) => {
     dispatch(removeTraining(id));
   },
-  newTraining: training => {
+  newTraining: (training: Training) => {
     dispatch(newTraining(training));
   },
 });
