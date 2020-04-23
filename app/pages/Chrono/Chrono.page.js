@@ -4,28 +4,27 @@ import {
   TouchableOpacity,
   Alert,
   Image,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import React, { Component } from 'react';
 import moment from 'moment';
 import Sound from 'react-native-sound';
 import KeepAwake from 'react-native-keep-awake';
-import StepList from '../components/stepList';
-import StepListHeader from '../components/StepListHeader';
-import ChronoRemote from '../components/ChronoRemote/ChronoRemote';
-import screen from '../helpers/ScreenSize';
-import { musiques } from '../assets/sound';
-import statsData from '../data/stats';
-import NextStep from '../components/NextStep';
-import BottomDrawer from '../components/BottomDrawer';
-import ChronoDisplay from '../components/ChronoDisplay';
-import { secondColor } from '../config/style';
-import { icons } from '../assets/img';
-
+import StepList from '../../components/stepList';
+import StepListHeader from '../../components/StepListHeader';
+import ChronoRemote from '../../components/ChronoRemote/ChronoRemote';
+import screen from '../../helpers/ScreenSize';
+import { musiques } from '../../assets/sound';
+import statsData from '../../data/stats';
+import NextStep from '../../components/NextStep';
+import BottomDrawer from '../../components/BottomDrawer';
+import ChronoDisplay from '../../components/ChronoDisplay';
+import { secondColor } from '../../config/style';
+import { icons } from '../../assets/img';
 
 export default class Chrono extends Component {
   static navigationOptions = {
-    header: null
+    header: null,
   };
 
   constructor(props) {
@@ -44,7 +43,7 @@ export default class Chrono extends Component {
     };
 
     this.steps = [];
-    this.bip = new Sound(musiques.bip, (error) => {
+    this.bip = new Sound(musiques.bip, error => {
       if (error) {
         console.log('failed to load the sound', error);
       }
@@ -52,7 +51,7 @@ export default class Chrono extends Component {
       console.log(`duration in seconds: ${this.bip.getDuration()}`);
       this.bip.setVolume(0.1);
     });
-    this.whoop = new Sound(musiques.whoop, (error) => {
+    this.whoop = new Sound(musiques.whoop, error => {
       if (error) {
         console.log('failed to load the sound', error);
       }
@@ -64,9 +63,9 @@ export default class Chrono extends Component {
     const totalTime = this.getTotalTime(training);
     this.remaingTime = totalTime;
 
-    training.phases.forEach((element) => {
+    training.phases.forEach(element => {
       for (let index = 0; index < element.repetitions; index++) {
-        element.steps.forEach((element) => {
+        element.steps.forEach(element => {
           this.steps.push(element);
         });
       }
@@ -76,20 +75,21 @@ export default class Chrono extends Component {
       totalTime,
       completeTraining: training,
       currentStep: this.steps[this.state.currentStepIndex],
-      currentTimer: this.steps[this.state.currentStepIndex].duration
+      currentTimer: this.steps[this.state.currentStepIndex].duration,
     });
   }
 
-  getTotalTime = (el) => {
+  getTotalTime = el => {
     const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    const reducePhase = (accumulator, currentValue) => accumulator + currentValue.duration;
-    const concatTable = el.phases.map((phase) => {
+    const reducePhase = (accumulator, currentValue) =>
+      accumulator + currentValue.duration;
+    const concatTable = el.phases.map(phase => {
       const time = phase.steps.reduce(reducePhase, 0);
       return time * phase.repetitions;
     });
     const total = concatTable.reduce(reduce, 0);
     return total;
-  }
+  };
 
   chronoStateHandler = () => {
     if (this.state.isPaused) {
@@ -135,18 +135,19 @@ export default class Chrono extends Component {
     this.launchChrono(endTime);
   };
 
-  launchChrono = (endTime) => {
+  launchChrono = endTime => {
     this.chrono = setInterval(() => {
       const now = new Date().getTime();
       const sub = endTime - now;
       const seconds = sub / 1000;
       this.remaingTime = (this.trainingEndTime - now) / 1000;
-      const percentage = 100 - (seconds / this.state.currentStep.duration) * 100;
+      const percentage =
+        100 - (seconds / this.state.currentStep.duration) * 100;
       this.setState({
         currentTimer: seconds,
         currentStepProgress: percentage,
         haveStarted: true,
-        isPaused: false
+        isPaused: false,
       });
 
       if (percentage < 50 && percentage > 49 && this.isLongPhase) {
@@ -155,7 +156,7 @@ export default class Chrono extends Component {
 
       if (seconds <= 2.1 && !this.soundIsPlaying) {
         this.soundIsPlaying = true;
-        this.bip.play((success) => {
+        this.bip.play(success => {
           if (success) {
             this.soundIsPlaying = false;
           }
@@ -163,7 +164,7 @@ export default class Chrono extends Component {
       }
       if (sub <= 0) {
         this.soundIsPlaying = true;
-        this.whoop.play((success) => {
+        this.whoop.play(success => {
           if (success) {
             this.soundIsPlaying = false;
           }
@@ -186,11 +187,11 @@ export default class Chrono extends Component {
     this.setState(
       {
         currentStepIndex: this.state.currentStepIndex + 1,
-        currentStep: this.steps[this.state.currentStepIndex + 1]
+        currentStep: this.steps[this.state.currentStepIndex + 1],
       },
       () => {
         this.startCurrentStep();
-      }
+      },
     );
   };
 
@@ -201,7 +202,8 @@ export default class Chrono extends Component {
 
   relplayTraining = () => {
     clearInterval(this.chrono);
-    this.remaingTime += this.state.currentStep.duration - this.state.currentTimer;
+    this.remaingTime +=
+      this.state.currentStep.duration - this.state.currentTimer;
     this.startCurrentStep();
   };
 
@@ -210,12 +212,18 @@ export default class Chrono extends Component {
     const { navigation } = this.props;
     this.setState({ currentTimer: 0 });
 
-    statsData.saveStats({ date: new Date(), id: completeTraining.id, training: completeTraining });
+    statsData.saveStats({
+      date: new Date(),
+      id: completeTraining.id,
+      training: completeTraining,
+    });
     navigation.navigate('MyModal', { trainingID: completeTraining.id });
-  }
+  };
 
   render() {
-    const actualTimer = this.state.currentStep ? this.state.currentTimer : 'null';
+    const actualTimer = this.state.currentStep
+      ? this.state.currentTimer
+      : 'null';
 
     const totalDone = this.state.totalTime - this.remaingTime;
 
@@ -242,15 +250,13 @@ export default class Chrono extends Component {
             didReplay={this.relplayTraining}
           />
           {this.steps[this.state.currentStepIndex + 1] && (
-          <NextStep
-            step={this.steps[this.state.currentStepIndex + 1]}
-          />
+            <NextStep step={this.steps[this.state.currentStepIndex + 1]} />
           )}
         </View>
         <BottomDrawer
           containerHeight={screen.heightPercent * 80}
           startUp={false}
-          downDisplay={screen.height / 100 * 60}
+          downDisplay={(screen.height / 100) * 60}
           backgroundColor="#fff"
         >
           <StepListHeader
@@ -271,7 +277,6 @@ export default class Chrono extends Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -288,9 +293,9 @@ const styles = StyleSheet.create({
   img: {
     marginLeft: screen.widthPercent * 8,
     width: 21,
-    height: 21
+    height: 21,
   },
   centerText: {
     fontSize: 90,
-  }
+  },
 });

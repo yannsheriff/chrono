@@ -1,5 +1,4 @@
-import {connect} from 'react-redux';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Button,
@@ -8,13 +7,13 @@ import {
   Animated,
   Keyboard,
 } from 'react-native';
-import generateID from '../helpers/idGenerator';
-import {newTraining, updateTraining} from '../redux/trainings/trainings.action';
-import Phase from '../components/Phase';
-import DurationPicker from '../components/DurationPicker';
+import generateID from '../../helpers/idGenerator';
 
-class Editing extends Component {
-  static navigationOptions = ({navigation}) => ({
+import Phase from '../../components/Phase';
+import DurationPicker from '../../components/DurationPicker';
+
+export default class Editing extends Component {
+  static navigationOptions = ({ navigation }) => ({
     headerRight: (
       <Button
         onPress={() => {
@@ -176,14 +175,16 @@ class Editing extends Component {
           flexDirection: 'column',
           height: '100%',
           justifyContent: 'flex-start',
-        }}>
-        <Animated.View style={{paddingBottom: this.keyboardHeight}}>
+        }}
+      >
+        <Animated.View style={{ paddingBottom: this.keyboardHeight }}>
           <ScrollView
-            contentContainerStyle={{alignItems: 'center'}}
-            style={{flexGrow: 2}}
+            contentContainerStyle={{ alignItems: 'center' }}
+            style={{ flexGrow: 2 }}
             ref={ref => {
               this.scrollView = ref;
-            }}>
+            }}
+          >
             <TextInput
               value={this.state.training.name}
               onChangeText={this.updateName}
@@ -215,25 +216,3 @@ class Editing extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  screenState: state.screenReducer,
-  trainingsState: state.trainingsReducer,
-  pickerState: state.pickerReducer,
-});
-
-const mapDispatchToProps = dispatch => ({
-  newTraining: training => {
-    dispatch(newTraining(training));
-  },
-  updateTraining: (trainingId, training) => {
-    dispatch(updateTraining(trainingId, training));
-  },
-});
-
-const componentContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Editing);
-
-export default componentContainer;
