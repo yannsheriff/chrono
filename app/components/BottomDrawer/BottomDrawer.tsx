@@ -1,58 +1,67 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {View, PanResponder, Animated, Dimensions} from 'react-native';
+import React, { Component } from 'react';
+import {
+  View,
+  PanResponder,
+  Animated,
+  Dimensions,
+  PanResponderInstance,
+} from 'react-native';
 
 import styles from './styles';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default class BottomDrawer extends Component {
-  static propTypes = {
-    /**
-     * Height of the drawer.
-     */
-    containerHeight: PropTypes.number.isRequired,
+interface Props {
+  /**
+   * Height of the drawer.
+   */
+  containerHeight: number;
+  /**
+   * Set to true to have the drawer start in up position.
+   */
+  startUp?: boolean;
+  /**
+   * The amount of offset to apply to the drawer's position.
+   * If the app uses a header and tab navigation, offset should equal
+   * the sum of those two components' heights.
+   */
+  offset?: number;
+  /**
+   * How much the drawer's down display falls beneath the up display.
+   * Ex: if set to 20, the down display will be 20 points underneath the up display.
+   */
+  downDisplay?: number;
+  /**
+   * The background color of the drawer.
+   */
+  backgroundColor?: string;
+  /**
+   * Set to true to give the top of the drawer rounded edges.
+   */
+  roundedEdges?: string;
+  /**
+   * Set to true to give the drawer a shadow.
+   */
+  shadow?: boolean;
+}
 
-    /**
-     * The amount of offset to apply to the drawer's position.
-     * If the app uses a header and tab navigation, offset should equal
-     * the sum of those two components' heights.
-     */
-    offset: PropTypes.number,
-
-    /**
-     * Set to true to have the drawer start in up position.
-     */
-    startUp: PropTypes.bool,
-
-    /**
-     * How much the drawer's down display falls beneath the up display.
-     * Ex: if set to 20, the down display will be 20 points underneath the up display.
-     */
-    downDisplay: PropTypes.number,
-
-    /**
-     * The background color of the drawer.
-     */
-    backgroundColor: PropTypes.string,
-
-    /**
-     * Set to true to give the top of the drawer rounded edges.
-     */
-    roundedEdges: PropTypes.bool,
-
-    /**
-     * Set to true to give the drawer a shadow.
-     */
-    shadow: PropTypes.bool,
-  };
-
+export default class BottomDrawer extends Component<Props> {
   static defaultProps = {
     offset: 0,
     startUp: true,
     backgroundColor: '#ffffff',
     roundedEdges: true,
     shadow: true,
+  };
+
+  TOGGLE_THRESHOLD: number;
+  DOWN_DISPLAY: number;
+  UP_POSITION: { x: number; y: number };
+  DOWN_POSITION: { x: number; y: number };
+  position: Animated.ValueXY;
+  _panResponder: PanResponderInstance;
+  state: {
+    currentPosition: { x: number; y: number };
   };
 
   constructor(props) {
@@ -105,7 +114,8 @@ export default class BottomDrawer extends Component {
             height: this.props.containerHeight + Math.sqrt(SCREEN_HEIGHT),
             backgroundColor: this.props.backgroundColor,
           },
-        ]}>
+        ]}
+      >
         <View style={styles.responder} {...this._panResponder.panHandlers}>
           <View style={styles.indicator} />
         </View>
@@ -119,7 +129,7 @@ export default class BottomDrawer extends Component {
   _handlePanResponderMove = (e, gesture) => {
     if (this.swipeInBounds(gesture)) {
       const pos = this.state.currentPosition.y + gesture.dy;
-      this.position.setValue({y: pos, x: 0});
+      this.position.setValue({ y: pos, x: 0 });
     } else {
       this.position.setValue({
         y: this.UP_POSITION.y - this.calculateEase(gesture),
@@ -129,7 +139,7 @@ export default class BottomDrawer extends Component {
   };
 
   _handlePanResponderRelease = (e, gesture) => {
-    const {currentPosition} = this.state;
+    const { currentPosition } = this.state;
     if (
       gesture.dy > this.TOGGLE_THRESHOLD &&
       currentPosition === this.UP_POSITION
@@ -156,16 +166,18 @@ export default class BottomDrawer extends Component {
     return Math.min(Math.sqrt(gesture.dy * -1), Math.sqrt(SCREEN_HEIGHT));
   }
 
-  transitionTo(position) {
+  transitionTo(position: { x: number; y: number }) {
     Animated.spring(this.position, {
       toValue: position,
+      useNativeDriver: false,
     }).start();
-    this.setState({currentPosition: position});
+    this.setState({ currentPosition: position });
   }
 
   resetPosition() {
     Animated.spring(this.position, {
       toValue: this.state.currentPosition,
+      useNativeDriver: false,
     }).start();
   }
 }
