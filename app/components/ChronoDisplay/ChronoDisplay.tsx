@@ -4,27 +4,26 @@ import Svg, { Path } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './style';
 import { chrono } from '../../helpers/humanize';
+import { Step } from '../EditableStep/EditableStep';
 
 interface Props {
   currentStepProgress: number;
   currentStepIndex: number;
   totalSteps: number;
   currentTimer: number;
-  stepName: {
-    name: number;
-  };
+  step: Step;
   width: number;
 }
 
 export default function ChronoRemote({
-  stepName,
+  step,
   currentStepIndex,
   totalSteps,
   currentStepProgress,
   currentTimer,
   width,
 }: Props) {
-  const name = stepName ? stepName.name : 'loading';
+  const name = step ? step.name : 'loading';
   const actualWidth = width ? width : 280;
   const spaceBetweenCicrcles = 60;
   const radius = width / 2 - 10;

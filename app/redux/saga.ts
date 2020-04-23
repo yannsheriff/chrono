@@ -1,7 +1,7 @@
-import {all} from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 
-import {watchTrainingUpdate} from './trainings/trainings.saga';
-import {watchPopulateStore} from './loading/loading.saga';
+import { watchTrainingUpdate } from './trainings/trainings.saga';
+import { watchPopulateStore } from './loading/loading.saga';
 
 // Notice how we now only export the rootSaga,
 // single entry point to start all Sagas at once

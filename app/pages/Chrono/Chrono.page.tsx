@@ -2,7 +2,6 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
-  Alert,
   Image,
   StatusBar,
 } from 'react-native';
@@ -21,19 +20,44 @@ import BottomDrawer from '../../components/BottomDrawer';
 import ChronoDisplay from '../../components/ChronoDisplay';
 import { secondColor } from '../../config/style';
 import { icons } from '../../assets/img';
+import { Step } from '../../components/EditableStep/EditableStep';
+import { Training } from '../../components/trainingList/trainingList';
 
-export default class Chrono extends Component {
+interface Props {
+  navigation: any;
+}
+
+export default class Chrono extends Component<Props> {
   static navigationOptions = {
     header: null,
   };
 
-  constructor(props) {
+  soundIsPlaying: boolean;
+  remaingTime: number;
+  steps: Array<Step>;
+  bip: Sound;
+  whoop: Sound;
+  chrono: number;
+  trainingEndTime: number;
+  isLongPhase: boolean;
+  state: {
+    completeTraining: Training;
+    currentStep: Step;
+    currentStepIndex: number;
+    currentTimer: null | number;
+    currentStepProgress: number;
+    haveStarted: boolean;
+    isPaused: boolean;
+    totalTime: number;
+  };
+
+  constructor(props: Props) {
     super(props);
     this.soundIsPlaying = false;
     this.remaingTime = 0;
     this.state = {
       completeTraining: props.navigation.getParam('training'),
-      currentStep: {},
+      currentStep: undefined,
       currentStepIndex: 0,
       currentTimer: null,
       currentStepProgress: 0,
@@ -221,9 +245,7 @@ export default class Chrono extends Component {
   };
 
   render() {
-    const actualTimer = this.state.currentStep
-      ? this.state.currentTimer
-      : 'null';
+    const actualTimer = this.state.currentStep ? this.state.currentTimer : 0;
 
     const totalDone = this.state.totalTime - this.remaingTime;
 
@@ -236,7 +258,7 @@ export default class Chrono extends Component {
         <View style={styles.chrono}>
           <ChronoDisplay
             currentTimer={Math.ceil(actualTimer)}
-            stepName={this.steps[this.state.currentStepIndex]}
+            step={this.steps[this.state.currentStepIndex]}
             currentStepIndex={this.state.currentStepIndex}
             totalSteps={this.steps.length}
             currentStepProgress={this.state.currentStepProgress}
