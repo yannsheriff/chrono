@@ -5,10 +5,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 // Scenes Imports
 // ----------------------------
-import Trainings from '../screens/Trainings';
-import Chrono from '../screens/Chrono.js';
-import Editing from '../screens/Editing';
-import FinishTraining from '../screens/FinishTraining';
+import Trainings from '../pages/Trainings';
+import Chrono from '../pages/Chrono.js';
+import Editing from '../pages/Editing';
+import FinishTraining from '../pages/FinishTraining';
 
 const InitialNavigator = createStackNavigator({
   Home: Trainings,

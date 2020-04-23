@@ -7,7 +7,7 @@ import {name as appName} from './app.json';
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import Store from './app/redux/store';
-import Loading from './app/screens/Loader';
+import Loading from './app/pages/Loader';
 
 class App extends Component {
   constructor() {
