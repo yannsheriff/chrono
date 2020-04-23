@@ -12,6 +12,8 @@ const mainReducer = combineReducers({
   pickerReducer,
 });
 
+export type RootState = ReturnType<typeof mainReducer>;
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(mainReducer, applyMiddleware(sagaMiddleware));

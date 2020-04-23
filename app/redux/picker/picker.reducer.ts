@@ -1,9 +1,14 @@
-import {OPEN_PICKER, UPDATE_VALUE, CLOSE_PICKER} from './picker.action';
+import { OPEN_PICKER, UPDATE_VALUE, CLOSE_PICKER } from './picker.action';
 
-export function pickerReducer(
-  state = {isVisible: false, value: 0, stepId: 0},
-  action,
-) {
+const defaultState: PickerState = { isVisible: false, value: 0, stepId: 0 };
+
+export interface PickerState {
+  isVisible: boolean;
+  value: number;
+  stepId: number;
+}
+
+export function pickerReducer(state = defaultState, action) {
   switch (action.type) {
     case OPEN_PICKER:
       return {
