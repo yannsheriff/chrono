@@ -6,13 +6,25 @@ import {
   TextInput,
   Animated,
   Keyboard,
+  EmitterSubscription,
 } from 'react-native';
 import generateID from '../../helpers/idGenerator';
 
-import Phase from '../../components/Phase';
+import EditablePhase from '../../components/EditablePhase';
 import DurationPicker from '../../components/DurationPicker';
+import { Training } from '../../components/trainingList/trainingList';
+import { Phase } from '../../components/EditablePhase/EditablePhase';
 
-export default class Editing extends Component {
+interface Props {
+  updateTraining: (id: number, training: Training) => unknown;
+  newTraining: (training: Training) => unknown;
+  trainingsList: Array<Training>;
+  navigation: any;
+  isPickerVisible: boolean;
+  pickerValue: number;
+}
+
+export default class Editing extends Component<Props> {
   static navigationOptions = ({ navigation }) => ({
     headerRight: (
       <Button
@@ -24,13 +36,21 @@ export default class Editing extends Component {
     ),
   });
 
-  constructor(props) {
+  trainingId: number;
+  training: Training;
+  keyboardHeight: Animated.Value;
+  keyboardWillShowSub: EmitterSubscription;
+  keyboardWillHideSub: EmitterSubscription;
+  state: {
+    training: Training;
+  };
+  constructor(props: Props) {
     super(props);
 
     const isNewTraining =
       props.navigation.getParam('trainingIndex') === undefined;
     this.trainingId = isNewTraining
-      ? props.trainingsState.trainings.length
+      ? props.trainingsList.length
       : props.navigation.getParam('trainingIndex');
     const hydrateTraining = isNewTraining
       ? {
@@ -46,7 +66,7 @@ export default class Editing extends Component {
           ],
         }
       : {
-          ...props.trainingsState.trainings[this.trainingId],
+          ...props.trainingsList[this.trainingId],
         };
 
     this.training = hydrateTraining;
@@ -59,7 +79,6 @@ export default class Editing extends Component {
     }
 
     this.keyboardHeight = new Animated.Value(0);
-    this.scrollView = React.createRef();
   }
 
   componentWillMount() {
@@ -73,16 +92,18 @@ export default class Editing extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.pickerState.isVisible) {
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.isPickerVisible) {
       Animated.timing(this.keyboardHeight, {
         duration: 100,
         toValue: 250,
+        useNativeDriver: false,
       }).start();
-    } else if (!nextProps.pickerState.isVisible) {
+    } else if (!nextProps.isPickerVisible) {
       Animated.timing(this.keyboardHeight, {
         duration: 100,
         toValue: 0,
+        useNativeDriver: false,
       }).start();
     }
   }
@@ -92,7 +113,7 @@ export default class Editing extends Component {
     this.keyboardWillHideSub.remove();
   }
 
-  onPhaseUpdate(phaseId, payload) {
+  onPhaseUpdate(phaseId: number, payload: Phase | false) {
     if (payload) {
       this.training.phases = [
         ...this.training.phases.slice(0, phaseId),
@@ -133,6 +154,7 @@ export default class Editing extends Component {
     Animated.timing(this.keyboardHeight, {
       duration: event.duration,
       toValue: event.startCoordinates.height - 30,
+      useNativeDriver: false,
     }).start();
   };
 
@@ -140,6 +162,7 @@ export default class Editing extends Component {
     Animated.timing(this.keyboardHeight, {
       duration: event.duration,
       toValue: 0,
+      useNativeDriver: false,
     }).start();
   };
 
@@ -159,7 +182,7 @@ export default class Editing extends Component {
 
   render() {
     const phases = this.state.training.phases.map((element, index) => (
-      <Phase
+      <EditablePhase
         name={element.name}
         repetitions={element.repetitions}
         steps={element.steps}
@@ -181,9 +204,6 @@ export default class Editing extends Component {
           <ScrollView
             contentContainerStyle={{ alignItems: 'center' }}
             style={{ flexGrow: 2 }}
-            ref={ref => {
-              this.scrollView = ref;
-            }}
           >
             <TextInput
               value={this.state.training.name}
@@ -203,13 +223,9 @@ export default class Editing extends Component {
           </ScrollView>
         </Animated.View>
 
-        {this.props.pickerState.isVisible && (
+        {this.props.isPickerVisible && (
           <DurationPicker
-            value={
-              this.props.pickerState.value
-                ? this.props.pickerState.value
-                : false
-            }
+            value={this.props.pickerValue ? this.props.pickerValue : false}
           />
         )}
       </View>

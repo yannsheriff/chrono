@@ -4,11 +4,16 @@ import {
   updateTraining,
 } from '../../redux/trainings/trainings.action';
 import Editing from './Editing.page';
+import {
+  getPickerVisibility,
+  getPickerValue,
+} from '../../redux/picker/picker.selectors';
+import { getTrainings } from '../../redux/trainings/trainings.selectors';
 
 const mapStateToProps = state => ({
-  screenState: state.screenReducer,
-  trainingsState: state.trainingsReducer,
-  pickerState: state.pickerReducer,
+  trainingsList: getTrainings(state),
+  isPickerVisible: getPickerVisibility(state),
+  pickerValue: getPickerValue(state),
 });
 
 const mapDispatchToProps = dispatch => ({

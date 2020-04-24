@@ -21,12 +21,12 @@ interface Props {
   removeTraining: (id: string) => unknown;
 }
 
-const Trainings = ({
+const Trainings: React.FunctionComponent<Props> = ({
   trainingsState,
   navigation,
   removeTraining,
   newTraining,
-}: Props) => (
+}) => (
   <View>
     <ScrollView
       style={{

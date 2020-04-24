@@ -8,7 +8,7 @@ export interface PickerState {
   stepId: number;
 }
 
-export function pickerReducer(state = defaultState, action) {
+export function pickerReducer(state = defaultState, action): PickerState {
   switch (action.type) {
     case OPEN_PICKER:
       return {

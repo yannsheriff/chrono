@@ -3,7 +3,7 @@ import { View, TouchableHighlight, Alert } from 'react-native';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
 import { minutes } from '../../helpers/humanize';
-import { Phase } from '../Phase/Phase';
+import { Phase } from '../EditablePhase/EditablePhase';
 
 export type Training = {
   name: string;
