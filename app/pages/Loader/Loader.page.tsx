@@ -4,9 +4,18 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
 import Router from '../../Router';
+import { RootState } from '../../redux/store';
 
-export default class Loader extends Component {
-  constructor(props) {
+interface Props {
+  state: RootState;
+  populateStore: () => unknown;
+}
+
+export default class Loader extends Component<Props> {
+  state: {
+    ReduxState: RootState;
+  };
+  constructor(props: Props) {
     super(props);
     this.state = {
       ReduxState: this.props.state,
@@ -18,7 +27,7 @@ export default class Loader extends Component {
     this.props.populateStore();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     // console.log("nextProps", nextProps)
     this.setState(
       {
