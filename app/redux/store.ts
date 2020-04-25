@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { trainingsReducer } from './trainings/trainings.reducer';
+import trainingsReducer from './trainings/trainings.reducer';
 import pickerReducer from './picker/picker.reducer';
 import saga from './saga';
 import { createStore, applyMiddleware } from 'redux';
