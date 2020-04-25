@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import styles from './style';
 import EditableStep from '../step';
-import { Step } from '../EditableStep/EditableStep';
+import { Step } from '../EditableStep/EditableStep.component';
 
 interface Props {
   steps: Array<Step>;
@@ -12,7 +12,7 @@ interface Props {
 
 const stepList: React.FunctionComponent<Props> = ({
   steps,
-  currentStepIndex,
+  currentStepIndex = 0,
   currentStepProgress,
 }) => {
   const stepsComponents = steps.map((step, index) => {

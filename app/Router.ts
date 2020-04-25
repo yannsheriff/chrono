@@ -14,10 +14,15 @@ const InitialNavigator = createStackNavigator({
   Home: {
     screen: Trainings,
     navigationOptions: {
-      header: null,
+      headerShown: false,
     },
   },
-  Chrono,
+  Chrono: {
+    screen: Chrono,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
   EditTraining: Editing,
 });
 

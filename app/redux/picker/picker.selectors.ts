@@ -9,5 +9,5 @@ export const getPickerVisibility = (state: RootState): boolean =>
 export const getPickerValue = (state: RootState): number =>
   getPicker(state).value;
 
-export const getPickerStepId = (state: RootState): number =>
+export const getPickerStepId = (state: RootState): string =>
   getPicker(state).stepId;

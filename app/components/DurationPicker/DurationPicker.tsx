@@ -5,7 +5,6 @@ import screen from '../../helpers/ScreenSize';
 
 interface Props {
   value: number;
-  haveStarted: boolean;
   updatePickerValue: (seconds: number) => unknown;
   closePicker: () => unknown;
 }
@@ -54,13 +53,13 @@ export default class DurationPicker extends Component<Props> {
     }, 500);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.value) {
       this.setPickerValues(nextProps.value);
     }
   }
 
-  setPickerValues(seconds) {
+  setPickerValues(seconds: number) {
     const minutes = seconds / 60;
     if (minutes > 1) {
       const secondLeft = seconds % 60;

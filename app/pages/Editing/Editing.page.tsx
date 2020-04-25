@@ -7,6 +7,7 @@ import {
   Animated,
   Keyboard,
   EmitterSubscription,
+  KeyboardEvent,
 } from 'react-native';
 import generateID from '../../helpers/idGenerator';
 
@@ -14,27 +15,41 @@ import EditablePhase from '../../components/EditablePhase';
 import DurationPicker from '../../components/DurationPicker';
 import { Training } from '../../components/trainingList/trainingList';
 import { Phase } from '../../components/EditablePhase/EditablePhase';
+import {
+  NavigationScreenProp,
+  NavigationState,
+  NavigationScreenConfig,
+  NavigationRoute,
+} from 'react-navigation';
+import {
+  NavigationStackProp,
+  NavigationStackScreenComponent,
+  NavigationStackScreenProps,
+} from 'react-navigation-stack';
+import {
+  StackNavigationOptions,
+  StackNavigationProp,
+} from 'react-navigation-stack/lib/typescript/src/vendor/types';
 
-interface Props {
+type Props = {
   updateTraining: (id: number, training: Training) => unknown;
   newTraining: (training: Training) => unknown;
   trainingsList: Array<Training>;
-  navigation: any;
+  navigation: NavigationStackProp;
   isPickerVisible: boolean;
   pickerValue: number;
-}
+};
 
 export default class Editing extends Component<Props> {
-  static navigationOptions = ({ navigation }) => ({
-    headerRight: (
-      <Button
-        onPress={() => {
-          navigation.goBack();
-        }}
-        title="save"
-      />
-    ),
-  });
+  static navigationOptions = ({
+    navigation,
+  }: {
+    navigation: NavigationScreenProp<undefined>;
+  }) => {
+    return {
+      headerRight: <Button onPress={() => navigation.goBack()} title="save" />,
+    };
+  };
 
   trainingId: number;
   training: Training;
@@ -44,6 +59,7 @@ export default class Editing extends Component<Props> {
   state: {
     training: Training;
   };
+
   constructor(props: Props) {
     super(props);
 
@@ -79,9 +95,7 @@ export default class Editing extends Component<Props> {
     }
 
     this.keyboardHeight = new Animated.Value(0);
-  }
 
-  componentWillMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow,
@@ -133,24 +147,25 @@ export default class Editing extends Component<Props> {
   newPhase = () => {
     const phaseNumber = this.training.phases.length + 1;
     const timeStamp = Math.round(new Date().getTime() / 1000);
-    const phases = this.training.phases.concat({
+    const newPhase: Phase = {
       name: `phase ${phaseNumber}`,
       repetitions: 1,
       steps: [
         {
-          name: null,
-          duration: null,
+          name: 'exercice',
+          duration: 30,
           key: `s-${timeStamp}`,
         },
       ],
-    });
+    };
+    const phases = this.training.phases.concat(newPhase);
     this.training.phases = phases;
     this.setState({
       training: this.training,
     });
   };
 
-  keyboardWillShow = event => {
+  keyboardWillShow = (event: KeyboardEvent) => {
     Animated.timing(this.keyboardHeight, {
       duration: event.duration,
       toValue: event.startCoordinates.height - 30,
@@ -158,7 +173,7 @@ export default class Editing extends Component<Props> {
     }).start();
   };
 
-  keyboardWillHide = event => {
+  keyboardWillHide = (event: KeyboardEvent) => {
     Animated.timing(this.keyboardHeight, {
       duration: event.duration,
       toValue: 0,
@@ -166,7 +181,7 @@ export default class Editing extends Component<Props> {
     }).start();
   };
 
-  updateName = value => {
+  updateName = (value: string) => {
     this.training.name = value;
     this.setState({
       training: {
@@ -200,9 +215,15 @@ export default class Editing extends Component<Props> {
           justifyContent: 'flex-start',
         }}
       >
-        <Animated.View style={{ paddingBottom: this.keyboardHeight }}>
+        <Animated.View
+          style={{
+            paddingBottom: this.keyboardHeight,
+          }}
+        >
           <ScrollView
-            contentContainerStyle={{ alignItems: 'center' }}
+            contentContainerStyle={{
+              alignItems: 'center',
+            }}
             style={{ flexGrow: 2 }}
           >
             <TextInput
@@ -225,7 +246,7 @@ export default class Editing extends Component<Props> {
 
         {this.props.isPickerVisible && (
           <DurationPicker
-            value={this.props.pickerValue ? this.props.pickerValue : false}
+            value={this.props.pickerValue ? this.props.pickerValue : 0}
           />
         )}
       </View>

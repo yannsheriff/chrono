@@ -7,11 +7,14 @@ export type Step = {
   duration: number;
   key: string;
 };
+
 interface Props {
   name: string;
   duration: number;
   id: string;
-  openPicker: (id: string, duration?: number) => unknown;
+  pickerStepId: string;
+  pickerValue: number;
+  openPicker: (id: string, duration?: number | false) => unknown;
   stepDidUpdate: (step: Step | false) => unknown;
 }
 
@@ -22,7 +25,7 @@ export default class EditableStep extends Component<Props> {
     name: string;
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       showPicker: false,
@@ -31,12 +34,12 @@ export default class EditableStep extends Component<Props> {
     };
   }
 
-  componentWillReceiveProps(nextPorps) {
+  componentWillReceiveProps(nextPorps: Props) {
     if (
-      nextPorps.pickerState.value !== this.state.duration &&
-      nextPorps.pickerState.stepId === nextPorps.id
+      nextPorps.pickerValue !== this.state.duration &&
+      nextPorps.pickerStepId === nextPorps.id
     ) {
-      this.setState({ duration: nextPorps.pickerState.value }, () =>
+      this.setState({ duration: nextPorps.pickerValue }, () =>
         this.updateStep(),
       );
     } else if (nextPorps.name !== this.props.name) {
@@ -47,11 +50,11 @@ export default class EditableStep extends Component<Props> {
     }
   }
 
-  nameDidchange = name => {
+  nameDidchange = () => {
     this.updateStep();
   };
 
-  textChange = name => {
+  textChange = (name: string) => {
     this.setState({ name: name });
   };
 

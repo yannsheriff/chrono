@@ -5,6 +5,8 @@ import {
   Animated,
   Dimensions,
   PanResponderInstance,
+  PanResponderGestureState,
+  GestureResponderEvent,
 } from 'react-native';
 
 import styles from './styles';
@@ -64,7 +66,7 @@ export default class BottomDrawer extends Component<Props> {
     currentPosition: { x: number; y: number };
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     /**
@@ -81,7 +83,8 @@ export default class BottomDrawer extends Component<Props> {
      */
     this.UP_POSITION = {
       x: 0,
-      y: SCREEN_HEIGHT - (this.props.containerHeight + this.props.offset),
+      y:
+        SCREEN_HEIGHT - (this.props.containerHeight + (this.props.offset || 0)),
     };
     this.DOWN_POSITION = {
       x: 0,
@@ -126,7 +129,10 @@ export default class BottomDrawer extends Component<Props> {
     );
   }
 
-  _handlePanResponderMove = (e, gesture) => {
+  _handlePanResponderMove = (
+    e: GestureResponderEvent,
+    gesture: PanResponderGestureState,
+  ) => {
     if (this.swipeInBounds(gesture)) {
       const pos = this.state.currentPosition.y + gesture.dy;
       this.position.setValue({ y: pos, x: 0 });
@@ -138,7 +144,10 @@ export default class BottomDrawer extends Component<Props> {
     }
   };
 
-  _handlePanResponderRelease = (e, gesture) => {
+  _handlePanResponderRelease = (
+    e: GestureResponderEvent,
+    gesture: PanResponderGestureState,
+  ) => {
     const { currentPosition } = this.state;
     if (
       gesture.dy > this.TOGGLE_THRESHOLD &&
@@ -156,13 +165,13 @@ export default class BottomDrawer extends Component<Props> {
   };
 
   // returns true if the swipe is within the height of the drawer.
-  swipeInBounds(gesture) {
+  swipeInBounds(gesture: PanResponderGestureState) {
     return this.state.currentPosition.y + gesture.dy > this.UP_POSITION.y;
   }
 
   // when the user swipes the drawer above its height, this calculates
   // the drawer's slowing upward ease.
-  calculateEase(gesture) {
+  calculateEase(gesture: PanResponderGestureState) {
     return Math.min(Math.sqrt(gesture.dy * -1), Math.sqrt(SCREEN_HEIGHT));
   }
 

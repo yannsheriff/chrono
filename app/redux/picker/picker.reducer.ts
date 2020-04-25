@@ -1,11 +1,11 @@
 import { OPEN_PICKER, UPDATE_VALUE, CLOSE_PICKER } from './picker.action';
 
-const defaultState: PickerState = { isVisible: false, value: 0, stepId: 0 };
+const defaultState: PickerState = { isVisible: false, value: 0, stepId: '0' };
 
 export interface PickerState {
   isVisible: boolean;
   value: number;
-  stepId: number;
+  stepId: string;
 }
 
 export function pickerReducer(state = defaultState, action): PickerState {

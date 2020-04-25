@@ -12,6 +12,9 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.9",
+    "@types/react-native-keep-awake": "^2.0.2",
+    "@types/react-navigation": "^3.4.0",
+    "@types/react-redux": "^7.1.7",
     "add": "^2.0.6",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.11.0",

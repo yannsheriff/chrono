@@ -3,8 +3,8 @@ import { View, Text } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './style';
-import { chrono } from '../../helpers/humanize';
-import { Step } from '../EditableStep/EditableStep';
+import { chrono } from '~/helpers/humanize';
+import { Step } from '../EditableStep/EditableStep.component';
 
 interface Props {
   currentStepProgress: number;
@@ -98,7 +98,7 @@ export default function ChronoRemote({
   );
 }
 
-function calcPos(percent, width, radius) {
+function calcPos(percent: number, width: number, radius: number) {
   // 135 to 405 = 270 + 135
   const degrees = (270 * percent) / 100 + 135;
   return {

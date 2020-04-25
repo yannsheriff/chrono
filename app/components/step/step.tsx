@@ -24,7 +24,7 @@ export default class Step extends Component<Props> {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.progress !== this.state.progress) {
       this.setState({
         progress: nextProps.progress,

@@ -2,9 +2,10 @@
 // --------------------------------------------------------------
 import React from 'react';
 import { View, Text, Button } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
 
 interface Props {
-  navigation: any;
+  navigation: NavigationStackProp;
 }
 
 const FinishTraining: React.FunctionComponent<Props> = ({ navigation }) => (

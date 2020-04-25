@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import EditableStep from '../EditableStep';
 import styles from './style';
-import { Step } from '../EditableStep/EditableStep';
+import { Step } from '../EditableStep/EditableStep.component';
 
 export type Phase = {
   name: string;
@@ -35,7 +35,7 @@ export default class EditablePhase extends Component<Props> {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (this.state.steps !== nextProps.steps) {
       this.setState({
         steps: nextProps.steps,
@@ -43,7 +43,7 @@ export default class EditablePhase extends Component<Props> {
     }
   }
 
-  onStepUpdate(stepId, payload) {
+  onStepUpdate(stepId: number, payload: Step | false) {
     if (payload) {
       this.steps[stepId] = payload;
       this.updatePhase();
@@ -86,7 +86,7 @@ export default class EditablePhase extends Component<Props> {
     this.updatePhase();
   };
 
-  nameChange = name => {
+  nameChange = (name: string) => {
     this.setState({ name });
   };
 

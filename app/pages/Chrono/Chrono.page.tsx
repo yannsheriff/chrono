@@ -20,26 +20,26 @@ import BottomDrawer from '../../components/BottomDrawer';
 import ChronoDisplay from '../../components/ChronoDisplay';
 import { secondColor } from '../../config/style';
 import { icons } from '../../assets/img';
-import { Step } from '../../components/EditableStep/EditableStep';
+import { Step } from '../../components/EditableStep/EditableStep.component';
 import { Training } from '../../components/trainingList/trainingList';
+import {
+  NavigationStackProp,
+  NavigationStackOptions,
+} from 'react-navigation-stack';
 
 interface Props {
-  navigation: any;
+  navigation: NavigationStackProp<{ training: Training }>;
 }
 
 export default class Chrono extends Component<Props> {
-  static navigationOptions = {
-    header: null,
-  };
-
   soundIsPlaying: boolean;
   remaingTime: number;
   steps: Array<Step>;
   bip: Sound;
   whoop: Sound;
-  chrono: number;
-  trainingEndTime: number;
-  isLongPhase: boolean;
+  chrono: number = 0;
+  trainingEndTime: number = 0;
+  isLongPhase: boolean = false;
   state: {
     completeTraining: Training;
     currentStep: Step;
@@ -51,20 +51,14 @@ export default class Chrono extends Component<Props> {
     totalTime: number;
   };
 
+  static navigationOptions: NavigationStackOptions = {
+    header: undefined,
+  };
+
   constructor(props: Props) {
     super(props);
     this.soundIsPlaying = false;
     this.remaingTime = 0;
-    this.state = {
-      completeTraining: props.navigation.getParam('training'),
-      currentStep: undefined,
-      currentStepIndex: 0,
-      currentTimer: null,
-      currentStepProgress: 0,
-      haveStarted: false,
-      isPaused: true,
-      totalTime: 0,
-    };
 
     this.steps = [];
     this.bip = new Sound(musiques.bip, error => {
@@ -80,34 +74,37 @@ export default class Chrono extends Component<Props> {
         console.log('failed to load the sound', error);
       }
     });
-  }
 
-  componentDidMount() {
-    const training = this.props.navigation.getParam('training');
+    const training: Training = this.props.navigation.getParam('training');
     const totalTime = this.getTotalTime(training);
     this.remaingTime = totalTime;
 
-    training.phases.forEach(element => {
-      for (let index = 0; index < element.repetitions; index++) {
-        element.steps.forEach(element => {
-          this.steps.push(element);
+    training.phases.forEach(phase => {
+      for (let index = 0; index < phase.repetitions; index++) {
+        phase.steps.forEach(step => {
+          this.steps.push(step);
         });
       }
     });
 
-    this.setState({
-      totalTime,
-      completeTraining: training,
-      currentStep: this.steps[this.state.currentStepIndex],
-      currentTimer: this.steps[this.state.currentStepIndex].duration,
-    });
+    this.state = {
+      completeTraining: props.navigation.getParam('training'),
+      currentStep: this.steps[0],
+      currentStepIndex: 0,
+      currentTimer: this.steps[0].duration,
+      currentStepProgress: 0,
+      haveStarted: false,
+      isPaused: true,
+      totalTime: 0,
+    };
   }
 
-  getTotalTime = el => {
-    const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    const reducePhase = (accumulator, currentValue) =>
+  getTotalTime = (training: Training) => {
+    const reduce = (accumulator: number, currentValue: number) =>
+      accumulator + currentValue;
+    const reducePhase = (accumulator: number, currentValue: Step) =>
       accumulator + currentValue.duration;
-    const concatTable = el.phases.map(phase => {
+    const concatTable = training.phases.map(phase => {
       const time = phase.steps.reduce(reducePhase, 0);
       return time * phase.repetitions;
     });
@@ -132,7 +129,7 @@ export default class Chrono extends Component<Props> {
 
   resumeCurrentStep = () => {
     const endTime = moment()
-      .add(this.state.currentTimer, 'second')
+      .add(this.state.currentTimer || 0, 'second')
       .toDate()
       .getTime();
 
@@ -159,7 +156,7 @@ export default class Chrono extends Component<Props> {
     this.launchChrono(endTime);
   };
 
-  launchChrono = endTime => {
+  launchChrono = (endTime: number) => {
     this.chrono = setInterval(() => {
       const now = new Date().getTime();
       const sub = endTime - now;
@@ -227,7 +224,7 @@ export default class Chrono extends Component<Props> {
   relplayTraining = () => {
     clearInterval(this.chrono);
     this.remaingTime +=
-      this.state.currentStep.duration - this.state.currentTimer;
+      this.state.currentStep.duration - (this.state.currentTimer || 0);
     this.startCurrentStep();
   };
 
@@ -241,11 +238,15 @@ export default class Chrono extends Component<Props> {
       id: completeTraining.id,
       training: completeTraining,
     });
-    navigation.navigate('MyModal', { trainingID: completeTraining.id });
+    navigation.navigate('MyModal', {
+      trainingID: completeTraining.id,
+    });
   };
 
   render() {
-    const actualTimer = this.state.currentStep ? this.state.currentTimer : 0;
+    const actualTimer = this.state.currentStep
+      ? this.state.currentTimer || 0
+      : 0;
 
     const totalDone = this.state.totalTime - this.remaingTime;
 

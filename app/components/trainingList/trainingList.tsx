@@ -4,6 +4,8 @@ import styles from './style';
 import TrainingItem from '../TrainingItem';
 import { minutes } from '../../helpers/humanize';
 import { Phase } from '../EditablePhase/EditablePhase';
+import { Step } from '../EditableStep/EditableStep.component';
+import { NavigationStackProp } from 'react-navigation-stack';
 
 export type Training = {
   name: string;
@@ -13,9 +15,9 @@ export type Training = {
 };
 
 interface Props {
-  navigation: any;
+  navigation: NavigationStackProp;
   trainings: Array<Training>;
-  onTrainingDeletionRequest: (id: string) => unknown;
+  onTrainingDeletionRequest: (id: number) => unknown;
   onNewTrainingRequest: (training: Training) => unknown;
 }
 
@@ -23,7 +25,7 @@ export default class trainingList extends Component<Props> {
   state: {
     actualyDraging: number | undefined;
   };
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -31,11 +33,12 @@ export default class trainingList extends Component<Props> {
     };
   }
 
-  getTotalTime = el => {
-    const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    const reducePhase = (accumulator, currentValue) =>
+  getTotalTime = (training: Training): number => {
+    const reduce = (accumulator: number, currentValue: number) =>
+      accumulator + currentValue;
+    const reducePhase = (accumulator: number, currentValue: Step) =>
       accumulator + currentValue.duration;
-    const concatTable = el.phases.map(phase => {
+    const concatTable = training.phases.map(phase => {
       const time = phase.steps.reduce(reducePhase, 0);
       return time * phase.repetitions;
     });
@@ -44,9 +47,10 @@ export default class trainingList extends Component<Props> {
     return formatedTotal;
   };
 
-  getTotalRounds = el => {
-    const reduce = (accumulator, currentValue) => accumulator + currentValue;
-    const concatTable = el.phases.map(phase => {
+  getTotalRounds = (training: Training): number => {
+    const reduce = (accumulator: number, currentValue: number) =>
+      accumulator + currentValue;
+    const concatTable = training.phases.map(phase => {
       const steps = phase.steps.length;
       return steps * phase.repetitions;
     });
@@ -54,12 +58,12 @@ export default class trainingList extends Component<Props> {
     return total;
   };
 
-  edit = id => {
+  edit = (index: number) => {
     this.setState({ actualyDraging: undefined });
-    this.props.navigation.navigate('EditTraining', { trainingIndex: id });
+    this.props.navigation.navigate('EditTraining', { trainingIndex: index });
   };
 
-  delete = id => {
+  delete = (index: number) => {
     Alert.alert(
       'Are you sure ?',
       'Do you really want to delete this training ?',
@@ -67,7 +71,7 @@ export default class trainingList extends Component<Props> {
         {
           text: 'yes',
           onPress: () => {
-            this.props.onTrainingDeletionRequest(id);
+            this.props.onTrainingDeletionRequest(index);
             this.setState({
               actualyDraging: undefined,
             });
@@ -87,23 +91,23 @@ export default class trainingList extends Component<Props> {
     this.props.onNewTrainingRequest(training);
   };
 
-  open = el => {
+  open = (training: Training) => {
     this.setState({ actualyDraging: undefined });
     this.props.navigation.navigate('Chrono', {
-      training: el,
+      training: training,
     });
   };
 
-  onDrag = index => {
+  onDrag = (index: number) => {
     if (index !== this.state.actualyDraging) {
       this.setState({ actualyDraging: index });
     }
   };
 
   render() {
-    const trainings = this.props.trainings.map((el, index) => {
-      const duration = this.getTotalTime(el);
-      const rounds = this.getTotalRounds(el);
+    const trainings = this.props.trainings.map((training, index) => {
+      const duration = this.getTotalTime(training);
+      const rounds = this.getTotalRounds(training);
 
       return (
         <View
@@ -114,16 +118,16 @@ export default class trainingList extends Component<Props> {
           key={`training-${index}`}
         >
           <TrainingItem
-            name={el.name}
+            name={training.name}
             duration={duration}
             rounds={rounds}
             isDragging={index === this.state.actualyDraging}
             onDelete={() => this.delete(index)}
-            onDuplicate={() => this.duplicate(el)}
+            onDuplicate={() => this.duplicate(training)}
             onDrag={() => this.onDrag(index)}
             onEdit={() => this.edit(index)}
-            onOpen={() => this.open(el)}
-            difficulty={el.difficulty}
+            onOpen={() => this.open(training)}
+            difficulty={training.difficulty}
           />
         </View>
       );

@@ -13,16 +13,17 @@ import TrainingList from '../../components/trainingList';
 import { mainColor, secondColor } from '../../config/style';
 import { icons } from '../../assets/img';
 import { Training } from '../../components/trainingList/trainingList';
+import { NavigationStackProp } from 'react-navigation-stack';
 
 interface Props {
-  trainingsState: any;
-  navigation: any;
+  trainings: Array<Training>;
+  navigation: NavigationStackProp;
   newTraining: (training: Training) => unknown;
-  removeTraining: (id: string) => unknown;
+  removeTraining: (id: number) => unknown;
 }
 
 const Trainings: React.FunctionComponent<Props> = ({
-  trainingsState,
+  trainings,
   navigation,
   removeTraining,
   newTraining,
@@ -48,7 +49,7 @@ const Trainings: React.FunctionComponent<Props> = ({
         What do you want to do today ?{' '}
       </Text>
       <TrainingList
-        trainings={trainingsState.trainings}
+        trainings={trainings}
         navigation={navigation}
         onTrainingDeletionRequest={id => removeTraining(id)}
         onNewTrainingRequest={training => newTraining(training)}
