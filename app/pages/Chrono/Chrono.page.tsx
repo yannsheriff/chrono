@@ -9,19 +9,19 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Sound from 'react-native-sound';
 import KeepAwake from 'react-native-keep-awake';
-import StepList from '../../components/stepList';
-import StepListHeader from '../../components/StepListHeader';
-import ChronoRemote from '../../components/ChronoRemote/ChronoRemote';
-import screen from '../../helpers/ScreenSize';
-import { musiques } from '../../assets/sound';
-import statsData from '../../data/stats';
-import NextStep from '../../components/NextStep';
-import BottomDrawer from '../../components/BottomDrawer';
-import ChronoDisplay from '../../components/ChronoDisplay';
-import { secondColor } from '../../config/style';
-import { icons } from '../../assets/img';
-import { Step } from '../../components/EditableStep/EditableStep.component';
-import { Training } from '../../components/trainingList/trainingList';
+import StepList from '~/components/stepList';
+import StepListHeader from '~/components/StepListHeader';
+import ChronoRemote from '~/components/ChronoRemote/ChronoRemote';
+import screen from '~/helpers/ScreenSize';
+import { musiques } from '~/assets/sound';
+import statsData from '~/data/stats';
+import NextStep from '~/components/NextStep';
+import BottomDrawer from '~/components/BottomDrawer';
+import ChronoDisplay from '~/components/ChronoDisplay';
+import { secondColor } from '~/config/style';
+import { icons } from '~/assets/img';
+import { Step } from '~/components/EditableStep/EditableStep.component';
+import { Training } from '~/components/trainingList/trainingList';
 import {
   NavigationStackProp,
   NavigationStackOptions,

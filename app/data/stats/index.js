@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
-import { compare, migrate } from '../../helpers/Migrator';
+import { compare, migrate } from '~/helpers/Migrator';
 import { doneTraining } from './schema';
-import { storeService } from '../../helpers/storeService';
+import { storeService } from '~/helpers/storeService';
 
 let instance = null;
 class StatsService {
@@ -20,7 +20,6 @@ class StatsService {
 
     return result;
   }
-
 
   needMigration(dataSaved) {
     const migrationMap = this.compareSchema(dataSaved);
@@ -43,7 +42,8 @@ class StatsService {
     return data;
   }
 
-  async loadStats() { //  initial state
+  async loadStats() {
+    //  initial state
     const dataSaved = await storeService.get('stats');
     if (dataSaved) {
       console.log('Stats :', dataSaved);
@@ -60,8 +60,8 @@ class StatsService {
     return [];
   }
 
-
-  async saveStats(data) { //  initial state
+  async saveStats(data) {
+    //  initial state
     console.log('Saving stats', data);
     let dataSaved = await storeService.get('stats');
     if (dataSaved) {

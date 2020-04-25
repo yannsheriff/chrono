@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import screen from '../../helpers/ScreenSize';
+import screen from '~/helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {
@@ -7,6 +7,12 @@ export default StyleSheet.create({
     paddingBottom: 130,
   },
   step: {
-    height: 50, width: screen.widthPercent * 80, borderRadius: 15, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center', marginBottom: 10
+    height: 50,
+    width: screen.widthPercent * 80,
+    borderRadius: 15,
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
   },
 });

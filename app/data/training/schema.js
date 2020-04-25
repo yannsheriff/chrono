@@ -1,5 +1,4 @@
-import generateID from '../../helpers/idGenerator';
-
+import generateID from '~/helpers/idGenerator';
 
 export const training = {
   name: 'training',
@@ -11,7 +10,7 @@ export const training = {
 export const phases = {
   name: 'phase 1',
   repetitions: 1,
-  steps
+  steps,
 };
 
 export const steps = {

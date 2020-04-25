@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import TrainingList from '../../components/trainingList';
-import { mainColor, secondColor } from '../../config/style';
-import { icons } from '../../assets/img';
-import { Training } from '../../components/trainingList/trainingList';
+import TrainingList from '~/components/trainingList';
+import { mainColor, secondColor } from '~/config/style';
+import { icons } from '~/assets/img';
+import { Training } from '~/components/trainingList/trainingList';
 import { NavigationStackProp } from 'react-navigation-stack';
 
 interface Props {

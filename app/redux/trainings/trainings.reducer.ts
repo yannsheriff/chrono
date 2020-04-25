@@ -4,7 +4,7 @@ import {
   UPDATE_TRAINING,
 } from './trainings.action';
 import { POPULATE_STORE } from '../loading/loading.action';
-import { Training } from '../../components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList';
 
 export interface TrainingState {
   trainings: Array<Training>;

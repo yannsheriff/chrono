@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import styles from './style';
-import { chrono } from '../../helpers/humanize';
+import { chrono } from '~/helpers/humanize';
 import ProgressBar from '../ProgressBar';
 
 interface Props {

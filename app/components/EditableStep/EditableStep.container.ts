@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { openPicker } from '../../redux/picker/picker.action';
+import { openPicker } from '~/redux/picker/picker.action';
 import EditableStep from './EditableStep.component';
 import { RootState } from '~/redux/store';
 import {

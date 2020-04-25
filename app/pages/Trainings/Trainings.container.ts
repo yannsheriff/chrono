@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import {
   removeTraining,
   newTraining,
-} from '../../redux/trainings/trainings.action';
+} from '~/redux/trainings/trainings.action';
 import Trainings from './Trainings.page';
-import { Training } from '../../components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList';
 import { Dispatch } from 'redux';
 import { RootState } from '~/redux/store';
 import { getTrainings } from '~/redux/trainings/trainings.selectors';

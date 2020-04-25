@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './style';
-import { icons } from '../../assets/img';
+import { icons } from '~/assets/img';
 import { Step } from '../EditableStep/EditableStep.component';
 
 interface Props {

@@ -9,12 +9,12 @@ import {
   EmitterSubscription,
   KeyboardEvent,
 } from 'react-native';
-import generateID from '../../helpers/idGenerator';
+import generateID from '~/helpers/idGenerator';
 
-import EditablePhase from '../../components/EditablePhase';
-import DurationPicker from '../../components/DurationPicker';
-import { Training } from '../../components/trainingList/trainingList';
-import { Phase } from '../../components/EditablePhase/EditablePhase';
+import EditablePhase from '~/components/EditablePhase';
+import DurationPicker from '~/components/DurationPicker';
+import { Training } from '~/components/trainingList/trainingList';
+import { Phase } from '~/components/EditablePhase/EditablePhase';
 import {
   NavigationScreenProp,
   NavigationState,

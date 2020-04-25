@@ -1,6 +1,6 @@
-import {takeEvery, select} from 'redux-saga/effects';
-import {UPDATE_TRAINING, REMOVE_TRAINING} from './trainings.action';
-import {storeService} from '../../helpers/storeService';
+import { takeEvery, select } from 'redux-saga/effects';
+import { UPDATE_TRAINING, REMOVE_TRAINING } from './trainings.action';
+import { storeService } from '~/helpers/storeService';
 
 export function* saveTrainings(action) {
   console.log('Saving data ⏳');

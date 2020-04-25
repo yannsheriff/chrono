@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import {
   newTraining,
   updateTraining,
-} from '../../redux/trainings/trainings.action';
+} from '~/redux/trainings/trainings.action';
 import Editing from './Editing.page';
 import {
   getPickerVisibility,
   getPickerValue,
-} from '../../redux/picker/picker.selectors';
-import { getTrainings } from '../../redux/trainings/trainings.selectors';
+} from '~/redux/picker/picker.selectors';
+import { getTrainings } from '~/redux/trainings/trainings.selectors';
 import { RootState } from '~/redux/store';
 import { Dispatch } from 'redux';
 import { Training } from '~/components/trainingList/trainingList';

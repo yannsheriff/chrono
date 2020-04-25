@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-import Router from '../../Router';
-import { RootState } from '../../redux/store';
+import Router from '~/Router';
+import { RootState } from '~/redux/store';
 
 interface Props {
   state: RootState;

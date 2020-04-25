@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { icons } from '../../assets/img';
+import { icons } from '~/assets/img';
 import styles from './style';
 
 interface Props {

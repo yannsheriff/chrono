@@ -1,7 +1,7 @@
-import {put, takeEvery} from 'redux-saga/effects';
-import {REQUEST_STORE, populateStore} from './loading.action';
-import trainingData from '../../data/training';
-import stats from '../../data/stats';
+import { put, takeEvery } from 'redux-saga/effects';
+import { REQUEST_STORE, populateStore } from './loading.action';
+import trainingData from '~/data/training';
+import stats from '~/data/stats';
 
 export function* dispatchPopulateStore() {
   console.log('Populating data ⏳');

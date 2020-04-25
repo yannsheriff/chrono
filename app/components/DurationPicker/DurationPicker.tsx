@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Button, Picker, Text } from 'react-native';
 import styles from './style';
-import screen from '../../helpers/ScreenSize';
+import screen from '~/helpers/ScreenSize';
 
 interface Props {
   value: number;

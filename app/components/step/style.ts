@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { font } from '../../config/style';
-import screen from '../../helpers/ScreenSize';
+import { font } from '~/config/style';
+import screen from '~/helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {

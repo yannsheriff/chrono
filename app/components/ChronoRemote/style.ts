@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native';
-import screen from '../../helpers/ScreenSize';
+import screen from '~/helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {
     marginTop: screen.heightPercent * 5,
     alignItems: 'center',
     marginBottom: screen.heightPercent * 6,
-    width: '70%'
+    width: '70%',
   },
   remoteContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   step: {
     height: 50,
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 10,
   },
   button: { margin: 20 },
   bigButton: {
@@ -36,7 +36,7 @@ export default StyleSheet.create({
   },
   img: {
     width: 25,
-    height: 25
+    height: 25,
   },
   shadow: {
     shadowColor: '#000',
@@ -46,7 +46,6 @@ export default StyleSheet.create({
   },
   center: {
     justifyContent: 'center',
-    alignItems: 'center'
-  }
-
+    alignItems: 'center',
+  },
 });

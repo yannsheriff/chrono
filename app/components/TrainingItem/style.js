@@ -7,9 +7,8 @@ import {
   font,
   mainColor,
   secondColor,
-  mainShadow
-} from '../../config/style';
-
+  mainShadow,
+} from '~/config/style';
 
 // ----------------------------------------------------------------------------------
 
@@ -27,7 +26,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     borderWidth: 0,
     textAlign: 'left',
-    paddingLeft: 25
+    paddingLeft: 25,
   },
   cardWrapper: {
     width: '80%',
@@ -38,7 +37,7 @@ export default StyleSheet.create({
     right: 0,
     height: 100,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   button: {
     width: 50,
@@ -46,13 +45,13 @@ export default StyleSheet.create({
     marginRight: 15,
     borderRadius: 50,
     backgroundColor: 'white',
-    ...mainShadow
+    ...mainShadow,
   },
   buttonWrapper: {
     height: '100%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   card: {
     height: 100,
@@ -64,7 +63,7 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     width: '85%',
     position: 'relative',
-    ...mainShadow
+    ...mainShadow,
   },
   timeContainer: {
     borderColor: mainColor,
@@ -73,23 +72,23 @@ export default StyleSheet.create({
     height: 60,
     width: 60,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   timeText: {
     fontFamily: font_bold,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   name: {
     fontFamily: font_bold,
     fontSize: 18,
     color: secondColor,
-    marginBottom: 5
+    marginBottom: 5,
   },
   rounds: {
     fontFamily: font,
     fontSize: 14,
     color: secondColor,
-    opacity: 0.5
+    opacity: 0.5,
   },
   label: {
     height: 80,
@@ -108,6 +107,6 @@ export default StyleSheet.create({
     left: -20,
     textAlign: 'center',
     height: 20,
-    fontFamily: font_bold
-  }
+    fontFamily: font_bold,
+  },
 });

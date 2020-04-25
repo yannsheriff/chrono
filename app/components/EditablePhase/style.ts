@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import screen from '../../helpers/ScreenSize';
+import screen from '~/helpers/ScreenSize';
 
 export default StyleSheet.create({
   phase: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     backgroundColor: '#F2F2F2',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 10,
   },
   phaseHeader: {
     height: 20,
@@ -19,12 +19,12 @@ export default StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   repetitions: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
-  }
+  },
 });

@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { mainColor } from '../../config/style';
-// import screen from '../../helpers/ScreenSize';
+import { mainColor } from '~/config/style';
+// import screen from '~/helpers/ScreenSize';
 
 export default StyleSheet.create({
   container: {
     width: '100%',
     height: 4,
     backgroundColor: '#edeeef',
-    borderRadius: 3.5
+    borderRadius: 3.5,
   },
   progressBar: {
     position: 'absolute',
@@ -16,5 +16,5 @@ export default StyleSheet.create({
     left: 0,
     height: '100%',
     backgroundColor: mainColor,
-  }
+  },
 });

@@ -13,8 +13,8 @@ import {
 import Interactable, { IInteractableView } from 'react-native-interactable';
 
 // config
-import { secondColor } from '../../config/style';
-import { icons } from '../../assets/img';
+import { secondColor } from '~/config/style';
+import { icons } from '~/assets/img';
 import styles from './style';
 
 // ----------------------------------------------------------------------------------

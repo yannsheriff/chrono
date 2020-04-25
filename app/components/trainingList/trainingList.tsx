@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableHighlight, Alert } from 'react-native';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
-import { minutes } from '../../helpers/humanize';
+import { minutes } from '~/helpers/humanize';
 import { Phase } from '../EditablePhase/EditablePhase';
 import { Step } from '../EditableStep/EditableStep.component';
 import { NavigationStackProp } from 'react-navigation-stack';

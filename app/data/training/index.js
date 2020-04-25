@@ -1,7 +1,6 @@
-import { compare, migrate } from '../../helpers/Migrator';
+import { compare, migrate } from '~/helpers/Migrator';
 import { training, phases, steps } from './schema';
-import { storeService } from '../../helpers/storeService';
-
+import { storeService } from '~/helpers/storeService';
 
 function compareSchema(data) {
   const trainingData = data[0];
@@ -16,7 +15,6 @@ function compareSchema(data) {
 
   return result;
 }
-
 
 function needMigration(dataSaved) {
   const migrationMap = compareSchema(dataSaved);
@@ -40,7 +38,7 @@ function migrateSchema(dataSaved) {
   if (!migratePhase) {
     data = data.map(trainingData => ({
       ...trainingData,
-      phases: trainingData.phases.map(phaseData => migrate(phases, phaseData))
+      phases: trainingData.phases.map(phaseData => migrate(phases, phaseData)),
     }));
   }
   if (!migrateStep) {
@@ -48,14 +46,15 @@ function migrateSchema(dataSaved) {
       ...trainingData,
       phases: trainingData.phases.map(phaseData => ({
         ...phaseData,
-        steps: phaseData.steps.map(stepsData => migrate(steps, stepsData))
-      }))
+        steps: phaseData.steps.map(stepsData => migrate(steps, stepsData)),
+      })),
     }));
   }
   return data;
 }
 
-export default async function loadTrainingData() { //  initial state
+export default async function loadTrainingData() {
+  //  initial state
   const dataSaved = await storeService.getSaving();
   if (dataSaved) {
     console.log(' ================ Async Storage ================ ');
@@ -70,32 +69,34 @@ export default async function loadTrainingData() { //  initial state
     return dataSaved;
   }
 
-  const state = [{
-    name: 'training',
-    phases: [
-      {
-        name: 'phase 1',
-        repetitions: 1,
-        steps: [
-          {
-            name: 'planche',
-            duration: 7,
-            key: 's-6789'
-          },
-          {
-            name: 'pause',
-            duration: 5,
-            key: 's-6788'
-          },
-          {
-            name: 'planche',
-            duration: 10,
-            key: 's-6787'
-          },
-        ]
-      }
-    ]
-  }];
+  const state = [
+    {
+      name: 'training',
+      phases: [
+        {
+          name: 'phase 1',
+          repetitions: 1,
+          steps: [
+            {
+              name: 'planche',
+              duration: 7,
+              key: 's-6789',
+            },
+            {
+              name: 'pause',
+              duration: 5,
+              key: 's-6788',
+            },
+            {
+              name: 'planche',
+              duration: 10,
+              key: 's-6787',
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
   return state;
 }

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { requestStore } from '../../redux/loading/loading.action';
+import { requestStore } from '~/redux/loading/loading.action';
 import Loader from './Loader.page';
 import { RootState } from '~/redux/store';
 import { Dispatch } from 'redux';
