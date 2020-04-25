@@ -238,9 +238,10 @@ export default class Chrono extends Component<Props> {
       id: completeTraining.id,
       training: completeTraining,
     });
-    navigation.navigate('MyModal', {
-      trainingID: completeTraining.id,
-    });
+    navigation.goBack();
+    // navigation.navigate('MyModal', {
+    //   trainingID: completeTraining.id,
+    // });
   };
 
   render() {

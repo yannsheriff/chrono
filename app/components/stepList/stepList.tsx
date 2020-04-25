@@ -22,6 +22,7 @@ const stepList: React.FunctionComponent<Props> = ({
       return (
         <EditableStep
           name={step.name}
+          key={step.key}
           duration={step.duration}
           progress={progress}
         />
