@@ -14,17 +14,20 @@ const ChronoRemote: React.FunctionComponent<Props> = ({
   name,
   doneTime,
   totalTime,
-}) => (
-  <View style={styles.container}>
-    <View style={styles.wrapper}>
-      <Text style={styles.name}>{name} </Text>
-      <View style={styles.timeContainer}>
-        <Text style={styles.doneTime}>{chrono(doneTime)} </Text>
-        <Text style={styles.time}>/ {chrono(totalTime)}</Text>
+}) => {
+  console.log('totalTime', totalTime);
+  return (
+    <View style={styles.container}>
+      <View style={styles.wrapper}>
+        <Text style={styles.name}>{name} </Text>
+        <View style={styles.timeContainer}>
+          <Text style={styles.doneTime}>{chrono(doneTime)} </Text>
+          <Text style={styles.time}>/ {chrono(totalTime)}</Text>
+        </View>
+        <ProgressBar progress={doneTime * (100 / totalTime)} />
       </View>
-      <ProgressBar progress={doneTime * (100 / totalTime)} />
     </View>
-  </View>
-);
+  );
+};
 
 export default ChronoRemote;

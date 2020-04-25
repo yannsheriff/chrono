@@ -2,13 +2,15 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
-import {name as appName} from './app.json';
-import React, {Component} from 'react';
-import {Provider} from 'react-redux';
-import Store from './app/redux/store';
-import Loading from './app/pages/Loader';
+import { AppRegistry } from 'react-native';
+import { name as appName } from './app.json';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import persistedStore from '~/redux/store';
+import Router from '~/Router';
 
+const { store, persistor } = persistedStore;
 class App extends Component {
   constructor() {
     super();
@@ -17,8 +19,10 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={Store}>
-        <Loading />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router />
+        </PersistGate>
       </Provider>
     );
   }

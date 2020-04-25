@@ -95,7 +95,7 @@ export default class Chrono extends Component<Props> {
       currentStepProgress: 0,
       haveStarted: false,
       isPaused: true,
-      totalTime: 0,
+      totalTime: totalTime,
     };
   }
 

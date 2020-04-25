@@ -6,12 +6,7 @@ import { getTrainings } from './trainings.selectors';
 import { RootState } from '../store';
 
 export function* saveTrainings() {
-  console.log('Saving data ⏳');
-  const state: RootState = yield select();
-  const trainings = getTrainings(state);
-  console.log('state', trainings);
-  yield storeService.save(trainings);
-  console.log('Saved ✅');
+  console.log('Trigger something');
 }
 
 export function* watchTrainingUpdate() {
