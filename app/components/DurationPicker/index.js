@@ -6,18 +6,12 @@ const mapStateToProps = state => ({
   pickerState: state.pickerReducer,
 });
 
-const mapDispatchToProps = dispatch => ({
-  updatePickerValue: value => {
-    dispatch(updatePickerValue(value));
-  },
-  closePicker: () => {
-    dispatch(closePicker());
-  },
-});
+const mapDispatchToProps = {
+  updatePickerValue,
+  closePicker,
+};
 
-const componentContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(DurationPicker);
-
-export default componentContainer;

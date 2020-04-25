@@ -1,24 +1,33 @@
-export const OPEN_PICKER = 'OPEN_PICKER';
-export const UPDATE_VALUE = 'UPDATE_VALUE';
-export const CLOSE_PICKER = 'CLOSE_PICKER';
+import { createAction } from 'typesafe-actions';
 
-export function openPicker(id: string, value = false) {
-  return {
-    type: OPEN_PICKER,
-    value: value || false,
+// export function openPicker(id: string, value = false) {
+//   return {
+//     type: OPEN_PICKER,
+//     value: value || false,
+//     id,
+//   };
+// }
+
+// export function updatePickerValue(value: number) {
+//   return {
+//     type: UPDATE_VALUE,
+//     value,
+//   };
+// }
+
+export const openPicker = createAction(
+  'OPEN_PICKER',
+  (id: string, value: number | false = false) => ({
     id,
-  };
-}
-
-export function updatePickerValue(value: number) {
-  return {
-    type: UPDATE_VALUE,
     value,
-  };
-}
+  }),
+)();
 
-export function closePicker() {
-  return {
-    type: CLOSE_PICKER,
-  };
-}
+export const updatePickerValue = createAction(
+  'UPDATE_VALUE',
+  (value: number) => ({
+    value,
+  }),
+)();
+
+export const closePicker = createAction('CLOSE_PICKER')();

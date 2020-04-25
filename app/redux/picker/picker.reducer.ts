@@ -1,5 +1,7 @@
-import { OPEN_PICKER, UPDATE_VALUE, CLOSE_PICKER } from './picker.action';
+import { createReducer, ActionType } from 'typesafe-actions';
+import * as pickerActions from './picker.action';
 
+export type PickerActions = ActionType<typeof pickerActions>;
 const defaultState: PickerState = { isVisible: false, value: 0, stepId: '0' };
 
 export interface PickerState {
@@ -8,31 +10,20 @@ export interface PickerState {
   stepId: string;
 }
 
-export function pickerReducer(state = defaultState, action): PickerState {
-  switch (action.type) {
-    case OPEN_PICKER:
-      return {
-        ...state,
-        isVisible: true,
-        stepId: action.id,
-        value: action.value ? action.value : 0,
-      };
+const pickerReducer = createReducer<PickerState, PickerActions>(defaultState)
+  .handleAction(pickerActions.openPicker, (state, { payload }) => ({
+    ...state,
+    isVisible: true,
+    stepId: payload.id,
+    value: payload.value ? payload.value : 0,
+  }))
+  .handleAction(pickerActions.closePicker, state => ({
+    ...state,
+    isVisible: false,
+  }))
+  .handleAction(pickerActions.updatePickerValue, (state, { payload }) => ({
+    ...state,
+    value: payload.value,
+  }));
 
-    case CLOSE_PICKER:
-      return {
-        ...state,
-        isVisible: false,
-      };
-
-    case UPDATE_VALUE:
-      return {
-        ...state,
-        value: action.value,
-      };
-
-    default:
-      return state;
-  }
-}
-
-export const test = 'test';
+export default pickerReducer;

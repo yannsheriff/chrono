@@ -6,7 +6,6 @@ import {
   getPickerStepId,
   getPickerValue,
 } from '~/redux/picker/picker.selectors';
-import { Dispatch } from 'redux';
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -15,12 +14,8 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    openPicker: (id: string, value: any) => {
-      dispatch(openPicker(id, value));
-    },
-  };
+const mapDispatchToProps = {
+  openPicker,
 };
 
 const componentContainer = connect(
