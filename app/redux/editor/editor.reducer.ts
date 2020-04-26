@@ -8,7 +8,7 @@ export interface EditorStep {
   key: string;
   name: string;
   duration: number;
-  phase: undefined | string;
+  phase?: string;
   position: number;
 }
 

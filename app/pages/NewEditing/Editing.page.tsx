@@ -1,27 +1,29 @@
 import React from 'react';
-import { View, ScrollView, TextInput } from 'react-native';
+import { View, ScrollView, TextInput, Button } from 'react-native';
+import generateID from '~/helpers/idGenerator';
 
 import DurationPicker from '~/components/DurationPicker';
 import { Training } from '~/components/trainingList/trainingList';
 import { NavigationStackProp } from 'react-navigation-stack';
 import EditorStepList from './EditorStepList';
+import { EditorStep } from '~/redux/editor/editor.reducer';
 
 type Props = {
   updateTraining: (id: number, training: Training) => unknown;
   newTraining: (training: Training) => unknown;
   updateTrainingName: (name: string) => unknown;
+  createStep: (step: EditorStep) => unknown;
   trainingsList: Array<Training>;
   navigation: NavigationStackProp;
   isPickerVisible: boolean;
-  pickerValue: number;
   trainingName: string;
 };
 
 const NewEditing: React.FunctionComponent<Props> = ({
   updateTrainingName,
   isPickerVisible,
-  pickerValue,
   trainingName,
+  createStep,
 }) => {
   return (
     <View
@@ -50,12 +52,20 @@ const NewEditing: React.FunctionComponent<Props> = ({
           }}
         />
         <EditorStepList />
-        {/* <Button title="+" onPress={this.newPhase} /> */}
+        <Button
+          title="+"
+          onPress={() =>
+            createStep({
+              key: `S${generateID()}`,
+              name: 'exercice',
+              duration: 5,
+              position: 0,
+            })
+          }
+        />
       </ScrollView>
 
-      {isPickerVisible && (
-        <DurationPicker value={pickerValue ? pickerValue : 0} />
-      )}
+      {isPickerVisible && <DurationPicker />}
     </View>
   );
 };

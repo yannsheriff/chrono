@@ -1,6 +1,5 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
-import styles from './EditorStepList.style';
+
 import EditableStep from '../EditableStep';
 import { EditorStep, EditorPhase } from '~/redux/editor/editor.reducer';
 
@@ -13,9 +12,11 @@ const EditorStepList: React.FunctionComponent<Props> = ({
   stepList,
   phaseList,
 }) => {
-  const stepsComponents = stepList.map(step => {
-    return <EditableStep key={step.key} id={step.key} />;
-  });
+  const stepsComponents = stepList
+    .sort((a: EditorStep, b: EditorStep) => a.position - b.position)
+    .map(step => {
+      return <EditableStep key={step.key} id={step.key} />;
+    });
 
   return (
     <>

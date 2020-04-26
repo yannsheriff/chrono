@@ -1,23 +1,20 @@
 import { connect } from 'react-redux';
 import Editing from './Editing.page';
-import {
-  getPickerVisibility,
-  getPickerValue,
-} from '~/redux/picker/picker.selectors';
+import { getPickerVisibility } from '~/redux/picker/picker.selectors';
 import { getTrainings } from '~/redux/trainings/trainings.selectors';
 import { RootState } from '~/redux/store';
 import { getEditorName } from '~/redux/editor/editor.selectors';
-import { updateTrainingName } from '~/redux/editor/editor.action';
+import { updateTrainingName, createStep } from '~/redux/editor/editor.action';
 
 const mapStateToProps = (state: RootState) => ({
   trainingsList: getTrainings(state),
   isPickerVisible: getPickerVisibility(state),
-  pickerValue: getPickerValue(state),
   trainingName: getEditorName(state),
 });
 
 const mapDispatchToProps = {
   updateTrainingName,
+  createStep,
 };
 
 export default connect(
