@@ -9,6 +9,7 @@ import Trainings from './pages/Trainings';
 import Chrono from './pages/Chrono';
 import Editing from './pages/Editing';
 import FinishTraining from './pages/FinishTraining';
+import NewEditing from './pages/NewEditing';
 
 const InitialNavigator = createStackNavigator({
   Home: {
@@ -23,7 +24,7 @@ const InitialNavigator = createStackNavigator({
       headerShown: false,
     },
   },
-  EditTraining: Editing,
+  EditTraining: NewEditing,
 });
 
 const RootStack = createStackNavigator(

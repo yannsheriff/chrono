@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import EditableStep from '../EditableStep';
+import EditableStep from '~/components/EditableStep';
 import styles from './style';
-import { Step } from '../EditableStep/EditableStep.component';
+import { Step } from '~/components/EditableStep/EditableStep.component';
 
 export type Phase = {
   name: string;
@@ -119,13 +119,13 @@ export default class EditablePhase extends Component<Props> {
   };
 
   render() {
-    const steps = this.state.steps.map((element, index) => {
+    const steps = this.state.steps.map((step, index) => {
       const key = `k-${index}`;
       return (
         <EditableStep
-          name={element.name}
-          duration={element.duration}
-          id={element.key}
+          name={step.name}
+          duration={step.duration}
+          id={step.key}
           key={key}
           stepDidUpdate={step => {
             this.onStepUpdate(index, step);

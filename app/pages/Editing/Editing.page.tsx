@@ -11,25 +11,12 @@ import {
 } from 'react-native';
 import generateID from '~/helpers/idGenerator';
 
-import EditablePhase from '~/components/EditablePhase';
+import EditablePhase from './EditablePhase';
 import DurationPicker from '~/components/DurationPicker';
 import { Training } from '~/components/trainingList/trainingList';
-import { Phase } from '~/components/EditablePhase/EditablePhase';
-import {
-  NavigationScreenProp,
-  NavigationState,
-  NavigationScreenConfig,
-  NavigationRoute,
-} from 'react-navigation';
-import {
-  NavigationStackProp,
-  NavigationStackScreenComponent,
-  NavigationStackScreenProps,
-} from 'react-navigation-stack';
-import {
-  StackNavigationOptions,
-  StackNavigationProp,
-} from 'react-navigation-stack/lib/typescript/src/vendor/types';
+import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
+import { NavigationScreenProp } from 'react-navigation';
+import { NavigationStackProp } from 'react-navigation-stack';
 
 type Props = {
   updateTraining: (id: number, training: Training) => unknown;
