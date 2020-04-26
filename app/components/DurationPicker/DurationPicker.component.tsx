@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, Picker, Text } from 'react-native';
-import styles from './style';
+import styles from './DurationPicker.style';
 import screen from '~/helpers/ScreenSize';
 
 interface Props {
