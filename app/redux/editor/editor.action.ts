@@ -1,7 +1,7 @@
 import { createAction } from 'typesafe-actions';
 import { EditorStep, EditorPhase } from './editor.types';
 
-// Training ======
+// Training ====================================================================
 
 export const updateTrainingName = createAction(
   'UPDATE_TRAINING_NAME',
@@ -10,7 +10,7 @@ export const updateTrainingName = createAction(
   }),
 )();
 
-// Steps =============
+// Steps ====================================================================
 
 export const createStep = createAction('NEW_STEP', (step: EditorStep) => ({
   step,
@@ -71,7 +71,7 @@ export const editStepPhase = createAction(
   }),
 )();
 
-// Phases =============
+// Phases ====================================================================
 
 export const createPhase = createAction('NEW_PHASE', (phase: EditorPhase) => ({
   phase,
