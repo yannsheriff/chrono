@@ -9,42 +9,48 @@ import {
 } from './editor.action';
 import { getEditorStepById } from './editor.selectors';
 import { Action } from 'redux';
+import { EditorStep } from './editor.reducer';
 
-export function* editStepNameHandler({
-  payload,
-}: ReturnType<typeof editStepName>): Saga {
-  const step = yield select(getEditorStepById, payload.key);
-  yield put<Action>(editStep(payload.key, { ...step, name: payload.name }));
-}
+type EditStepActions =
+  | ReturnType<typeof editStepName>
+  | ReturnType<typeof editStepDuration>
+  | ReturnType<typeof editStepPhase>
+  | ReturnType<typeof editStepPosition>;
 
-export function* editStepDurationHandler({
-  payload,
-}: ReturnType<typeof editStepDuration>): Saga {
-  const step = yield select(getEditorStepById, payload.key);
-  yield put<Action>(
-    editStep(payload.key, { ...step, duration: payload.duration }),
-  );
-}
+export function* editStepHandler(action: EditStepActions): Saga {
+  const { key } = action.payload;
+  let newStep: EditorStep;
+  const step = yield select(getEditorStepById, key);
 
-export function* editStepPhaseHandler({
-  payload,
-}: ReturnType<typeof editStepPhase>): Saga {
-  const step = yield select(getEditorStepById, payload.key);
-  yield put<Action>(editStep(payload.key, { ...step, phase: payload.phase }));
-}
+  switch (action.type) {
+    case getType(editStepName):
+      newStep = { ...step, name: action.payload.name };
+      break;
+    case getType(editStepDuration):
+      newStep = { ...step, duration: action.payload.duration };
+      break;
+    case getType(editStepPhase):
+      newStep = { ...step, phase: action.payload.phase };
+      break;
+    case getType(editStepPosition):
+      newStep = { ...step, position: action.payload.position };
+      break;
 
-export function* editStepPositionHandler({
-  payload,
-}: ReturnType<typeof editStepPosition>): Saga {
-  const step = yield select(getEditorStepById, payload.key);
-  yield put<Action>(
-    editStep(payload.key, { ...step, position: payload.position }),
-  );
+    default:
+      newStep = step;
+      break;
+  }
+  yield put<Action>(editStep(key, newStep));
 }
 
 export function* watchEditorUpdate() {
-  yield takeLatest(getType(editStepName), editStepNameHandler);
-  yield takeLatest(getType(editStepDuration), editStepDurationHandler);
-  yield takeLatest(getType(editStepPhase), editStepPhaseHandler);
-  yield takeLatest(getType(editStepPosition), editStepPositionHandler);
+  yield takeLatest(
+    [
+      getType(editStepName),
+      getType(editStepDuration),
+      getType(editStepPhase),
+      getType(editStepPosition),
+    ],
+    editStepHandler,
+  );
 }
