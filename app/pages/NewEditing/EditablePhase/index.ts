@@ -1,3 +1,1 @@
-import Phase from './EditablePhase';
-
-export default Phase;
+export { default } from './EditablePhase.container';

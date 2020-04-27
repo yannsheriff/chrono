@@ -3,13 +3,13 @@ import EditorStepList from './EditorStepList.component';
 import { RootState } from '~/redux/store';
 import {
   getEditorSteps,
-  getEditorPhase,
+  getEditorPhases,
 } from '~/redux/editor/editor.selectors';
 
 const mapStateToProps = (state: RootState) => {
   return {
     stepList: getEditorSteps(state),
-    phaseList: getEditorPhase(state),
+    phaseList: getEditorPhases(state),
   };
 };
 

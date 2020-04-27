@@ -1,7 +1,8 @@
 import React from 'react';
 
 import EditableStep from '../EditableStep';
-import { EditorStep, EditorPhase } from '~/redux/editor/editor.reducer';
+import { EditorStep, EditorPhase } from '~/redux/editor/editor.types';
+import EditablePhase from '../EditablePhase';
 
 interface Props {
   stepList: Array<EditorStep>;
@@ -12,20 +13,25 @@ const EditorStepList: React.FunctionComponent<Props> = ({
   stepList,
   phaseList,
 }) => {
-  const stepsComponents = stepList
-    .sort((a: EditorStep, b: EditorStep) => a.position - b.position)
-    .map(step => {
-      return <EditableStep key={step.key} id={step.key} />;
+  const phaseLessSteps = stepList.filter(step => step.phase === undefined);
+  const stepsPhaseArray: Array<EditorStep | EditorPhase> = [
+    ...phaseLessSteps,
+    ...phaseList,
+  ];
+  const components = stepsPhaseArray
+    .sort(
+      (a: EditorStep | EditorPhase, b: EditorStep | EditorPhase) =>
+        a.position - b.position,
+    )
+    .map(element => {
+      return (element as EditorStep).duration ? (
+        <EditableStep key={element.key} id={element.key} />
+      ) : (
+        <EditablePhase key={element.key} id={element.key} />
+      );
     });
 
-  return (
-    <>
-      {/* <Text>Cououc</Text> */}
-      {/* <ScrollView contentContainerStyle={styles.container}> */}
-      {stepsComponents}
-      {/* </ScrollView> */}
-    </>
-  );
+  return <>{components}</>;
 };
 
 export default EditorStepList;

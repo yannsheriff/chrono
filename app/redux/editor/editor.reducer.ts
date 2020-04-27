@@ -3,35 +3,7 @@ import { Training } from '~/components/trainingList/trainingList';
 import { createReducer, ActionType } from 'typesafe-actions';
 import * as editorActions from './editor.action';
 import id from '~/helpers/idGenerator';
-
-export interface EditorStep {
-  key: string;
-  name: string;
-  duration: number;
-  phase?: string;
-  position: number;
-}
-
-enum Difficultys {
-  easy,
-  medium,
-  hard,
-}
-
-export interface EditorPhase {
-  key: string;
-  steps: Array<string>;
-  position: number;
-  repetitions: number;
-}
-
-export interface EditorState {
-  name: string;
-  steps: Array<EditorStep>;
-  phases: Array<EditorPhase>;
-  difficulty: Difficultys;
-  id: string;
-}
+import { EditorState, Difficultys } from './editor.types';
 
 const defaultState: EditorState = {
   name: 'Entrainement',
@@ -42,11 +14,13 @@ const defaultState: EditorState = {
       key: 'S_azerrf',
       name: 'coucou',
       duration: 5,
-      phase: undefined,
+      phase: 'P_azerrf',
       position: 1,
     },
   ],
-  phases: [],
+  phases: [
+    { key: 'P_azerrf', steps: ['S_azerrf'], position: 2, repetitions: 2 },
+  ],
 };
 
 export type EditorActions = ActionType<typeof editorActions>;
@@ -75,7 +49,7 @@ const editorReducer = createReducer<EditorState, EditorActions>(defaultState)
     ...state,
     phases: state.phases.concat(payload.phase),
   }))
-  .handleAction(editorActions.updatePhase, (state, { payload }) => ({
+  .handleAction(editorActions.editPhase, (state, { payload }) => ({
     ...state,
     phases: state.phases.map(phase => {
       if (phase.key === payload.key) return payload.phase;

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
-import styles from './style';
+import styles from './ChronoDisplay.style';
 import { chrono } from '~/helpers/humanize';
 import { Step } from '../EditableStep/EditableStep.component';
 

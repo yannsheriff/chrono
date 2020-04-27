@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions';
-import { EditorStep, EditorPhase } from './editor.reducer';
+import { EditorStep, EditorPhase } from './editor.types';
 
 // Training ======
 
@@ -16,6 +16,17 @@ export const createStep = createAction('NEW_STEP', (step: EditorStep) => ({
   step,
 }))();
 
+export const requestRemoveStep = createAction(
+  'REQUEST_REMOVE_STEP',
+  (key: string) => ({
+    key,
+  }),
+)();
+
+/**
+ * !!! do not use in components !!!
+ * Use `requestRemoveStep`instead (it clean step from phases)
+ */
 export const removeStep = createAction('REMOVE_STEP', (key: string) => ({
   key,
 }))();
@@ -70,10 +81,42 @@ export const removePhase = createAction('REMOVE_PHASE', (key: string) => ({
   key,
 }))();
 
-export const updatePhase = createAction(
+export const editPhase = createAction(
   'UPDATE_PHASE',
   (key: string, phase: EditorPhase) => ({
     key,
     phase,
+  }),
+)();
+
+export const editPhaseRepetitions = createAction(
+  'UPDATE_PHASE_REPETITIONS',
+  (key: string, increment: boolean) => ({
+    key,
+    increment,
+  }),
+)();
+
+export const editPhasePosition = createAction(
+  'UPDATE_PHASE_POSITION',
+  (key: string, position: number) => ({
+    key,
+    position,
+  }),
+)();
+
+export const addStepToPhase = createAction(
+  'ADD_STEP_TO_PHASE',
+  (key: string, stepKey: string) => ({
+    key,
+    stepKey,
+  }),
+)();
+
+export const removeStepFromPhase = createAction(
+  'REMOVE_STEP_FROM_PHASE',
+  (key: string, stepKey: string) => ({
+    key,
+    stepKey,
   }),
 )();

@@ -1,21 +1,29 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 import {
-  editStepName,
   editStep,
+  editStepName,
   editStepDuration,
   editStepPhase,
   editStepPosition,
+  editPhase,
+  editPhaseRepetitions,
+  editPhasePosition,
+  removeStepFromPhase,
+  addStepToPhase,
+  requestRemoveStep,
+  removeStep,
+  createStep,
 } from './editor.action';
-import { getEditorStepById } from './editor.selectors';
+import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
 import { Action } from 'redux';
-import { EditorStep } from './editor.reducer';
 
-type EditStepActions =
-  | ReturnType<typeof editStepName>
-  | ReturnType<typeof editStepDuration>
-  | ReturnType<typeof editStepPhase>
-  | ReturnType<typeof editStepPosition>;
+import {
+  EditStepActions,
+  EditPhaseActions,
+  EditorStep,
+  EditorPhase,
+} from './editor.types';
 
 export function* editStepHandler(action: EditStepActions): Saga {
   const { key } = action.payload;
@@ -43,6 +51,71 @@ export function* editStepHandler(action: EditStepActions): Saga {
   yield put<Action>(editStep(key, newStep));
 }
 
+export function* editPhaseHandler(action: EditPhaseActions): Saga {
+  const { key } = action.payload;
+  let newPhase: EditorPhase;
+  const phase: EditorPhase = yield select(getEditorPhaseById, key);
+
+  switch (action.type) {
+    case getType(editPhaseRepetitions):
+      const increment = action.payload.increment
+        ? phase.repetitions + 1
+        : phase.repetitions - 1;
+
+      newPhase = {
+        ...phase,
+        repetitions: increment < 0 ? 0 : increment,
+      };
+      break;
+    case getType(editPhasePosition):
+      newPhase = {
+        ...phase,
+        position: action.payload.position,
+      };
+      break;
+
+    case getType(addStepToPhase):
+      newPhase = {
+        ...phase,
+        steps: phase.steps.concat(action.payload.stepKey),
+      };
+      break;
+
+    case getType(removeStepFromPhase):
+      newPhase = {
+        ...phase,
+        steps: phase.steps.filter(
+          stepKey => stepKey !== action.payload.stepKey,
+        ),
+      };
+      break;
+
+    default:
+      newPhase = phase;
+      break;
+  }
+  yield put<Action>(editPhase(key, newPhase));
+}
+
+export function* removeStepHandler({
+  payload,
+}: ReturnType<typeof requestRemoveStep>): Saga {
+  const step: EditorStep = yield select(getEditorStepById, payload.key);
+  if (step.phase !== undefined) {
+    yield put<Action>(removeStepFromPhase(step.phase, step.key));
+  }
+  yield put<Action>(removeStep(payload.key));
+}
+
+export function* createStepHandler({
+  payload,
+}: ReturnType<typeof createStep>): Saga {
+  const step: EditorStep = yield select(getEditorStepById, payload.step.key);
+  if (step.phase !== undefined) {
+    yield put<Action>(addStepToPhase(step.phase, step.key));
+  }
+}
+
 export function* watchEditorUpdate() {
   yield takeLatest(
     [
@@ -53,4 +126,16 @@ export function* watchEditorUpdate() {
     ],
     editStepHandler,
   );
+  yield takeLatest(
+    [
+      getType(editPhaseRepetitions),
+      getType(editPhasePosition),
+      getType(addStepToPhase),
+      getType(removeStepFromPhase),
+    ],
+    editPhaseHandler,
+  );
+
+  yield takeLatest(getType(requestRemoveStep), removeStepHandler);
+  yield takeLatest(getType(createStep), createStepHandler);
 }

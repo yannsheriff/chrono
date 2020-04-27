@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import styles from './style';
+import styles from './EditableStep.style';
 
 export type Step = {
   name: string;

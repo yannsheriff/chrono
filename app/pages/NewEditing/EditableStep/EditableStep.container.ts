@@ -3,7 +3,7 @@ import { openPicker } from '~/redux/picker/picker.action';
 import EditableStep from './EditableStep.component';
 import { RootState } from '~/redux/store';
 import { getEditorStepById } from '~/redux/editor/editor.selectors';
-import { removeStep, editStepName } from '~/redux/editor/editor.action';
+import { editStepName, requestRemoveStep } from '~/redux/editor/editor.action';
 
 type EditorStepDispatchToProps = MapDispatchToPropsFunction<
   {
@@ -19,7 +19,7 @@ const mapStateToProps = (state: RootState, ownProps: { id: string }) => ({
 });
 
 const mapDispatchToProps: EditorStepDispatchToProps = (dispatch, { id }) => ({
-  removeStep: (): unknown => dispatch(removeStep(id)),
+  removeStep: (): unknown => dispatch(requestRemoveStep(id)),
   editStepName: (name: string): unknown => dispatch(editStepName(id, name)),
   openPicker: (duration: number): unknown => dispatch(openPicker(id, duration)),
 });
