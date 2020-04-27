@@ -13,6 +13,7 @@ type Props = {
   newTraining: (training: Training) => unknown;
   updateTrainingName: (name: string) => unknown;
   createStep: () => unknown;
+  createPhase: () => unknown;
   trainingsList: Array<Training>;
   navigation: NavigationStackProp;
   isPickerVisible: boolean;
@@ -24,6 +25,7 @@ const NewEditing: React.FunctionComponent<Props> = ({
   isPickerVisible,
   trainingName,
   createStep,
+  createPhase,
 }) => (
   <View style={styles.container}>
     <ScrollView
@@ -38,7 +40,8 @@ const NewEditing: React.FunctionComponent<Props> = ({
         style={styles.name}
       />
       <EditorStepList />
-      <Button title="+" onPress={createStep} />
+      <Button title="step" onPress={createStep} />
+      <Button title="phase" onPress={createPhase} />
     </ScrollView>
 
     {isPickerVisible && <DurationPicker />}

@@ -4,7 +4,11 @@ import { getPickerVisibility } from '~/redux/picker/picker.selectors';
 import { getTrainings } from '~/redux/trainings/trainings.selectors';
 import { RootState } from '~/redux/store';
 import { getEditorName } from '~/redux/editor/editor.selectors';
-import { updateTrainingName, createStep } from '~/redux/editor/editor.action';
+import {
+  updateTrainingName,
+  createStep,
+  createPhase,
+} from '~/redux/editor/editor.action';
 import { Dispatch } from 'redux';
 import generateID from '~/helpers/idGenerator';
 
@@ -23,6 +27,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
         key: `S${generateID()}`,
         duration: 10,
         position: 1,
+      }),
+    ),
+  createPhase: () =>
+    dispatch(
+      createPhase({
+        key: `P${generateID()}`,
+        position: 1,
+        repetitions: 2,
+        steps: [],
       }),
     ),
 });
