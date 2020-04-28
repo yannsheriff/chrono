@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './EditableStep.style';
 
-export type Step = {
+export interface Step {
   name: string;
   duration: number;
   key: string;
-};
+}
 
 export interface EditableStepProps {
   name: string;
@@ -23,7 +23,7 @@ const EditableStep: React.FunctionComponent<EditableStepProps> = ({
   openPicker,
   removeStep,
   editStepName,
-}) => {
+}): JSX.Element => {
   return (
     <TouchableOpacity style={styles.step} onLongPress={removeStep}>
       <View style={styles.titleContainer}>
@@ -39,8 +39,8 @@ const EditableStep: React.FunctionComponent<EditableStepProps> = ({
         />
       </View>
       <View style={styles.timerContainer}>
-        <TouchableOpacity onPress={() => openPicker(duration)}>
-          <Text> {duration ? duration : 'choose duration'} </Text>
+        <TouchableOpacity onPress={(): unknown => openPicker(duration)}>
+          <Text> {duration || 'choose duration'} </Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

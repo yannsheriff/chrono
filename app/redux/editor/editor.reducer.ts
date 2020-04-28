@@ -28,16 +28,11 @@ const defaultState: EditorState = {
 
 export type EditorActions = ActionType<typeof editorActions>;
 
-const editorReducer = createReducer<EditorState, EditorActions>(
-  defaultState,
-)
-  .handleAction(
-    editorActions.updateTrainingName,
-    (state, { payload }) => ({
-      ...state,
-      name: payload.name,
-    }),
-  )
+const editorReducer = createReducer<EditorState, EditorActions>(defaultState)
+  .handleAction(editorActions.updateTrainingName, (state, { payload }) => ({
+    ...state,
+    name: payload.name,
+  }))
   .handleAction(editorActions.createStep, (state, { payload }) => ({
     ...state,
     steps: state.steps.concat(payload.step),

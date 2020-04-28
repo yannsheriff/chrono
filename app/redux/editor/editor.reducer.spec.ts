@@ -80,10 +80,7 @@ describe('Editor', () => {
     });
 
     it('should remove a step ', () => {
-      const editorState = editorReducer(
-        defaultState,
-        removeStep('S_azerrf'),
-      );
+      const editorState = editorReducer(defaultState, removeStep('S_azerrf'));
       expect(editorState.steps.length).toEqual(0);
     });
 
@@ -114,10 +111,7 @@ describe('Editor', () => {
     });
 
     it('should remove a phase ', () => {
-      const editorState = editorReducer(
-        defaultState,
-        removePhase('P_azerrf'),
-      );
+      const editorState = editorReducer(defaultState, removePhase('P_azerrf'));
       expect(editorState.phases.length).toEqual(0);
     });
   });

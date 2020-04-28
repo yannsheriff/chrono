@@ -17,10 +17,7 @@ import {
   createStep,
 } from './editor.actions';
 import { EditorStep, EditorPhase } from './editor.types';
-import {
-  getEditorStepById,
-  getEditorPhaseById,
-} from './editor.selectors';
+import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
 
 describe('Editor', () => {
   const step: EditorStep = {

@@ -14,17 +14,22 @@ type EditorStepDispatchToProps = MapDispatchToPropsFunction<
   { id: string }
 >;
 
-const mapStateToProps = (state: RootState, ownProps: { id: string }) => ({
+const mapStateToProps = (state: RootState, ownProps: { id: string }): {} => ({
   ...getEditorStepById(state, ownProps.id),
 });
 
-const mapDispatchToProps: EditorStepDispatchToProps = (dispatch, { id }) => ({
+const mapDispatchToProps: EditorStepDispatchToProps = (
+  dispatch,
+  { id },
+): {
+  removeStep: () => unknown;
+  editStepName: (name: string) => unknown;
+  openPicker: (duration: number) => unknown;
+} => ({
   removeStep: (): unknown => dispatch(requestRemoveStep(id)),
   editStepName: (name: string): unknown => dispatch(editStepName(id, name)),
   openPicker: (duration: number): unknown => dispatch(openPicker(id, duration)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(EditableStep);
+// eslint-disable-next-line prettier/prettier
+export default connect(mapStateToProps, mapDispatchToProps)(EditableStep);

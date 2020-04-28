@@ -25,6 +25,13 @@ const trainingReducer = createReducer<TrainingState, TrainingActions>(
       .slice(0, payload.trainingId)
       .concat(state.trainings.slice(payload.trainingId + 1)),
   }))
+  .handleAction(trainingActions.updateTrainingById, (state, { payload }) => ({
+    ...state,
+    trainings: state.trainings.map(training => {
+      if (training.id === payload.trainingId) return payload.training;
+      return training;
+    }),
+  }))
   .handleAction(trainingActions.updateTraining, (state, { payload }) => ({
     ...state,
     trainings: state.trainings

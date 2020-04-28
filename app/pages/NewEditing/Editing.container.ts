@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { ActionType } from 'typesafe-actions';
 import Editing from './Editing.page';
 import { getPickerVisibility } from '~/redux/picker/picker.selectors';
 import { getTrainings } from '~/redux/trainings/trainings.selectors';
@@ -9,18 +11,37 @@ import {
   createStep,
   createPhase,
 } from '~/redux/editor/editor.actions';
-import { Dispatch } from 'redux';
 import generateID from '~/helpers/idGenerator';
+import { Training } from '~/components/trainingList/trainingList';
+import { requestSaveTraining } from '~/redux/trainings/trainings.actions';
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (
+  state: RootState,
+): {
+  trainingsList: Training[];
+  isPickerVisible: boolean;
+  trainingName: string;
+} => ({
   trainingsList: getTrainings(state),
   isPickerVisible: getPickerVisibility(state),
   trainingName: getEditorName(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  updateTrainingName,
-  createStep: () =>
+const mapDispatchToProps = (
+  dispatch: Dispatch,
+): {
+  createStep: () => unknown;
+  createPhase: () => unknown;
+  updateTrainingName: (name: string) => unknown;
+  saveTraining: () => unknown;
+} => ({
+  updateTrainingName: (name): ActionType<typeof updateTrainingName> =>
+    dispatch(updateTrainingName(name)),
+
+  saveTraining: (): ActionType<typeof requestSaveTraining> =>
+    dispatch(requestSaveTraining()),
+
+  createStep: (): ActionType<typeof createStep> =>
     dispatch(
       createStep({
         name: 'exercice',
@@ -29,7 +50,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
         position: 1,
       }),
     ),
-  createPhase: () =>
+
+  createPhase: (): ActionType<typeof createPhase> =>
     dispatch(
       createPhase({
         key: `P${generateID()}`,
@@ -40,7 +62,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     ),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Editing);
+// eslint-disable-next-line prettier/prettier
+export default connect(mapStateToProps, mapDispatchToProps)(Editing);
