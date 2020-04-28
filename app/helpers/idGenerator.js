@@ -15,10 +15,7 @@ export default function uuid4() {
   //   + r.slice(6, 8).reduce(hex, '-')
   //   + r.slice(8, 10).reduce(hex, '-')
   //   + r.slice(10, 16).reduce(hex, '-');
-  return (
-    '_' +
-    Math.random()
-      .toString(36)
-      .substr(2, 9)
-  );
+  return `_${Math.random()
+    .toString(36)
+    .substr(2, 9)}`;
 }

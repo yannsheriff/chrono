@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -9,69 +9,21 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import { NavigationStackProp } from 'react-navigation-stack';
 import TrainingList from '~/components/trainingList';
 import { mainColor, secondColor } from '~/config/style';
 import { icons } from '~/assets/img';
 import { Training } from '~/components/trainingList/trainingList';
-import { NavigationStackProp } from 'react-navigation-stack';
-
-interface Props {
-  trainings: Array<Training>;
-  navigation: NavigationStackProp;
-  newTraining: (training: Training) => unknown;
-  removeTraining: (id: number) => unknown;
-}
-
-const Trainings: React.FunctionComponent<Props> = ({
-  trainings,
-  navigation,
-  removeTraining,
-  newTraining,
-}) => (
-  <View>
-    <ScrollView
-      style={{
-        backgroundColor: mainColor,
-        height: '100%',
-      }}
-      contentContainerStyle={{
-        paddingTop: '15%',
-        paddingBottom: '27%',
-      }}
-    >
-      <Text style={styles.text}>Hey Dude, </Text>
-      <Text
-        style={{
-          ...styles.text,
-          marginBottom: 30,
-        }}
-      >
-        What do you want to do today ?{' '}
-      </Text>
-      <TrainingList
-        trainings={trainings}
-        navigation={navigation}
-        onTrainingDeletionRequest={id => removeTraining(id)}
-        onNewTrainingRequest={training => newTraining(training)}
-      />
-    </ScrollView>
-
-    <LinearGradient
-      colors={['rgba(255, 203, 24, 0)', '#ffcb18']}
-      style={styles.gradient}
-    />
-    <TouchableOpacity
-      style={styles.add}
-      onPress={() => navigation.navigate('EditTraining')}
-    >
-      <Image style={styles.addText} source={icons.add} />
-    </TouchableOpacity>
-  </View>
-);
-
-export default Trainings;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: mainColor,
+    height: '100%',
+  },
+  contentContainer: {
+    paddingTop: '15%',
+    paddingBottom: '27%',
+  },
   text: {
     width: '100%',
     fontSize: 25,
@@ -79,6 +31,15 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     textAlign: 'left',
     paddingLeft: 25,
+  },
+  textWithMarginBot: {
+    width: '100%',
+    fontSize: 25,
+    fontWeight: 'bold',
+    borderWidth: 0,
+    textAlign: 'left',
+    paddingLeft: 25,
+    marginBottom: 30,
   },
   add: {
     height: 60,
@@ -106,3 +67,52 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
+
+interface Props {
+  trainings: Training[];
+  navigation: NavigationStackProp;
+  newTraining: (training: Training) => unknown;
+  removeTraining: (id: number) => unknown;
+}
+
+const Trainings: React.FunctionComponent<Props> = ({
+  trainings,
+  navigation,
+  removeTraining,
+  newTraining,
+}): JSX.Element => (
+  <View>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
+      <Text style={styles.text}>Hey Dude, </Text>
+      <Text style={styles.textWithMarginBot}>
+        What do you want to do today ?{' '}
+      </Text>
+      <TrainingList
+        trainings={trainings}
+        navigation={navigation}
+        onTrainingDeletionRequest={(id): unknown =>
+          removeTraining(id)
+        }
+        onNewTrainingRequest={(training): unknown =>
+          newTraining(training)
+        }
+      />
+    </ScrollView>
+
+    <LinearGradient
+      colors={['rgba(255, 203, 24, 0)', '#ffcb18']}
+      style={styles.gradient}
+    />
+    <TouchableOpacity
+      style={styles.add}
+      onPress={(): boolean => navigation.navigate('EditTraining')}
+    >
+      <Image style={styles.addText} source={icons.add} />
+    </TouchableOpacity>
+  </View>
+);
+
+export default Trainings;

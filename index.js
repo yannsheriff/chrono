@@ -3,12 +3,12 @@
  */
 
 import { AppRegistry } from 'react-native';
-import { name as appName } from './app.json';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import persistedStore from '~/redux/store';
-import Router from '~/Router';
+import { name as appName } from './app.json';
+import persistedStore from './app/redux/store';
+import Router from './app/Router';
 
 const { store, persistor } = persistedStore;
 class App extends Component {

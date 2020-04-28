@@ -68,18 +68,26 @@ module.exports = {
     },
     {
       // disable rules for test files
-      files: ['*.actions.ts'],
+      files: ['*.actions.ts', '*.reducer.ts'],
       rules: {
         '@typescript-eslint/explicit-function-return-type': 0,
       },
     },
   ],
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        paths: ['app'],
+        extensions: ['.js', '.jsx'],
       },
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+    react: {
+      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
 };

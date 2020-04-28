@@ -1,5 +1,5 @@
 import { createReducer, ActionType } from 'typesafe-actions';
-import * as pickerActions from './picker.action';
+import * as pickerActions from './picker.actions';
 
 export type PickerActions = ActionType<typeof pickerActions>;
 const defaultState: PickerState = { isVisible: false, value: 0, stepId: '0' };

@@ -14,7 +14,7 @@ import {
   requestRemoveStep,
   removeStep,
   createStep,
-} from './editor.action';
+} from './editor.actions';
 import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
 import { Action } from 'redux';
 

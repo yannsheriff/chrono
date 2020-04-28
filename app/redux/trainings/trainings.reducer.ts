@@ -1,10 +1,9 @@
-import { Training } from '~/components/trainingList/trainingList';
-
 import { createReducer, ActionType } from 'typesafe-actions';
-import * as trainingActions from './trainings.action';
+import { Training } from '~/components/trainingList/trainingList';
+import * as trainingActions from './trainings.actions';
 
 export interface TrainingState {
-  trainings: Array<Training>;
+  trainings: Training[];
 }
 
 const defaultState: TrainingState = {
@@ -32,10 +31,6 @@ const trainingReducer = createReducer<TrainingState, TrainingActions>(
       .slice(0, payload.trainingId)
       .concat(payload.training)
       .concat(state.trainings.slice(payload.trainingId + 1)),
-  }))
-  .handleAction(trainingActions.hydrateStore, (state, { payload }) => ({
-    ...state,
-    trainings: payload.value,
   }));
 
 export default trainingReducer;

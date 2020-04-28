@@ -1,8 +1,8 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
-import { editStepDuration } from '~/redux/editor/editor.action';
 import { Action } from 'redux';
-import { updatePickerValue } from './picker.action';
+import { editStepDuration } from '~/redux/editor/editor.actions';
+import { updatePickerValue } from './picker.actions';
 import { getPickerStepId } from './picker.selectors';
 
 export function* updatePickerValueHandler({
@@ -12,6 +12,6 @@ export function* updatePickerValueHandler({
   yield put<Action>(editStepDuration(stepId, payload.value));
 }
 
-export function* watchPickerUpdate() {
+export function* watchPickerUpdate(): Saga {
   yield takeLatest(getType(updatePickerValue), updatePickerValueHandler);
 }

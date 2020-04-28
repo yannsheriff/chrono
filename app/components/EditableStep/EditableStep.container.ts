@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { openPicker } from '~/redux/picker/picker.action';
+import { openPicker } from '~/redux/picker/picker.actions';
 import EditableStep from './EditableStep.component';
 import { RootState } from '~/redux/store';
 import {
@@ -7,7 +7,12 @@ import {
   getPickerValue,
 } from '~/redux/picker/picker.selectors';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (
+  state: RootState,
+): {
+  pickerStepId: string;
+  pickerValue: number;
+} => {
   return {
     pickerStepId: getPickerStepId(state),
     pickerValue: getPickerValue(state),

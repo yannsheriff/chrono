@@ -6,7 +6,10 @@ import {
   getEditorPhaseStepsById,
   getEditorPhaseRepetitionsById,
 } from '~/redux/editor/editor.selectors';
-import { editPhaseRepetitions, createStep } from '~/redux/editor/editor.action';
+import {
+  editPhaseRepetitions,
+  createStep,
+} from '~/redux/editor/editor.actions';
 
 type EditorStepDispatchToProps = MapDispatchToPropsFunction<
   {

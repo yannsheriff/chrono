@@ -8,7 +8,7 @@ import {
   createPhase,
   editPhase,
   removePhase,
-} from './editor.action';
+} from './editor.actions';
 
 import { EditorState, Difficultys } from './editor.types';
 

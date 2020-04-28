@@ -4,5 +4,4 @@ export const doneTraining = {
   training: {},
 };
 
-
 export default [doneTraining];

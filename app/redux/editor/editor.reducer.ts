@@ -1,7 +1,5 @@
-import { Training } from '~/components/trainingList/trainingList';
-
 import { createReducer, ActionType } from 'typesafe-actions';
-import * as editorActions from './editor.action';
+import * as editorActions from './editor.actions';
 import id from '~/helpers/idGenerator';
 import { EditorState, Difficultys } from './editor.types';
 

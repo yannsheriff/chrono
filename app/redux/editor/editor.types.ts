@@ -9,7 +9,7 @@ import {
   editPhasePosition,
   removeStepFromPhase,
   addStepToPhase,
-} from './editor.action';
+} from './editor.actions';
 
 export type EditStepActions =
   | ReturnType<typeof editStepName>

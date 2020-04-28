@@ -1,9 +1,9 @@
 import { connect, MapDispatchToPropsFunction } from 'react-redux';
-import { openPicker } from '~/redux/picker/picker.action';
+import { openPicker } from '~/redux/picker/picker.actions';
 import EditableStep from './EditableStep.component';
 import { RootState } from '~/redux/store';
 import { getEditorStepById } from '~/redux/editor/editor.selectors';
-import { editStepName, requestRemoveStep } from '~/redux/editor/editor.action';
+import { editStepName, requestRemoveStep } from '~/redux/editor/editor.actions';
 
 type EditorStepDispatchToProps = MapDispatchToPropsFunction<
   {

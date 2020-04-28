@@ -8,7 +8,7 @@ import {
   updateTrainingName,
   createStep,
   createPhase,
-} from '~/redux/editor/editor.action';
+} from '~/redux/editor/editor.actions';
 import { Dispatch } from 'redux';
 import generateID from '~/helpers/idGenerator';
 
