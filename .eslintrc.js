@@ -55,6 +55,7 @@ module.exports = {
       files: ['*.spec.ts'],
       rules: {
         'import/no-extraneous-dependencies': 0,
+        '@typescript-eslint/explicit-function-return-type': 0,
         'no-multi-assign': 0,
         '@typescript-eslint/ban-ts-ignore': 0,
       },

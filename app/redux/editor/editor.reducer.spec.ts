@@ -16,7 +16,7 @@ describe('Editor', () => {
   const defaultState: EditorState = {
     name: 'Entrainement',
     difficulty: Difficultys.medium,
-    id: `E_dzfedgf`,
+    id: 'E_dzfedgf',
     steps: [
       {
         key: 'S_azerrf',
@@ -27,7 +27,12 @@ describe('Editor', () => {
       },
     ],
     phases: [
-      { key: 'P_azerrf', steps: ['S_azerrf'], position: 2, repetitions: 2 },
+      {
+        key: 'P_azerrf',
+        steps: ['S_azerrf'],
+        position: 2,
+        repetitions: 2,
+      },
     ],
   };
 
@@ -75,7 +80,10 @@ describe('Editor', () => {
     });
 
     it('should remove a step ', () => {
-      const editorState = editorReducer(defaultState, removeStep('S_azerrf'));
+      const editorState = editorReducer(
+        defaultState,
+        removeStep('S_azerrf'),
+      );
       expect(editorState.steps.length).toEqual(0);
     });
 
@@ -106,7 +114,10 @@ describe('Editor', () => {
     });
 
     it('should remove a phase ', () => {
-      const editorState = editorReducer(defaultState, removePhase('P_azerrf'));
+      const editorState = editorReducer(
+        defaultState,
+        removePhase('P_azerrf'),
+      );
       expect(editorState.phases.length).toEqual(0);
     });
   });

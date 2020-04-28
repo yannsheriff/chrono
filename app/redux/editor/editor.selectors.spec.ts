@@ -16,7 +16,7 @@ describe(' serviceAccount', () => {
     const editorReducer: EditorState = {
       name: 'Entrainement',
       difficulty: Difficultys.medium,
-      id: `E_dshfjokfls`,
+      id: 'E_dshfjokfls',
       steps: [
         {
           key: 'S_azerrf',
@@ -41,52 +41,62 @@ describe(' serviceAccount', () => {
       editorReducer,
     };
 
-    describe(getEditorState.name, () => {
+    describe('getEditorState', () => {
       it('should return editor state', () => {
-        const serviceAccountStore: EditorState = getEditorState(store);
+        const serviceAccountStore: EditorState = getEditorState(
+          store,
+        );
         expect(serviceAccountStore).toEqual(editorReducer);
       });
     });
-    describe(getEditorName.name, () => {
+    describe('getEditorName', () => {
       it('should return training name', () => {
         const trainingName: string = getEditorName(store);
         expect(trainingName).toEqual(editorReducer.name);
       });
     });
-    describe(getEditorSteps.name, () => {
+    describe('getEditorSteps', () => {
       it('should return steps array', () => {
         const steps = getEditorSteps(store);
         expect(steps).toEqual(editorReducer.steps);
       });
     });
-    describe(getEditorPhases.name, () => {
+    describe('getEditorPhases', () => {
       it('should return phases array', () => {
         const phases = getEditorPhases(store);
         expect(phases).toEqual(editorReducer.phases);
       });
     });
-    describe(getEditorStepById.name, () => {
+    describe('getEditorStepById', () => {
       it('should return step', () => {
-        const step = getEditorStepById(store, editorReducer.steps[0].key);
+        const step = getEditorStepById(
+          store,
+          editorReducer.steps[0].key,
+        );
         expect(step).toEqual(editorReducer.steps[0]);
       });
     });
-    describe(getEditorPhaseById.name, () => {
+    describe('getEditorPhaseById', () => {
       it('should return phase', () => {
-        const phase = getEditorPhaseById(store, editorReducer.phases[0].key);
+        const phase = getEditorPhaseById(
+          store,
+          editorReducer.phases[0].key,
+        );
         expect(phase).toEqual(editorReducer.phases[0]);
       });
     });
-    describe(getEditorPhaseRepetitionsById.name, () => {
+    describe('getEditorPhaseRepetitionsById', () => {
       it('should return phase repetition', () => {
         const repetition = getEditorPhaseRepetitionsById(
           store,
           editorReducer.phases[0].key,
         );
-        expect(repetition).toEqual(editorReducer.phases[0].repetitions);
+        expect(repetition).toEqual(
+          editorReducer.phases[0].repetitions,
+        );
       });
     });
-    describe(getEditorPhaseStepsById.name, () => {
+    describe('getEditorPhaseStepsById', () => {
       it('should return phase steps', () => {
         const steps = getEditorPhaseStepsById(
           store,

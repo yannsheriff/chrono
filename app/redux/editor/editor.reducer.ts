@@ -17,17 +17,27 @@ const defaultState: EditorState = {
     },
   ],
   phases: [
-    { key: 'P_azerrf', steps: ['S_azerrf'], position: 2, repetitions: 2 },
+    {
+      key: 'P_azerrf',
+      steps: ['S_azerrf'],
+      position: 2,
+      repetitions: 2,
+    },
   ],
 };
 
 export type EditorActions = ActionType<typeof editorActions>;
 
-const editorReducer = createReducer<EditorState, EditorActions>(defaultState)
-  .handleAction(editorActions.updateTrainingName, (state, { payload }) => ({
-    ...state,
-    name: payload.name,
-  }))
+const editorReducer = createReducer<EditorState, EditorActions>(
+  defaultState,
+)
+  .handleAction(
+    editorActions.updateTrainingName,
+    (state, { payload }) => ({
+      ...state,
+      name: payload.name,
+    }),
+  )
   .handleAction(editorActions.createStep, (state, { payload }) => ({
     ...state,
     steps: state.steps.concat(payload.step),

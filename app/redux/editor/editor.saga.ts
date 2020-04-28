@@ -1,5 +1,7 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
+
+import { Action } from 'redux';
 import {
   editStep,
   editStepName,
@@ -15,8 +17,6 @@ import {
   removeStep,
   createStep,
 } from './editor.actions';
-import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
-import { Action } from 'redux';
 
 import {
   EditStepActions,
@@ -24,6 +24,11 @@ import {
   EditorStep,
   EditorPhase,
 } from './editor.types';
+// eslint-disable-next-line import/no-cycle
+import {
+  getEditorStepById,
+  getEditorPhaseById,
+} from './editor.selectors';
 
 export function* editStepHandler(action: EditStepActions): Saga {
   const { key } = action.payload;
@@ -58,6 +63,7 @@ export function* editPhaseHandler(action: EditPhaseActions): Saga {
 
   switch (action.type) {
     case getType(editPhaseRepetitions):
+      // eslint-disable-next-line no-case-declarations
       const increment = action.payload.increment
         ? phase.repetitions + 1
         : phase.repetitions - 1;
@@ -85,7 +91,7 @@ export function* editPhaseHandler(action: EditPhaseActions): Saga {
       newPhase = {
         ...phase,
         steps: phase.steps.filter(
-          stepKey => stepKey !== action.payload.stepKey,
+          (stepKey): boolean => stepKey !== action.payload.stepKey,
         ),
       };
       break;
@@ -100,7 +106,10 @@ export function* editPhaseHandler(action: EditPhaseActions): Saga {
 export function* removeStepHandler({
   payload,
 }: ReturnType<typeof requestRemoveStep>): Saga {
-  const step: EditorStep = yield select(getEditorStepById, payload.key);
+  const step: EditorStep = yield select(
+    getEditorStepById,
+    payload.key,
+  );
   if (step.phase !== undefined) {
     yield put<Action>(removeStepFromPhase(step.phase, step.key));
   }
@@ -110,13 +119,16 @@ export function* removeStepHandler({
 export function* createStepHandler({
   payload,
 }: ReturnType<typeof createStep>): Saga {
-  const step: EditorStep = yield select(getEditorStepById, payload.step.key);
+  const step: EditorStep = yield select(
+    getEditorStepById,
+    payload.step.key,
+  );
   if (step.phase !== undefined) {
     yield put<Action>(addStepToPhase(step.phase, step.key));
   }
 }
 
-export function* watchEditorUpdate() {
+export function* watchEditorUpdate(): Saga {
   yield takeLatest(
     [
       getType(editStepName),
