@@ -8,8 +8,8 @@ import { RootState } from '~/redux/store';
 import { getEditorName } from '~/redux/editor/editor.selectors';
 import {
   updateTrainingName,
-  createStep,
-  createPhase,
+  requestCreateStep,
+  requestCreatePhase,
 } from '~/redux/editor/editor.actions';
 import generateID from '~/helpers/idGenerator';
 import { Training } from '~/components/trainingList/trainingList.component';
@@ -41,9 +41,9 @@ const mapDispatchToProps = (
   saveTraining: (): ActionType<typeof requestSaveTraining> =>
     dispatch(requestSaveTraining()),
 
-  createStep: (): ActionType<typeof createStep> =>
+  createStep: (): ActionType<typeof requestCreateStep> =>
     dispatch(
-      createStep({
+      requestCreateStep({
         name: 'exercice',
         key: `S${generateID()}`,
         duration: 10,
@@ -51,9 +51,9 @@ const mapDispatchToProps = (
       }),
     ),
 
-  createPhase: (): ActionType<typeof createPhase> =>
+  createPhase: (): ActionType<typeof requestCreatePhase> =>
     dispatch(
-      createPhase({
+      requestCreatePhase({
         key: `P${generateID()}`,
         position: 1,
         repetitions: 2,

@@ -19,11 +19,19 @@ import {
   hydrateEditor,
   EditStepActions,
   EditPhaseActions,
+  requestCreateStep,
+  requestCreatePhase,
+  createPhase,
 } from './editor.actions';
 
 import { EditorStep, EditorPhase, EditorState } from './editor.types';
 // eslint-disable-next-line import/no-cycle
-import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
+import {
+  getEditorStepById,
+  getEditorPhaseById,
+  getEditorPhases,
+  getEditorSteps,
+} from './editor.selectors';
 import { editTraining } from '../trainings/trainings.actions';
 import { formatTrainingToEditor } from './editor.adapter';
 
@@ -112,11 +120,48 @@ export function* removeStepHandler({
 
 export function* createStepHandler({
   payload,
-}: ReturnType<typeof createStep>): Saga {
-  const step: EditorStep = yield select(getEditorStepById, payload.step.key);
-  if (step.phase !== undefined) {
-    yield put<Action>(addStepToPhase(step.phase, step.key));
+}: ReturnType<typeof requestCreateStep>): Saga {
+  // If step is in phase position by phase length
+  if (payload.step.phase !== undefined) {
+    const phase: EditorPhase = yield select(
+      getEditorPhaseById,
+      payload.step.phase,
+    );
+    const step: EditorStep = {
+      ...payload.step,
+      position: phase.steps.length,
+    };
+
+    yield put<Action>(createStep(step));
+    yield put<Action>(addStepToPhase(payload.step.phase, payload.step.key));
+  } else {
+    // If step is not in phase calc postion
+    const phases: EditorPhase[] = yield select(getEditorPhases);
+    const steps: EditorStep[] = yield select(getEditorSteps);
+    const soloStepsLength = steps.filter(
+      (step): boolean => step.phase === undefined,
+    ).length;
+    const step: EditorStep = {
+      ...payload.step,
+      position: soloStepsLength + phases.length,
+    };
+    yield put<Action>(createStep(step));
   }
+}
+
+export function* createPhaseHandler({
+  payload,
+}: ReturnType<typeof requestCreatePhase>): Saga {
+  const phases: EditorPhase[] = yield select(getEditorPhases);
+  const steps: EditorStep[] = yield select(getEditorSteps);
+  const soloStepsLength = steps.filter(
+    (step): boolean => step.phase === undefined,
+  ).length;
+  const phase: EditorPhase = {
+    ...payload.phase,
+    position: soloStepsLength + phases.length,
+  };
+  yield put<Action>(createPhase(phase));
 }
 
 export function* hydrateReducerHandler({
@@ -151,6 +196,7 @@ export function* watchEditorUpdate(): Saga {
   );
 
   yield takeLatest(getType(requestRemoveStep), removeStepHandler);
-  yield takeLatest(getType(createStep), createStepHandler);
+  yield takeLatest(getType(requestCreateStep), createStepHandler);
+  yield takeLatest(getType(requestCreatePhase), createPhaseHandler);
   yield takeLatest(getType(editTraining), hydrateReducerHandler);
 }

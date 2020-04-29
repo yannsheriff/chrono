@@ -21,6 +21,13 @@ export const updateTrainingName = createAction(
 
 // Steps ====================================================================
 
+export const requestCreateStep = createAction(
+  'REQUEST_NEW_STEP',
+  (step: EditorStep) => ({
+    step,
+  }),
+)();
+
 export const createStep = createAction('NEW_STEP', (step: EditorStep) => ({
   step,
 }))();
@@ -81,6 +88,13 @@ export const editStepPhase = createAction(
 )();
 
 // Phases ====================================================================
+
+export const requestCreatePhase = createAction(
+  'REQUEST_NEW_PHASE',
+  (phase: EditorPhase) => ({
+    phase,
+  }),
+)();
 
 export const createPhase = createAction('NEW_PHASE', (phase: EditorPhase) => ({
   phase,

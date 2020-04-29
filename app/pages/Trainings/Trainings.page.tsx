@@ -96,7 +96,10 @@ const Trainings: React.FunctionComponent<Props> = ({
         trainings={trainings}
         navigation={navigation}
         onTrainingDeletionRequest={(id): unknown => removeTraining(id)}
-        onNewTrainingRequest={(training): unknown => newTraining(training)}
+        onNewTrainingRequest={(training): void => {
+          newTraining(training);
+          navigation.navigate('EditTraining');
+        }}
       />
     </ScrollView>
 
@@ -104,7 +107,13 @@ const Trainings: React.FunctionComponent<Props> = ({
       colors={['rgba(255, 203, 24, 0)', '#ffcb18']}
       style={styles.gradient}
     />
-    <TouchableOpacity style={styles.add} onPress={requestNewTraining}>
+    <TouchableOpacity
+      style={styles.add}
+      onPress={(): void => {
+        requestNewTraining();
+        navigation.navigate('EditTraining');
+      }}
+    >
       <Image style={styles.addText} source={icons.add} />
     </TouchableOpacity>
   </View>

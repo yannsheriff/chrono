@@ -1,5 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import { select, call } from 'redux-saga/effects';
+import { getType } from 'typesafe-actions';
 import { watchEditorUpdate } from './editor.saga';
 import {
   editStepName,
@@ -16,9 +17,17 @@ import {
   removeStep,
   createStep,
   hydrateEditor,
+  requestCreateStep,
+  requestCreatePhase,
+  createPhase,
 } from './editor.actions';
 import { EditorStep, EditorPhase } from './editor.types';
-import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
+import {
+  getEditorStepById,
+  getEditorPhaseById,
+  getEditorSteps,
+  getEditorPhases,
+} from './editor.selectors';
 import { formatTrainingToEditor } from './editor.adapter';
 import { Training } from '~/components/trainingList/trainingList.component';
 import trainingFactory from '../trainings/training.factory';
@@ -42,7 +51,9 @@ describe('Editor', () => {
   const training: Training = trainingFactory({ id: 'test' });
 
   const GET_STEP = select(getEditorStepById, step.key);
+  const GET_STEPS = select(getEditorSteps);
   const GET_PHASE = select(getEditorPhaseById, phase.key);
+  const GET_PHASES = select(getEditorPhases);
   const GET_FORMATED_DATA = call(formatTrainingToEditor, training);
 
   describe('saga', () => {
@@ -145,11 +156,35 @@ describe('Editor', () => {
         await expectSaga(watchEditorUpdate)
           // eslint-disable-next-line prettier/prettier
           .provide([
-            [GET_STEP, step],
+            [GET_STEPS, [step]],
+            [GET_PHASES, [phase]],
             [GET_PHASE, phase],
           ])
+          .put.like({
+            action: {
+              type: getType(createStep),
+            },
+          })
           .put(addStepToPhase(phase.key, step.key))
-          .dispatch(createStep(step))
+          .dispatch(requestCreateStep(step))
+          .silentRun(0);
+      });
+    });
+
+    describe('createPhaseHandler', () => {
+      it('should dispatch addStepToPhase if step has a phase', async () => {
+        await expectSaga(watchEditorUpdate)
+          // eslint-disable-next-line prettier/prettier
+          .provide([
+            [GET_STEPS, [step]],
+            [GET_PHASES, [phase]],
+          ])
+          .put.like({
+            action: {
+              type: getType(createPhase),
+            },
+          })
+          .dispatch(requestCreatePhase(phase))
           .silentRun(0);
       });
     });
