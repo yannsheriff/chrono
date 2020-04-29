@@ -29,6 +29,10 @@ const defaultState: EditorState = {
 export type EditorActions = ActionType<typeof editorActions>;
 
 const editorReducer = createReducer<EditorState, EditorActions>(defaultState)
+  .handleAction(
+    editorActions.hydrateEditor,
+    (state, { payload }) => payload.state,
+  )
   .handleAction(editorActions.updateTrainingName, (state, { payload }) => ({
     ...state,
     name: payload.name,

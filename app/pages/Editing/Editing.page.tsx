@@ -13,7 +13,7 @@ import generateID from '~/helpers/idGenerator';
 
 import EditablePhase from './EditablePhase';
 import DurationPicker from '~/components/DurationPicker';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
 import { NavigationScreenProp } from 'react-navigation';
 import { NavigationStackProp } from 'react-navigation-stack';

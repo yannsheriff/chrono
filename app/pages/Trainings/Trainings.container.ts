@@ -7,7 +7,7 @@ import {
 import TrainingsPage from './Trainings.page';
 import { RootState } from '~/redux/store';
 import { getTrainings } from '~/redux/trainings/trainings.selectors';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 
 const mapStateToProps = (
   state: RootState,

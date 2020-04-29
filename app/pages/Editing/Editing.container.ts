@@ -1,11 +1,17 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { newTraining, updateTraining } from '~/redux/trainings/trainings.actions';
+import {
+  newTraining,
+  updateTraining,
+} from '~/redux/trainings/trainings.actions';
 import Editing from './Editing.page';
-import { getPickerVisibility, getPickerValue } from '~/redux/picker/picker.selectors';
+import {
+  getPickerVisibility,
+  getPickerValue,
+} from '~/redux/picker/picker.selectors';
 import { getTrainings } from '~/redux/trainings/trainings.selectors';
 import { RootState } from '~/redux/store';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 
 const mapStateToProps = (
   state: RootState,

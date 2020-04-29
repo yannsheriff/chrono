@@ -13,7 +13,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import TrainingList from '~/components/trainingList';
 import { mainColor, secondColor } from '~/config/style';
 import { icons } from '~/assets/img';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 
 const styles = StyleSheet.create({
   container: {

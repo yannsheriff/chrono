@@ -21,7 +21,7 @@ import ChronoDisplay from '~/components/ChronoDisplay';
 import { secondColor } from '~/config/style';
 import { icons } from '~/assets/img';
 import { Step } from '~/components/EditableStep/EditableStep.component';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import {
   NavigationStackProp,
   NavigationStackOptions,

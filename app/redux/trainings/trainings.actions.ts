@@ -1,5 +1,5 @@
 import { createAction } from 'typesafe-actions';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 
 export const newTraining = createAction(
   'NEW_TRAINING',

@@ -1,5 +1,14 @@
 import { createAction } from 'typesafe-actions';
-import { EditorStep, EditorPhase } from './editor.types';
+import { EditorStep, EditorPhase, EditorState } from './editor.types';
+
+// Hydrate  ====================================================================
+
+export const hydrateEditor = createAction(
+  'HYDRATE_EDITOR',
+  (state: EditorState) => ({
+    state,
+  }),
+)();
 
 // Training ====================================================================
 
@@ -120,3 +129,15 @@ export const removeStepFromPhase = createAction(
     stepKey,
   }),
 )();
+
+export type EditStepActions =
+  | ReturnType<typeof editStepName>
+  | ReturnType<typeof editStepDuration>
+  | ReturnType<typeof editStepPhase>
+  | ReturnType<typeof editStepPosition>;
+
+export type EditPhaseActions =
+  | ReturnType<typeof editPhaseRepetitions>
+  | ReturnType<typeof editPhasePosition>
+  | ReturnType<typeof removeStepFromPhase>
+  | ReturnType<typeof addStepToPhase>;

@@ -1,5 +1,5 @@
 import { expectSaga } from 'redux-saga-test-plan';
-import { select } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 import { watchEditorUpdate } from './editor.saga';
 import {
   editStepName,
@@ -15,9 +15,14 @@ import {
   requestRemoveStep,
   removeStep,
   createStep,
+  hydrateEditor,
 } from './editor.actions';
 import { EditorStep, EditorPhase } from './editor.types';
 import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
+import { formatTrainingToEditor } from './editor.adapter';
+import { Training } from '~/components/trainingList/trainingList.component';
+import trainingFactory from '../trainings/training.factory';
+import { editTraining } from '../trainings/trainings.actions';
 
 describe('Editor', () => {
   const step: EditorStep = {
@@ -34,8 +39,11 @@ describe('Editor', () => {
     repetitions: 1,
   };
 
+  const training: Training = trainingFactory({ id: 'test' });
+
   const GET_STEP = select(getEditorStepById, step.key);
   const GET_PHASE = select(getEditorPhaseById, phase.key);
+  const GET_FORMATED_DATA = call(formatTrainingToEditor, training);
 
   describe('saga', () => {
     describe('editStepHandler', () => {
@@ -142,6 +150,16 @@ describe('Editor', () => {
           ])
           .put(addStepToPhase(phase.key, step.key))
           .dispatch(createStep(step))
+          .silentRun(0);
+      });
+    });
+
+    describe('hydrateReducerHandler', () => {
+      it('should dispatch new state if recive hydrateAction ', async () => {
+        await expectSaga(watchEditorUpdate)
+          .provide([[GET_FORMATED_DATA, {}]])
+          .put(hydrateEditor({}))
+          .dispatch(editTraining(training))
           .silentRun(0);
       });
     });

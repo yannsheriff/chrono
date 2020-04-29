@@ -1,5 +1,5 @@
 import { createReducer, ActionType } from 'typesafe-actions';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import * as trainingActions from './trainings.actions';
 
 export interface TrainingState {

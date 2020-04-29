@@ -12,7 +12,7 @@ import {
   createPhase,
 } from '~/redux/editor/editor.actions';
 import generateID from '~/helpers/idGenerator';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import { requestSaveTraining } from '~/redux/trainings/trainings.actions';
 
 const mapStateToProps = (

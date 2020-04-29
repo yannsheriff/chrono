@@ -3,7 +3,7 @@ import { View, ScrollView, TextInput, Button } from 'react-native';
 import { NavigationStackProp } from 'react-navigation-stack';
 import styles from './Editing.style';
 import DurationPicker from '~/components/DurationPicker';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import EditorStepList from './EditorStepList';
 
 interface Props {

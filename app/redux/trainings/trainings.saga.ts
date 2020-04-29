@@ -14,7 +14,7 @@ import {
   getEditorPhases,
   getEditorState,
 } from '../editor/editor.selectors';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import { EditorStep, EditorPhase, EditorState } from '../editor/editor.types';
 import { formatEditorPhases, formatDifficulty } from './trainings.apdapter';
 import trainingFactory from './training.factory';

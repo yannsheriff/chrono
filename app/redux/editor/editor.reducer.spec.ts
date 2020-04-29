@@ -8,6 +8,7 @@ import {
   createPhase,
   editPhase,
   removePhase,
+  hydrateEditor,
 } from './editor.actions';
 
 import { EditorState, Difficultys } from './editor.types';
@@ -113,6 +114,21 @@ describe('Editor', () => {
     it('should remove a phase ', () => {
       const editorState = editorReducer(defaultState, removePhase('P_azerrf'));
       expect(editorState.phases.length).toEqual(0);
+    });
+
+    it('should hydrate state', () => {
+      const trainingToHydrate: EditorState = {
+        name: 'Entrainement',
+        difficulty: Difficultys.medium,
+        id: 'E_dzfedgf',
+        steps: [],
+        phases: [],
+      };
+      const editorState = editorReducer(
+        defaultState,
+        hydrateEditor(trainingToHydrate),
+      );
+      expect(editorState).toEqual(trainingToHydrate);
     });
   });
 });

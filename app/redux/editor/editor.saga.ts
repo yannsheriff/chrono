@@ -1,4 +1,4 @@
-import { takeLatest, select, put } from 'redux-saga/effects';
+import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 
 import { Action } from 'redux';
@@ -16,16 +16,16 @@ import {
   requestRemoveStep,
   removeStep,
   createStep,
-} from './editor.actions';
-
-import {
+  hydrateEditor,
   EditStepActions,
   EditPhaseActions,
-  EditorStep,
-  EditorPhase,
-} from './editor.types';
+} from './editor.actions';
+
+import { EditorStep, EditorPhase, EditorState } from './editor.types';
 // eslint-disable-next-line import/no-cycle
 import { getEditorStepById, getEditorPhaseById } from './editor.selectors';
+import { editTraining } from '../trainings/trainings.actions';
+import { formatTrainingToEditor } from './editor.adapter';
 
 export function* editStepHandler(action: EditStepActions): Saga {
   const { key } = action.payload;
@@ -119,6 +119,17 @@ export function* createStepHandler({
   }
 }
 
+export function* hydrateReducerHandler({
+  payload,
+}: ReturnType<typeof editTraining>): Saga {
+  const editor: EditorState = yield call(
+    formatTrainingToEditor,
+    payload.training,
+  );
+
+  yield put<Action>(hydrateEditor(editor));
+}
+
 export function* watchEditorUpdate(): Saga {
   yield takeLatest(
     [
@@ -141,4 +152,5 @@ export function* watchEditorUpdate(): Saga {
 
   yield takeLatest(getType(requestRemoveStep), removeStepHandler);
   yield takeLatest(getType(createStep), createStepHandler);
+  yield takeLatest(getType(editTraining), hydrateReducerHandler);
 }

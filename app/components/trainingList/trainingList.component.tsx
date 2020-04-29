@@ -7,18 +7,19 @@ import { minutes } from '~/helpers/humanize';
 import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
 import { Step } from '../EditableStep/EditableStep.component';
 
-export type Training = {
+export interface Training {
   name: string;
   difficulty: string;
   id: string;
   phases: Phase[];
-};
+}
 
 interface Props {
   navigation: NavigationStackProp;
   trainings: Training[];
   onTrainingDeletionRequest: (id: number) => unknown;
   onNewTrainingRequest: (training: Training) => unknown;
+  editTraining: (training: Training) => unknown;
 }
 
 export default class TrainingList extends Component<Props> {
@@ -26,7 +27,7 @@ export default class TrainingList extends Component<Props> {
     actualyDraging: number | undefined;
   };
 
-  private constructor(props: Props) {
+  public constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -60,11 +61,10 @@ export default class TrainingList extends Component<Props> {
     return total;
   };
 
-  private edit = (index: number): void => {
+  private edit = (training: Training): void => {
     this.setState({ actualyDraging: undefined });
-    this.props.navigation.navigate('EditTraining', {
-      trainingIndex: index,
-    });
+    this.props.editTraining(training);
+    this.props.navigation.navigate('EditTraining');
   };
 
   private delete = (index: number): void => {
@@ -130,7 +130,7 @@ export default class TrainingList extends Component<Props> {
               onDelete={(): void => this.delete(index)}
               onDuplicate={(): void => this.duplicate(training)}
               onDrag={(): void => this.onDrag(index)}
-              onEdit={(): void => this.edit(index)}
+              onEdit={(): void => this.edit(training)}
               onOpen={(): void => this.open(training)}
               difficulty={training.difficulty}
             />

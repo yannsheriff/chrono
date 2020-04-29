@@ -1,7 +1,7 @@
 import { getTrainings, getTrainingsState } from './trainings.selectors';
 import { TrainingState } from './trainings.reducer';
 import { RootState } from '../store';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 
 describe(' serviceAccount', () => {
   describe('selectors', () => {

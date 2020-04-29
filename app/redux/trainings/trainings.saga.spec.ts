@@ -8,7 +8,7 @@ import {
   editTraining,
   newTraining,
 } from './trainings.actions';
-import { Training } from '~/components/trainingList/trainingList';
+import { Training } from '~/components/trainingList/trainingList.component';
 import { EditorState, Difficultys } from '../editor/editor.types';
 import {
   getEditorState,

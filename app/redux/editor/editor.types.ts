@@ -1,28 +1,3 @@
-import {
-  editStep,
-  editStepName,
-  editStepDuration,
-  editStepPhase,
-  editStepPosition,
-  editPhase,
-  editPhaseRepetitions,
-  editPhasePosition,
-  removeStepFromPhase,
-  addStepToPhase,
-} from './editor.actions';
-
-export type EditStepActions =
-  | ReturnType<typeof editStepName>
-  | ReturnType<typeof editStepDuration>
-  | ReturnType<typeof editStepPhase>
-  | ReturnType<typeof editStepPosition>;
-
-export type EditPhaseActions =
-  | ReturnType<typeof editPhaseRepetitions>
-  | ReturnType<typeof editPhasePosition>
-  | ReturnType<typeof removeStepFromPhase>
-  | ReturnType<typeof addStepToPhase>;
-
 export interface EditorStep {
   key: string;
   name: string;
@@ -39,15 +14,15 @@ export enum Difficultys {
 
 export interface EditorPhase {
   key: string;
-  steps: Array<string>;
+  steps: string[];
   position: number;
   repetitions: number;
 }
 
 export interface EditorState {
   name: string;
-  steps: Array<EditorStep>;
-  phases: Array<EditorPhase>;
+  steps: EditorStep[];
+  phases: EditorPhase[];
   difficulty: Difficultys;
   id: string;
 }
