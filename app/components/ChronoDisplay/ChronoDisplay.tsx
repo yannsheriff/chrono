@@ -4,7 +4,7 @@ import Svg, { Path } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './ChronoDisplay.style';
 import { chrono } from '~/helpers/humanize';
-import { Step } from '../EditableStep/EditableStep.component';
+import { Step } from '~/redux/editor/editor.types';
 
 interface Props {
   currentStepProgress: number;
@@ -82,9 +82,7 @@ export default function ChronoRemote({
           <Path
             d={`
               M ${start.x} ${start.y}
-              A ${radius} ${radius} 0 ${progress.side} 1 ${progress.x} ${
-              progress.y
-            }`}
+              A ${radius} ${radius} 0 ${progress.side} 1 ${progress.x} ${progress.y}`}
             fill="none"
             stroke="#ffcb18"
             strokeWidth="4"

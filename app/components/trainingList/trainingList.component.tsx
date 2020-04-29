@@ -4,8 +4,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
 import { minutes } from '~/helpers/humanize';
-import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
-import { Step } from '../EditableStep/EditableStep.component';
+import { Step, Phase } from '~/redux/editor/editor.types';
 
 export interface Training {
   name: string;

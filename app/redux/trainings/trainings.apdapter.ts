@@ -1,6 +1,10 @@
-import { EditorPhase, EditorStep, Difficultys } from '../editor/editor.types';
-import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
-import { Step } from '~/pages/NewEditing/EditablePhase/EditablePhase.component';
+import {
+  EditorPhase,
+  EditorStep,
+  Difficultys,
+  Step,
+  Phase,
+} from '../editor/editor.types';
 
 const formatEditorStep = (step: EditorStep): Step => ({
   duration: step.duration,

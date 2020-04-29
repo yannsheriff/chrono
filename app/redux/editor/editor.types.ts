@@ -26,3 +26,16 @@ export interface EditorState {
   difficulty: Difficultys;
   id: string;
 }
+
+export interface Phase {
+  name: string;
+  repetitions: number;
+  steps: Step[];
+  position: number;
+}
+
+export interface Step {
+  name: string;
+  duration: number;
+  key: string;
+}

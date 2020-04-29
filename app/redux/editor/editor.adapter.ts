@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
 import {
   EditorStep,
   EditorPhase,
   Difficultys,
   EditorState,
+  Phase,
+  Step,
 } from './editor.types';
-import { Step } from '~/pages/NewEditing/EditablePhase/EditablePhase.component';
 import generateID from '~/helpers/idGenerator';
 import { Training } from '~/components/trainingList/trainingList.component';
 

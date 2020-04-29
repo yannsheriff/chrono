@@ -4,14 +4,8 @@ import styles from './EditablePhase.style';
 import { EditorStep } from '~/redux/editor/editor.types';
 import EditableStep from '../EditableStep';
 
-export type Step = {
-  name: string;
-  duration: number;
-  key: string;
-};
-
 export interface EditablePhaseProps {
-  steps: Array<EditorStep>;
+  steps: EditorStep[];
   repetitions: number;
   addRepetitions: () => unknown;
   newStep: () => unknown;
@@ -24,10 +18,12 @@ const EditablePhase: React.FunctionComponent<EditablePhaseProps> = ({
   repetitions,
   newStep,
   steps,
-}) => {
-  const stepsComponents = steps.map((step: EditorStep) => (
-    <EditableStep key={step.key} id={step.key} />
-  ));
+}): JSX.Element => {
+  const stepsComponents = steps.map(
+    (step: EditorStep): JSX.Element => (
+      <EditableStep key={step.key} id={step.key} />
+    ),
+  );
 
   return (
     <View style={styles.phase}>

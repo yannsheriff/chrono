@@ -2,12 +2,6 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './EditableStep.style';
 
-export interface Step {
-  name: string;
-  duration: number;
-  key: string;
-}
-
 export interface EditableStepProps {
   name: string;
   duration: number;
