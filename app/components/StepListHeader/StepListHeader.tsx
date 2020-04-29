@@ -15,7 +15,6 @@ const ChronoRemote: React.FunctionComponent<Props> = ({
   doneTime,
   totalTime,
 }) => {
-  console.log('totalTime', totalTime);
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>

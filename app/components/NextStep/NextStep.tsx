@@ -3,7 +3,7 @@ import { View, Image, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './style';
 import { icons } from '~/assets/img';
-import { Step } from '../EditableStep/EditableStep.component';
+import { Step } from '~/redux/editor/editor.types';
 
 interface Props {
   step?: Step;

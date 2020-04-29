@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Button, Picker, Text } from 'react-native';
-import styles from './style';
+import styles from './DurationPicker.style';
 import screen from '~/helpers/ScreenSize';
 
 interface Props {
@@ -61,25 +61,14 @@ export default class DurationPicker extends Component<Props> {
 
   setPickerValues(seconds: number) {
     const minutes = seconds / 60;
-    if (minutes > 1) {
-      const secondLeft = seconds % 60;
-      const hours = minutes / 60;
-      if (hours > 1) {
-        const minutesLeft = minutes % 60;
-        this.setState({
-          seconds: secondLeft,
-          minutes: Math.floor(minutesLeft),
-          hours: Math.floor(hours),
-        });
-      } else {
-        this.setState({
-          seconds: secondLeft,
-          minutes: Math.floor(minutes),
-        });
-      }
-    } else {
-      this.setState({ seconds });
-    }
+    const secondLeft = seconds % 60;
+    const hours = minutes / 60;
+    const minutesLeft = minutes % 60;
+    this.setState({
+      seconds: secondLeft,
+      minutes: Math.floor(minutesLeft),
+      hours: Math.floor(hours),
+    });
   }
 
   valueChange() {

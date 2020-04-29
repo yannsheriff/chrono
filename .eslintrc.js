@@ -5,14 +5,11 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'plugin:@typescript-eslint/recommended',
-    'eslint:recommended',
-    'airbnb-base',
-    'plugin:jest/recommended',
-    'plugin:react/recommended',
+    '@react-native-community',
+    'airbnb-typescript',
     'prettier',
     'prettier/@typescript-eslint',
-    '@react-native-community',
+    'prettier/react',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
@@ -55,6 +52,7 @@ module.exports = {
       files: ['*.spec.ts'],
       rules: {
         'import/no-extraneous-dependencies': 0,
+        '@typescript-eslint/explicit-function-return-type': 0,
         'no-multi-assign': 0,
         '@typescript-eslint/ban-ts-ignore': 0,
       },
@@ -68,18 +66,26 @@ module.exports = {
     },
     {
       // disable rules for test files
-      files: ['*.actions.ts'],
+      files: ['*.actions.ts', '*.reducer.ts'],
       rules: {
         '@typescript-eslint/explicit-function-return-type': 0,
       },
     },
   ],
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        paths: ['app'],
+        extensions: ['.js', '.jsx'],
       },
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+    react: {
+      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
 };

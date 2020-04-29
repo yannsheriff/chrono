@@ -9,7 +9,7 @@ import play from './play.png';
 import stop from './stop.png';
 import back from './back.png';
 
-export const icons = {
+export const icons = {
   duplicate,
   edit,
   trash,
@@ -19,5 +19,5 @@ export const icons = {
   pause,
   play,
   stop,
-  back
+  back,
 };

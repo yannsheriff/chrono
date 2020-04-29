@@ -1,7 +1,7 @@
 export function compare(schema, object) {
   const schemaKeys = Object.keys(schema);
   const objectKeys = Object.keys(object);
-  const keymap = schemaKeys.map((schemaKey) => {
+  const keymap = schemaKeys.map(schemaKey => {
     const keyExist = objectKeys.find(objectKey => schemaKey === objectKey);
     if (keyExist) {
       return false;
@@ -18,11 +18,12 @@ export function compare(schema, object) {
 export function findMissingKey(schema, object) {
   const schemaKeys = Object.keys(schema);
   const objectKeys = Object.keys(object);
-  const keymap = schemaKeys.filter((schemaKey) => {
+  const keymap = schemaKeys.filter(schemaKey => {
     const keyExist = objectKeys.find(objectKey => schemaKey === objectKey);
     if (keyExist === undefined) {
       return schemaKey;
     }
+    return false;
   });
   return keymap;
 }
@@ -30,7 +31,7 @@ export function findMissingKey(schema, object) {
 export function migrate(schema, object) {
   const missingKey = findMissingKey(schema, object);
   const newObject = { ...object };
-  missingKey.forEach((key) => {
+  missingKey.forEach(key => {
     if (typeof schema[key] === 'function') {
       newObject[key] = schema[key](object);
     } else {

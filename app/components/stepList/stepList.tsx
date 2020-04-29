@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import styles from './style';
 import EditableStep from '../step';
-import { Step } from '../EditableStep/EditableStep.component';
+import { Step } from '~/redux/editor/editor.types';
 
 interface Props {
   steps: Array<Step>;

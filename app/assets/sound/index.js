@@ -1,4 +1,7 @@
+import bip from './bip.mp3';
+import whoop from './whoop.mp3';
+
 export const musiques = {
-    bip: require('./bip.mp3'),
-    whoop: require('./whoop.mp3'),
-}
+  bip,
+  whoop,
+};
