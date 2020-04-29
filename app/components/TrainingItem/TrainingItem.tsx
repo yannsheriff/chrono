@@ -163,7 +163,10 @@ export default class TrainingItem extends Component<Props> {
 
           <Interactable.View
             horizontalOnly
-            snapPoints={[{ x: 0, id: 'closed' }, { x: -230, id: 'open' }]}
+            snapPoints={[
+              { x: 0, id: 'closed' },
+              { x: -230, id: 'open' },
+            ]}
             animatedValueX={this._deltaX}
             onDrag={this.props.onDrag}
             ref={ref => (this.interactable = ref)}

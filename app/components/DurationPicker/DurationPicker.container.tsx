@@ -13,7 +13,4 @@ const mapDispatchToProps = {
   closePicker,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DurationPicker);
+export default connect(mapStateToProps, mapDispatchToProps)(DurationPicker);
