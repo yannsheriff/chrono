@@ -8,6 +8,7 @@ export type Phase = {
   name: string;
   repetitions: number;
   steps: Array<Step>;
+  position: number;
 };
 
 interface Props {

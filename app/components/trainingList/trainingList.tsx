@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
 import styles from './style';
 import TrainingItem from '../TrainingItem';
 import { minutes } from '~/helpers/humanize';
 import { Phase } from '~/pages/Editing/EditablePhase/EditablePhase';
 import { Step } from '../EditableStep/EditableStep.component';
-import { NavigationStackProp } from 'react-navigation-stack';
 
 export type Training = {
   name: string;
   difficulty: string;
   id: string;
-  phases: Array<Phase>;
+  phases: Phase[];
 };
 
 interface Props {
   navigation: NavigationStackProp;
-  trainings: Array<Training>;
+  trainings: Training[];
   onTrainingDeletionRequest: (id: number) => unknown;
   onNewTrainingRequest: (training: Training) => unknown;
 }
 
-export default class trainingList extends Component<Props> {
-  state: {
+export default class TrainingList extends Component<Props> {
+  public state: {
     actualyDraging: number | undefined;
   };
-  constructor(props: Props) {
+
+  private constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -33,24 +34,25 @@ export default class trainingList extends Component<Props> {
     };
   }
 
-  getTotalTime = (training: Training): number => {
-    const reduce = (accumulator: number, currentValue: number) =>
+  private getTotalTime = (training: Training): number => {
+    const reduce = (accumulator: number, currentValue: number): number =>
       accumulator + currentValue;
-    const reducePhase = (accumulator: number, currentValue: Step) =>
+    const reducePhase = (accumulator: number, currentValue: Step): number =>
       accumulator + currentValue.duration;
-    const concatTable = training.phases.map(phase => {
+    const concatTable = training.phases.map((phase): number => {
       const time = phase.steps.reduce(reducePhase, 0);
       return time * phase.repetitions;
     });
+
     const total = concatTable.reduce(reduce, 0);
     const formatedTotal = minutes(total);
     return formatedTotal;
   };
 
-  getTotalRounds = (training: Training): number => {
-    const reduce = (accumulator: number, currentValue: number) =>
+  private getTotalRounds = (training: Training): number => {
+    const reduce = (accumulator: number, currentValue: number): number =>
       accumulator + currentValue;
-    const concatTable = training.phases.map(phase => {
+    const concatTable = training.phases.map((phase): number => {
       const steps = phase.steps.length;
       return steps * phase.repetitions;
     });
@@ -58,19 +60,21 @@ export default class trainingList extends Component<Props> {
     return total;
   };
 
-  edit = (index: number) => {
+  private edit = (index: number): void => {
     this.setState({ actualyDraging: undefined });
-    this.props.navigation.navigate('EditTraining', { trainingIndex: index });
+    this.props.navigation.navigate('EditTraining', {
+      trainingIndex: index,
+    });
   };
 
-  delete = (index: number) => {
+  private delete = (index: number): void => {
     Alert.alert(
       'Are you sure ?',
       'Do you really want to delete this training ?',
       [
         {
           text: 'yes',
-          onPress: () => {
+          onPress: (): void => {
             this.props.onTrainingDeletionRequest(index);
             this.setState({
               actualyDraging: undefined,
@@ -86,52 +90,54 @@ export default class trainingList extends Component<Props> {
     );
   };
 
-  duplicate = (training: Training) => {
+  private duplicate = (training: Training): void => {
     this.setState({ actualyDraging: undefined });
     this.props.onNewTrainingRequest(training);
   };
 
-  open = (training: Training) => {
+  private open = (training: Training): void => {
     this.setState({ actualyDraging: undefined });
     this.props.navigation.navigate('Chrono', {
-      training: training,
+      training,
     });
   };
 
-  onDrag = (index: number) => {
+  private onDrag = (index: number): void => {
     if (index !== this.state.actualyDraging) {
       this.setState({ actualyDraging: index });
     }
   };
 
-  render() {
-    const trainings = this.props.trainings.map((training, index) => {
-      const duration = this.getTotalTime(training);
-      const rounds = this.getTotalRounds(training);
+  public render(): JSX.Element {
+    const trainings = this.props.trainings.map(
+      (training, index): JSX.Element => {
+        const duration = this.getTotalTime(training);
+        const rounds = this.getTotalRounds(training);
 
-      return (
-        <View
-          style={{
-            marginVertical: 12,
-            width: '100%',
-          }}
-          key={`training-${index}`}
-        >
-          <TrainingItem
-            name={training.name}
-            duration={duration}
-            rounds={rounds}
-            isDragging={index === this.state.actualyDraging}
-            onDelete={() => this.delete(index)}
-            onDuplicate={() => this.duplicate(training)}
-            onDrag={() => this.onDrag(index)}
-            onEdit={() => this.edit(index)}
-            onOpen={() => this.open(training)}
-            difficulty={training.difficulty}
-          />
-        </View>
-      );
-    });
+        return (
+          <View
+            style={{
+              marginVertical: 12,
+              width: '100%',
+            }}
+            key={`training-${index}`}
+          >
+            <TrainingItem
+              name={training.name}
+              duration={duration}
+              rounds={rounds}
+              isDragging={index === this.state.actualyDraging}
+              onDelete={(): void => this.delete(index)}
+              onDuplicate={(): void => this.duplicate(training)}
+              onDrag={(): void => this.onDrag(index)}
+              onEdit={(): void => this.edit(index)}
+              onOpen={(): void => this.open(training)}
+              difficulty={training.difficulty}
+            />
+          </View>
+        );
+      },
+    );
 
     return <View style={styles.container}>{trainings}</View>;
   }

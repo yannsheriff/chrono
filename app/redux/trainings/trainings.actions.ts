@@ -31,4 +31,13 @@ export const updateTrainingById = createAction(
   }),
 )();
 
+export const editTraining = createAction(
+  'EDIT_TRAINING',
+  (training: Training) => ({
+    training,
+  }),
+)();
+
 export const requestSaveTraining = createAction('REQUEST_SAVE_TRAINING')();
+
+export const requestNewTraining = createAction('REQUEST_NEW_TRAINING')();

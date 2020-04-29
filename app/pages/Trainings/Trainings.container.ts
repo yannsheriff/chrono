@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
   removeTraining,
   newTraining,
+  requestNewTraining,
 } from '~/redux/trainings/trainings.actions';
 import TrainingsPage from './Trainings.page';
 import { RootState } from '~/redux/store';
@@ -19,9 +20,8 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   removeTraining,
   newTraining,
+  requestNewTraining,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TrainingsPage);
+// eslint-disable-next-line prettier/prettier
+export default connect(mapStateToProps, mapDispatchToProps)(TrainingsPage);

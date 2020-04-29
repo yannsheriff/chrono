@@ -14,7 +14,10 @@ type EditorStepDispatchToProps = MapDispatchToPropsFunction<
   { id: string }
 >;
 
-const mapStateToProps = (state: RootState, ownProps: { id: string }): {} => ({
+const mapStateToProps = (
+  state: RootState,
+  ownProps: { id: string },
+): { name: string; duration: number; key: string } => ({
   ...getEditorStepById(state, ownProps.id),
 });
 

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './style';
 
-export type Step = {
+export interface Step {
   name: string;
   duration: number;
   key: string;
-};
+}
 
 interface Props {
   name: string;

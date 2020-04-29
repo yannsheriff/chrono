@@ -73,6 +73,7 @@ interface Props {
   navigation: NavigationStackProp;
   newTraining: (training: Training) => unknown;
   removeTraining: (id: number) => unknown;
+  requestNewTraining: () => unknown;
 }
 
 const Trainings: React.FunctionComponent<Props> = ({
@@ -80,6 +81,7 @@ const Trainings: React.FunctionComponent<Props> = ({
   navigation,
   removeTraining,
   newTraining,
+  requestNewTraining,
 }): JSX.Element => (
   <View>
     <ScrollView
@@ -93,12 +95,8 @@ const Trainings: React.FunctionComponent<Props> = ({
       <TrainingList
         trainings={trainings}
         navigation={navigation}
-        onTrainingDeletionRequest={(id): unknown =>
-          removeTraining(id)
-        }
-        onNewTrainingRequest={(training): unknown =>
-          newTraining(training)
-        }
+        onTrainingDeletionRequest={(id): unknown => removeTraining(id)}
+        onNewTrainingRequest={(training): unknown => newTraining(training)}
       />
     </ScrollView>
 
@@ -106,10 +104,7 @@ const Trainings: React.FunctionComponent<Props> = ({
       colors={['rgba(255, 203, 24, 0)', '#ffcb18']}
       style={styles.gradient}
     />
-    <TouchableOpacity
-      style={styles.add}
-      onPress={(): boolean => navigation.navigate('EditTraining')}
-    >
+    <TouchableOpacity style={styles.add} onPress={requestNewTraining}>
       <Image style={styles.addText} source={icons.add} />
     </TouchableOpacity>
   </View>
